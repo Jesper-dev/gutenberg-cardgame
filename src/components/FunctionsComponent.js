@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Canvas from "./canvas/Canvas";
 import { CardsArray } from "./cardsarray/CardArray";
 
-
+let opponentBattleArr = []
 
 const FunctionsComponent = () => {
-    let opponentBattleArr = []
+    
     const [buttonShow, setButtonShow] = useState(true);
 
   const [deck, setDeck] = useState([]);
@@ -35,21 +35,18 @@ const FunctionsComponent = () => {
   useEffect(() => {
     shuffleArray(CardsArray);
     setDeck(CardsArray);
-    console.log("In op hand", opponentCardsinhand)
   }, []);
 
   const EndTurn = () => {
     setYourTurn(false);
+    // setSelected(opponentCardsinhand[0]);
     
-  
-    setSelected(opponentCardsinhand[0]);
-    
-    
-    opponentBattleArr.push(opponentCardsinhand[0])
-    setSelected(opponentBattleArr[0])
-    console.log("In op battle arr", opponentBattleArr)
-    opponentCardsinhand.splice(0, 1);
-    setOppoentBattleField(selected)
+    playCard(opponentCardsinhand)
+    // opponentBattleArr.push(opponentCardsinhand[0])
+    // setSelected(opponentBattleArr[0])
+    // console.log("In op battle arr", opponentBattleArr)
+    // opponentCardsinhand.splice(0, 1);
+    // setOppoentBattleField(selected)
     // console.log(opponentBattleField)
 
     // console.log(opponentCardsinhand)
@@ -66,16 +63,17 @@ const FunctionsComponent = () => {
     // console.log(opponentBattleArr)
     // let index = opponentCardsinhand.findIndex((x) => x.id === opponentCardsinhand[0].id);
 
-    
-    
-
     setTimeout(() => {
         setYourTurn(true)
-    }, 5000);
-    
-
-
+    }, 3000);
+ 
   };
+
+  const playCard = (arr) => {
+    opponentBattleArr.push(arr[0])
+    setOppoentBattleField(opponentBattleArr)
+    arr.splice(0, 1)
+  }
 
   const startGame = () => {
     let playerArr = [];
