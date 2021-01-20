@@ -3,11 +3,12 @@ import jesper from "../../Img/jesper.jpg";
 import jon from "../../Img/jon.jpg";
 import tinymce from "../../Img/tinymce.jpg";
 import tinymcecool from "../../Img/tiny-cool.jpg";
+import jesperWizard from "../../Img/jesperWizard.jpg";
 
 export const CardsArray = [
   {
     name: "Jesper",
-    img: jesper,
+    img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
     atk: 900,
@@ -19,7 +20,7 @@ export const CardsArray = [
   },
   {
     name: "Jesper",
-    img: jesper,
+    img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
     atk: 900,
@@ -31,7 +32,7 @@ export const CardsArray = [
   },
   {
     name: "Jesper",
-    img: jesper,
+    img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
     atk: 900,
@@ -43,7 +44,7 @@ export const CardsArray = [
   },
   {
     name: "Jesper",
-    img: jesper,
+    img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
     atk: 900,
@@ -147,8 +148,7 @@ export const CardsArray = [
     cost: 75,
     id: "tiny-mc-one",
     value: 11,
-    descText:
-      "Dissables all enemy cards on the board for the next round",
+    descText: "Dissables all enemy cards on the board for the next round",
   },
   {
     name: "Tiny MC Daddy ",
@@ -157,8 +157,7 @@ export const CardsArray = [
     cost: 75,
     id: "tiny-mc-two",
     value: 12,
-    descText:
-      "Dissables all enemy cards on the board for the next round",
+    descText: "Dissables all enemy cards on the board for the next round",
   },
   {
     name: "Tiny MC Daddy ",
@@ -167,8 +166,7 @@ export const CardsArray = [
     cost: 75,
     id: "tiny-mc-three",
     value: 13,
-    descText:
-      "Dissables all enemy cards on the board for the next round",
+    descText: "Dissables all enemy cards on the board for the next round",
   },
   {
     name: "Tiny MC Daddy ",
@@ -177,7 +175,6 @@ export const CardsArray = [
     cost: 75,
     id: "tiny-mc-four",
     value: 14,
-    descText:
-      "Dissables all enemy cards on the board for the next round",
-  }
+    descText: "Dissables all enemy cards on the board for the next round",
+  },
 ];
