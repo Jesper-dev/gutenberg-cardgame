@@ -4,9 +4,9 @@ import SpellCardBattleField from "../card/SpellCardBattleField";
 import {
   BattlefieldContainer,
   BattlefieldInnerContainer,
-} from "./BattleFieldElements";
+} from "./OpponentBattleFieldElements";
 
-const BattleField = ({ Battlefield }) => {
+const OpponentBattleField = ({ OpponentBattlefield }) => {
   const CheckType = (item) => {
     if (item.type == "spell") {
       return false;
@@ -21,7 +21,7 @@ const BattleField = ({ Battlefield }) => {
     <>
       <BattlefieldContainer>
         <BattlefieldInnerContainer>
-          {Battlefield.map(function (item, i) {
+          {OpponentBattlefield.map(function (item, i) {
             return CheckType(item) ? (
               <div key={i}>
                 <CharacterCardBattleField
@@ -57,4 +57,4 @@ const BattleField = ({ Battlefield }) => {
   );
 };
 
-export default BattleField;
+export default OpponentBattleField;

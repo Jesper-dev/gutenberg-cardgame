@@ -1,16 +1,11 @@
-import React from 'react'
+import React, { useState } from "react";
 
-const OpponentTurn = () => {
+const OpponentTurn = ({ yourturn }) => {
+  if (yourturn == false) {
+    console.log("Now AI will take over");
+  }
 
-    /*  const IreachHere = () => {
-         console.log('REACHED!')
-     } */
+  return <></>;
+};
 
-
-    return (
-        <>
-        </>
-    )
-}
-
-export default OpponentTurn
+export default OpponentTurn;

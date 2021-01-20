@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import GoldTexture from '../../Img/gold-texture.jpg'
-import CardBackground from '../../Img/card-background.jpg'
-import DescBack from '../../Img/desc-back.jpg'
+import GoldTexture from "../../Img/gold-texture.jpg";
+import CardBackground from "../../Img/card-background.jpg";
+import DescBack from "../../Img/desc-back.jpg";
 
 export const CardWrapper = styled.div`
-  height: 350px;
-  width: 200px;
+  height: 300px;
+  width: 180px;
   border-radius: 10px;
   border: 5px solid transparent;
+  box-shadow: 12px 10px 28px 3px #000;
   border-image: url(${GoldTexture}) 1;
 
   display: flex;
@@ -17,13 +18,14 @@ export const CardWrapper = styled.div`
   background: Background;
   background-image: url(${CardBackground}); /* The image used */
   background-color: #fff; /* Used if the image is unavailable */
- /*  height: 100vh;  *//* You must set a specified height */
+  /*  height: 100vh;  */ /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; 
+  background-size: cover;
 
   &:hover {
     cursor: pointer;
+    border: 5px solid yellow;
   }
 `;
 
@@ -57,7 +59,7 @@ export const DescriptionText = styled.p`
   background-image: url(${DescBack});
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; 
+  background-size: cover;
 `;
 
 export const CostWrapper = styled.div`

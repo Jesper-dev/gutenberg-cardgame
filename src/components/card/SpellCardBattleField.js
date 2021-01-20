@@ -5,8 +5,6 @@ import {
   CardImg,
   DescriptionText,
   Type,
-  CostWrapper,
-  Cost,
 } from "./SpellCardBattleFieldElements";
 
 const SpellCard = ({ name, img, type, descText, cost, value, id }) => {
@@ -32,9 +30,6 @@ const SpellCard = ({ name, img, type, descText, cost, value, id }) => {
         <CardImg src={img} />
         <Type>[{type}]</Type>
         <DescriptionText>{descText}</DescriptionText>
-        <CostWrapper>
-          <Cost>Cost: {cost}</Cost>
-        </CostWrapper>
       </CardWrapper>
     </>
   );

@@ -19,8 +19,6 @@ const Player = ({ playercards, onPlayCard, hp }) => {
   const [selectedvalue, setSelectedValue] = useState(null);
   const [gold, setGold] = useState(200);
 
-  console.log(hp);
-
   const onCardClick = (e) => {
     setHighlight(!highlight);
   };

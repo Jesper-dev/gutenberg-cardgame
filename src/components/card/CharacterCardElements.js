@@ -4,8 +4,8 @@ import GoldTexture from "../../Img/gold-texture.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 
 export const CardWrapper = styled.div`
-  height: 350px;
-  width: 200px;
+  height: 300px;
+  width: 180px;
   border-radius: 10px;
   border: 5px solid transparent;
   border-image: url(${GoldTexture}) 1;
@@ -35,7 +35,7 @@ export const CardName = styled.h3`
   margin-top: 2%;
   margin-bottom: 1%;
   color: #000;
-  font-family: 'Lobster', cursive;
+  font-family: "Lobster", cursive;
 `;
 
 export const CardImg = styled.img`
@@ -77,6 +77,7 @@ export const DescriptionText = styled.p`
   width: 160px;
   height: 90px;
   padding: 5px;
+  margin-bottom: 0;
   border: 1px solid black;
   border-radius: 4px;
   background: #fff;
@@ -87,7 +88,7 @@ export const DescriptionText = styled.p`
 `;
 
 export const CostHpWrapper = styled.span`
-  margin-top: 2%;
+  margin-top: 0;
   width: 170px;
   height: 20px;
 
