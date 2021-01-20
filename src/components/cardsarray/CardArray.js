@@ -2,6 +2,7 @@ import React from "react";
 import jesper from "../../Img/jesper.jpg";
 import jon from "../../Img/jon.jpg";
 import tinymce from "../../Img/tinymce.jpg";
+import tinymcecool from "../../Img/tiny-cool.jpg";
 
 export const CardsArray = [
   {
@@ -139,4 +140,44 @@ export const CardsArray = [
     descText:
       "Heal 50hp to every card on your board and deal 20 dmg to random opponent.",
   },
+  {
+    name: "Tiny MC Daddy ",
+    img: tinymcecool,
+    type: "spell",
+    cost: 75,
+    id: "tiny-mc-one",
+    value: 11,
+    descText:
+      "Dissables all enemy cards on the board for the next round",
+  },
+  {
+    name: "Tiny MC Daddy ",
+    img: tinymcecool,
+    type: "spell",
+    cost: 75,
+    id: "tiny-mc-two",
+    value: 12,
+    descText:
+      "Dissables all enemy cards on the board for the next round",
+  },
+  {
+    name: "Tiny MC Daddy ",
+    img: tinymcecool,
+    type: "spell",
+    cost: 75,
+    id: "tiny-mc-three",
+    value: 13,
+    descText:
+      "Dissables all enemy cards on the board for the next round",
+  },
+  {
+    name: "Tiny MC Daddy ",
+    img: tinymcecool,
+    type: "spell",
+    cost: 75,
+    id: "tiny-mc-four",
+    value: 14,
+    descText:
+      "Dissables all enemy cards on the board for the next round",
+  }
 ];

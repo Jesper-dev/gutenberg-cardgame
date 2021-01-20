@@ -46,7 +46,7 @@ const CharacterCard = ({
   return (
     <CardWrapper
       value={value}
-      style={highlight ? { border: "2px solid red" } : { border: "none" }}
+      style={highlight ? { border: "5px solid red" } : { border: "" }}
       id={id}
       onClick={onCardClick}
     >

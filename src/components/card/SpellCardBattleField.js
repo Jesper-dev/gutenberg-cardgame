@@ -24,7 +24,7 @@ const SpellCard = ({ name, img, type, descText, cost, value, id }) => {
       <CardWrapper
         id={id}
         value={value}
-        style={highlight ? { border: "2px solid yellow" } : { border: "none" }}
+        style={highlight ? { border: "5px solid yellow" } : { border: "none" }}
         onClick={onCardClick}
       >
         {/* <button style={highlight ? buttonStyle : {display: "none"}}>Play card?</button> */}
