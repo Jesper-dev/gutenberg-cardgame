@@ -9,6 +9,8 @@ import {
   PlayCardButton,
   GoldStatus,
   LeftToolBarContainer,
+  RightToolBarContainer,
+  Hpcontainer,
 } from "../player/PlayerElements";
 
 import CharacterCard from "../card/CharacterCard";
@@ -64,7 +66,7 @@ const Canvas = ({ array }) => {
 
   const onPlayCard = () => {
     if (gold < selectedCard[0].cost) {
-      console.log("cant play that card, gold to low");
+      alert("Gold to low!");
     } else {
       setBattlefield(selectedCard);
       setGold(gold - selectedCard[0].cost);
@@ -109,6 +111,7 @@ const Canvas = ({ array }) => {
                     def={item.def}
                     descText={item.descText}
                     hp={item.hp}
+                    cost={item.cost}
                   />
                 </div>
               ) : (
@@ -127,6 +130,9 @@ const Canvas = ({ array }) => {
             })}
           </CardContainer>
         </LeftToolBarContainer>
+        <RightToolBarContainer>
+          <Hpcontainer>{hp}</Hpcontainer>
+        </RightToolBarContainer>
       </PlayerFiledContainer>
     </CanvasWrapper>
   );
