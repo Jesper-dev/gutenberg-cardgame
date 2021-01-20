@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { CanvasWrapper, StartGameButton } from "./CanvasElements";
+import { CanvasWrapper, StartGameButton, NotEnoughError, EndTurnButton } from "./CanvasElements";
+import OpponentTurn from '../opponent/OpponentTurn'
 import BattleField from "../battlefield/BattleField";
 import Player from "../player/Player";
 import _ from "lodash";
@@ -24,7 +25,8 @@ const Canvas = ({ array }) => {
 
   const [battlefield, setBattlefield] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
-  const [gold, setGold] = useState(200);
+  const [gold, setGold] = useState(75);
+  const [enoughgold, setEnoughGold] = useState(false);
 
   useEffect(() => {
     shuffleArray(array);
@@ -61,7 +63,19 @@ const Canvas = ({ array }) => {
     setButtonShow(false);
   };
 
+  const goldErrorReset = () => {
+    setEnoughGold(false)
+  }
+
   const onPlayCard = () => {
+    console.log(selectedCard[0].cost)
+    console.log(gold)
+    if (selectedCard[0].cost > gold) {
+      setEnoughGold(true)
+      setTimeout(goldErrorReset, 3000)
+      return
+    }
+    setGold(gold - selectedCard[0].cost)
     setBattlefield(selectedCard);
 
     let index = playercards.findIndex((x) => x.id === selectedCard[0].id);
@@ -71,6 +85,9 @@ const Canvas = ({ array }) => {
 
   return (
     <CanvasWrapper>
+      <OpponentTurn />
+      <EndTurnButton>End Turn</EndTurnButton>
+      <NotEnoughError style={enoughgold ? { display: 'block' } : { display: 'none' }}>Not Enough Gold!</NotEnoughError>
       <StartGameButton
         style={buttonShow ? { display: "flex" } : { display: "none" }}
         onClick={startGame}
@@ -81,29 +98,30 @@ const Canvas = ({ array }) => {
       <Player onPlayCard={onPlayCard} />
       <PlayerFiledContainer>
         <LeftToolBarContainer>
-          <GoldStatus>Gold: {gold}</GoldStatus>
+          <GoldStatus>{gold} <i class="fas fa-coins" style={{ fontSize: '2rem', marginLeft: '6px' }}></i></GoldStatus>
           <PlayCardButton onClick={onPlayCard}>
             Play Selected Card!
           </PlayCardButton>
+        </LeftToolBarContainer>
 
-          <CardContainer>
-            {playercards.map(function (item, i) {
-              return CheckType(item) ? (
-                <div key={i} onClick={onCardClick}>
-                  <CharacterCard
-                    highlight={highlight}
-                    id={item.id}
-                    value={i}
-                    name={item.name}
-                    img={item.img}
-                    type={item.type}
-                    atk={item.atk}
-                    def={item.def}
-                    descText={item.descText}
-                    hp={item.hp}
-                  />
-                </div>
-              ) : (
+        <CardContainer>
+          {playercards.map(function (item, i) {
+            return CheckType(item) ? (
+              <div key={i} onClick={onCardClick}>
+                <CharacterCard
+                  highlight={highlight}
+                  id={item.id}
+                  value={i}
+                  name={item.name}
+                  img={item.img}
+                  type={item.type}
+                  atk={item.atk}
+                  def={item.def}
+                  descText={item.descText}
+                  hp={item.hp}
+                />
+              </div>
+            ) : (
                 <div key={i} onClick={onCardClick}>
                   <SpellCard
                     id={item.id}
@@ -116,9 +134,8 @@ const Canvas = ({ array }) => {
                   />
                 </div>
               );
-            })}
-          </CardContainer>
-        </LeftToolBarContainer>
+          })}
+        </CardContainer>
       </PlayerFiledContainer>
     </CanvasWrapper>
   );

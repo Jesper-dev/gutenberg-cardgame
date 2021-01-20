@@ -29,13 +29,15 @@ export const CardWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
+    border: 5px solid red;
   }
 `;
 
 export const CardName = styled.h3`
   margin-top: 2%;
   margin-bottom: 1%;
-  color: grey;
+  color: #000;
+  font-family: 'Lobster', cursive;
 `;
 
 export const CardImg = styled.img`

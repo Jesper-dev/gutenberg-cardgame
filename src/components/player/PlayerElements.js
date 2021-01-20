@@ -18,6 +18,7 @@ export const CardContainer = styled.div`
 
 export const GoldStatus = styled.h2`
   color: gold;
+  font-size: 2.5rem;
 `;
 export const PlayCardButton = styled.button`
   background: goldenrod;

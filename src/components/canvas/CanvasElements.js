@@ -44,3 +44,41 @@ export const StartGameButton = styled.button`
   }
 
 `;
+
+export const EndTurnButton = styled.button`
+  position: absolute;
+  font-weight: bold;
+  font-family: 'Lobster', cursive;
+  font-size: 1.8rem;
+  top: 50%;
+  left: 95%;
+  transform: translate(-50%, -100%);
+
+  background: goldenrod;
+  
+  padding: 10px 30px;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+  
+  :focus {
+    outline: none;
+  }
+
+  :hover {
+    transition: 0.3s ease-in-out;
+    padding: 12px 32px;
+  }
+
+`
+
+
+export const NotEnoughError = styled.h2`
+  z-index: 100;
+  position: absolute;
+  font-family: 'Lobster', cursive;
+  font-size: 2.4rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-270%, 100%);
+  color: gold;
+`  
