@@ -10,6 +10,8 @@ import {
   PlayCardButton,
   GoldStatus,
   LeftToolBarContainer,
+  RightToolBarContainer,
+  Hpcontainer,
 } from "../player/PlayerElements";
 
 import CharacterCard from "../card/CharacterCard";
@@ -106,40 +108,44 @@ return (
         <PlayCardButton onClick={onPlayCard}>
           Play Selected Card!
           </PlayCardButton>
-      </LeftToolBarContainer>
 
-      <CardContainer>
-        {playercards.map(function (item, i) {
-          return CheckType(item) ? (
-            <div key={i} onClick={onCardClick}>
-              <CharacterCard
-                highlight={highlight}
-                id={item.id}
-                value={i}
-                name={item.name}
-                img={item.img}
-                type={item.type}
-                atk={item.atk}
-                def={item.def}
-                descText={item.descText}
-                hp={item.hp}
-              />
-            </div>
-          ) : (
+        <CardContainer>
+          {playercards.map(function (item, i) {
+            return CheckType(item) ? (
               <div key={i} onClick={onCardClick}>
-                <SpellCard
+                <CharacterCard
+                  highlight={highlight}
                   id={item.id}
-                  key={i}
+                  value={i}
                   name={item.name}
                   img={item.img}
                   type={item.type}
+                  atk={item.atk}
+                  def={item.def}
                   descText={item.descText}
+                  hp={item.hp}
                   cost={item.cost}
                 />
               </div>
-            );
-        })}
-      </CardContainer>
+            ) : (
+                <div key={i} onClick={onCardClick}>
+                  <SpellCard
+                    id={item.id}
+                    key={i}
+                    name={item.name}
+                    img={item.img}
+                    type={item.type}
+                    descText={item.descText}
+                    cost={item.cost}
+                  />
+                </div>
+              );
+          })}
+        </CardContainer>
+      </LeftToolBarContainer>
+      <RightToolBarContainer>
+        <Hpcontainer>{hp}</Hpcontainer>
+      </RightToolBarContainer>
     </PlayerFiledContainer>
   </CanvasWrapper>
 );

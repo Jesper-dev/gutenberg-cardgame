@@ -11,8 +11,9 @@ import {
   Def,
   DescriptionText,
   Type,
-  HPWrapper,
+  CostHpWrapper,
   HP,
+  Cost,
 } from "./CharacterCardElements";
 import Player from "../player/Player";
 
@@ -26,6 +27,7 @@ const CharacterCard = ({
   hp,
   id,
   value,
+  cost,
 }) => {
   let array = [];
   const [highlight, setHighlight] = useState(false);
@@ -59,9 +61,10 @@ const CharacterCard = ({
         <Def>Def: {def}</Def>
       </AtkDefWrapper>
       <DescriptionText>{descText}</DescriptionText>
-      <HPWrapper>
+      <CostHpWrapper>
+        <Cost>Cost: {cost}</Cost>
         <HP>HP: {hp}</HP>
-      </HPWrapper>
+      </CostHpWrapper>
     </CardWrapper>
   );
 };

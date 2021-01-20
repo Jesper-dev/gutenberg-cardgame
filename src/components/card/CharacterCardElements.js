@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import CardBackground from '../../Img/card-background-two.jpg'
-import GoldTexture from '../../Img/gold-texture.jpg'
-import DescBack from '../../Img/desc-back.jpg'
+import CardBackground from "../../Img/card-background-two.jpg";
+import GoldTexture from "../../Img/gold-texture.jpg";
+import DescBack from "../../Img/desc-back.jpg";
 
 export const CardWrapper = styled.div`
   height: 350px;
@@ -14,18 +14,16 @@ export const CardWrapper = styled.div`
   flex-flow: column nowrap;
   align-items: center;
 
-
- /*  height: 100vh;
+  /*  height: 100vh;
   width: 100vw; */
   box-shadow: 12px 10px 28px 3px #000;
   background: Background;
   background-image: url(${CardBackground}); /* The image used */
   background-color: #fff; /* Used if the image is unavailable */
- /*  height: 100vh;  *//* You must set a specified height */
+  /*  height: 100vh;  */ /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; 
-  
+  background-size: cover;
 
   &:hover {
     cursor: pointer;
@@ -85,17 +83,17 @@ export const DescriptionText = styled.p`
   background-image: url(${DescBack});
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; 
+  background-size: cover;
 `;
 
-export const HPWrapper = styled.span`
+export const CostHpWrapper = styled.span`
   margin-top: 2%;
   width: 170px;
   height: 20px;
 
   display: flex;
   flex-flow: row nowrap;
-  justify-content: flex-end;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -103,4 +101,10 @@ export const HP = styled.p`
   width: 55px;
   height: 20px;
   color: red;
+`;
+
+export const Cost = styled.p`
+  width: 55px;
+  height: 20px;
+  color: white;
 `;
