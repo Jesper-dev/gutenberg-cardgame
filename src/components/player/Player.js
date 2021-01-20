@@ -13,11 +13,13 @@ import jesper from "../../Img/jesper.jpg";
 import jon from "../../Img/jon.jpg";
 import tinymce from "../../Img/tinymce.jpg";
 
-const Player = ({ playercards, onPlayCard }) => {
+const Player = ({ playercards, onPlayCard, hp }) => {
   const [highlight, setHighlight] = useState(false);
   const [selected, setSelected] = useState({});
   const [selectedvalue, setSelectedValue] = useState(null);
   const [gold, setGold] = useState(200);
+
+  console.log(hp);
 
   const onCardClick = (e) => {
     setHighlight(!highlight);
