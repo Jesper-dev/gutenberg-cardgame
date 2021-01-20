@@ -85,70 +85,69 @@ const Canvas = ({ array }) => {
 
     playercards.splice(index, 1);
   }
-};
 
-console.log("gold is: ", gold);
+  console.log("gold is: ", gold);
 
-return (
-  <CanvasWrapper>
-    <OpponentTurn />
-    <EndTurnButton>End Turn</EndTurnButton>
-    <NotEnoughError style={enoughgold ? { display: 'block' } : { display: 'none' }}>Not Enough Gold!</NotEnoughError>
-    <StartGameButton
-      style={buttonShow ? { display: "flex" } : { display: "none" }}
-      onClick={startGame}
-    >
-      START GAME
+  return (
+    <CanvasWrapper>
+      <OpponentTurn />
+      <EndTurnButton>End Turn</EndTurnButton>
+      <NotEnoughError style={enoughgold ? { display: 'block' } : { display: 'none' }}>Not Enough Gold!</NotEnoughError>
+      <StartGameButton
+        style={buttonShow ? { display: "flex" } : { display: "none" }}
+        onClick={startGame}
+      >
+        START GAME
       </StartGameButton>
-    <BattleField selectedCard={battlefield} />
-    <Player onPlayCard={onPlayCard} hp={hp} />
-    <PlayerFiledContainer>
-      <LeftToolBarContainer>
-        <GoldStatus>{gold} <i class="fas fa-coins" style={{ fontSize: '2rem', marginLeft: '6px' }}></i></GoldStatus>
-        <PlayCardButton onClick={onPlayCard}>
-          Play Selected Card!
+      <BattleField selectedCard={battlefield} />
+      <Player onPlayCard={onPlayCard} hp={hp} />
+      <PlayerFiledContainer>
+        <LeftToolBarContainer>
+          <GoldStatus>{gold} <i class="fas fa-coins" style={{ fontSize: '2rem', marginLeft: '6px' }}></i></GoldStatus>
+          <PlayCardButton onClick={onPlayCard}>
+            Play Selected Card!
           </PlayCardButton>
 
-        <CardContainer>
-          {playercards.map(function (item, i) {
-            return CheckType(item) ? (
-              <div key={i} onClick={onCardClick}>
-                <CharacterCard
-                  highlight={highlight}
-                  id={item.id}
-                  value={i}
-                  name={item.name}
-                  img={item.img}
-                  type={item.type}
-                  atk={item.atk}
-                  def={item.def}
-                  descText={item.descText}
-                  hp={item.hp}
-                  cost={item.cost}
-                />
-              </div>
-            ) : (
+          <CardContainer>
+            {playercards.map(function (item, i) {
+              return CheckType(item) ? (
                 <div key={i} onClick={onCardClick}>
-                  <SpellCard
+                  <CharacterCard
+                    highlight={highlight}
                     id={item.id}
-                    key={i}
+                    value={i}
                     name={item.name}
                     img={item.img}
                     type={item.type}
+                    atk={item.atk}
+                    def={item.def}
                     descText={item.descText}
+                    hp={item.hp}
                     cost={item.cost}
                   />
                 </div>
-              );
-          })}
-        </CardContainer>
-      </LeftToolBarContainer>
-      <RightToolBarContainer>
-        <Hpcontainer>{hp}</Hpcontainer>
-      </RightToolBarContainer>
-    </PlayerFiledContainer>
-  </CanvasWrapper>
-);
+              ) : (
+                  <div key={i} onClick={onCardClick}>
+                    <SpellCard
+                      id={item.id}
+                      key={i}
+                      name={item.name}
+                      img={item.img}
+                      type={item.type}
+                      descText={item.descText}
+                      cost={item.cost}
+                    />
+                  </div>
+                );
+            })}
+          </CardContainer>
+        </LeftToolBarContainer>
+        <RightToolBarContainer>
+          <Hpcontainer>{hp}</Hpcontainer>
+        </RightToolBarContainer>
+      </PlayerFiledContainer>
+    </CanvasWrapper>
+  );
 };
 
 export default Canvas;
