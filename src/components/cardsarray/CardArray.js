@@ -4,6 +4,7 @@ import jon from "../../Img/jon.jpg";
 import tinymce from "../../Img/tinymce.jpg";
 import tinymcecool from "../../Img/tiny-cool.jpg";
 import jesperWizard from "../../Img/jesperWizard.jpg";
+import tp1crown from "../../Img/tp1crown.png";
 
 export const CardsArray = [
   {
@@ -176,5 +177,35 @@ export const CardsArray = [
     id: "tiny-mc-four",
     value: 14,
     descText: "Dissables all enemy cards on the board for the next round",
+  },
+  {
+    name: "TP1",
+    img: tp1crown,
+    type: "spell",
+    cost: 50,
+    id: "tp1-one",
+    value: 15,
+    descText:
+      "Give one of your cards the title “scrum-master” and give it +50atk",
+  },
+  {
+    name: "TP1",
+    img: tp1crown,
+    type: "spell",
+    cost: 50,
+    id: "tp1-two",
+    value: 16,
+    descText:
+      "Give one of your cards the title “scrum-master” and give it +50atk",
+  },
+  {
+    name: "TP1",
+    img: tp1crown,
+    type: "spell",
+    cost: 50,
+    id: "tp1-three",
+    value: 17,
+    descText:
+      "Give one of your cards the title “scrum-master” and give it +50atk",
   },
 ];

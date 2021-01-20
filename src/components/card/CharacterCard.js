@@ -52,7 +52,7 @@ const CharacterCard = ({
     >
       {/* <button onClick={onPlayCard} style={highlight ? buttonStyle : {display: "none"}}>Play card?</button> */}
       <CardName>{name}</CardName>
-      <CardImg src={img} />
+      <CardImg src={img} draggable={false} />
       <Type>[{type}]</Type>
       <AtkDefWrapper>
         <Atk>Atk: {atk}</Atk>

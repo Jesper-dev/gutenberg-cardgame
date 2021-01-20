@@ -29,7 +29,7 @@ const SpellCard = ({ name, img, type, descText, cost, value, id }) => {
       >
         {/* <button style={highlight ? buttonStyle : {display: "none"}}>Play card?</button> */}
         <CardName>{name}</CardName>
-        <CardImg src={img} />
+        <CardImg src={img} draggable={false} />
         <Type>[{type}]</Type>
         <DescriptionText>{descText}</DescriptionText>
         <CostWrapper>

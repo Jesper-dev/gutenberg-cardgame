@@ -25,6 +25,7 @@ const Canvas = ({ array }) => {
   const [battlefield, setBattlefield] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
   const [gold, setGold] = useState(200);
+  const [hp, setHp] = useState(5000);
 
   useEffect(() => {
     shuffleArray(array);
@@ -62,12 +63,19 @@ const Canvas = ({ array }) => {
   };
 
   const onPlayCard = () => {
-    setBattlefield(selectedCard);
+    if (gold < selectedCard[0].cost) {
+      console.log("cant play that card, gold to low");
+    } else {
+      setBattlefield(selectedCard);
+      setGold(gold - selectedCard[0].cost);
 
-    let index = playercards.findIndex((x) => x.id === selectedCard[0].id);
+      let index = playercards.findIndex((x) => x.id === selectedCard[0].id);
 
-    playercards.splice(index, 1);
+      playercards.splice(index, 1);
+    }
   };
+
+  console.log("gold is: ", gold);
 
   return (
     <CanvasWrapper>
@@ -78,7 +86,7 @@ const Canvas = ({ array }) => {
         START GAME
       </StartGameButton>
       <BattleField selectedCard={battlefield} />
-      <Player onPlayCard={onPlayCard} />
+      <Player onPlayCard={onPlayCard} hp={hp} />
       <PlayerFiledContainer>
         <LeftToolBarContainer>
           <GoldStatus>Gold: {gold}</GoldStatus>
