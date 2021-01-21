@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Switch } from "react-router-dom";
-import { createStore, store } from "redux";
 /* import SelectReducer from "./SelectReducer"; */
 import {
   CardWrapper,
@@ -14,7 +12,7 @@ import {
   HPWrapper,
   HP,
 } from "./CharacterCardBattleFieldElements";
-import Player from "../player/Player";
+
 
 const CharacterCardBattleField = ({
   name,
@@ -26,21 +24,12 @@ const CharacterCardBattleField = ({
   hp,
   id,
   value,
+  onAttackCardClick,
+  onDefendingCardClick
 }) => {
-  let array = [];
+  
   const [highlight, setHighlight] = useState(false);
 
-  const onCardClick = (e) => {
-    setHighlight(!highlight);
-  };
-
-  const checkIfAlone = (array) => {
-    if (array.length < 1) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   // style={highlight ? { border: '4px solid yellow'} : { border: 'none'} }
   return (
@@ -48,7 +37,7 @@ const CharacterCardBattleField = ({
       value={value}
       style={highlight ? { border: "2px solid red" } : { border: "none" }}
       id={id}
-      onClick={onCardClick}
+      onClick={onAttackCardClick || onDefendingCardClick}
     >
       {/* <button onClick={onPlayCard} style={highlight ? buttonStyle : {display: "none"}}>Play card?</button> */}
       <CardName>{name}</CardName>

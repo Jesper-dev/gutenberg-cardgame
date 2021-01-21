@@ -6,22 +6,20 @@ import {
   BattlefieldInnerContainer,
 } from "./OpponentBattleFieldElements";
 
-const OpponentBattleField = ({ OpponentBattlefield }) => {
+const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick }) => {
   const CheckType = (item) => {
-    if (item.type == "spell") {
+    if (item.type === "spell") {
       return false;
     } else {
       return true;
     }
   };
 
-  //   console.log(selectedCard);
-
   return (
     <>
       <BattlefieldContainer>
         <BattlefieldInnerContainer>
-          {OpponentBattlefield.map(function (item, i) {
+          {opponentBattlefield.map(function (item, i) {
             return CheckType(item) ? (
               <div key={i}>
                 <CharacterCardBattleField
@@ -35,6 +33,7 @@ const OpponentBattleField = ({ OpponentBattlefield }) => {
                   def={item.def}
                   descText={item.descText}
                   hp={item.hp}
+                  onDefendingCardClick={onDefendingCardClick}
                 />
               </div>
             ) : (
@@ -47,6 +46,7 @@ const OpponentBattleField = ({ OpponentBattlefield }) => {
                   type={item.type}
                   descText={item.descText}
                   cost={item.cost}
+                  onDefendingCardClick={onDefendingCardClick}
                 />
               </div>
             );

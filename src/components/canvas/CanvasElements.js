@@ -62,11 +62,11 @@ export const EndTurnButton = styled.button`
   :focus {
     outline: none;
   }
-
+/* 
   :hover {
     transition: 0.3s ease-in-out;
     padding: 12px 32px;
-  }
+  } */
 `;
 
 export const NotEnoughError = styled.h2`

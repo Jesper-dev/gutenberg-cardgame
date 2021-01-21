@@ -28,20 +28,20 @@ const CharacterCard = ({
   value,
   cost,
 }) => {
-  let array = [];
+  
   const [highlight, setHighlight] = useState(false);
 
   const onCardClick = (e) => {
     setHighlight(!highlight);
   };
 
-  const checkIfAlone = (array) => {
-    if (array.length < 1) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const checkIfAlone = (array) => {
+  //   if (array.length < 1) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   // style={highlight ? { border: '4px solid yellow'} : { border: 'none'} }
   return (

@@ -11,11 +11,16 @@ export const PlayerDeckWrapper = styled.div`
   position: absolute;
   right: 1%;
   bottom: 22%;
+  
 `;
 
-export const PlayerCardsLeft = styled.p`
+export const PlayerCardsLeft = styled.span`
+  font-size: 3rem;
+  color: gold;
 `
-export const OpponentCardsLeft = styled.p`
+export const OpponentCardsLeft = styled.span`
+  font-size: 3rem;
+  color: gold;
 `
 
 export const VisualDeck = styled.div`
@@ -35,4 +40,33 @@ export const VisualDeck = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 `;
+
+export const AttackButton = styled.button`
+/*  position: absolute;
+  right: 0;
+  bottom: 0; */
+`
+
+export const OpponentHpcontainer = styled.button`
+  position: absolute;
+  top:2%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+  background: none;
+  margin-bottom: 50px;
+  border: 3px solid red;
+  border-radius: 50px;
+  font-size: 2rem;
+  font-family: "Lobster", cursive;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

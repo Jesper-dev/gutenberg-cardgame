@@ -11,7 +11,6 @@ const SpellCard = ({ name, img, type, descText, cost, value, id }) => {
   //style={highlight ? { border: '3px solid red'} : { border: 'none'} } onClick={onCardClick}
 
   const [highlight, setHighlight] = useState(false);
-  const [inPlay, setInPlay] = useState([]);
 
   const onCardClick = () => {
     setHighlight(!highlight);
@@ -33,12 +32,6 @@ const SpellCard = ({ name, img, type, descText, cost, value, id }) => {
       </CardWrapper>
     </>
   );
-};
-
-const buttonStyle = {
-  padding: "5px 5px",
-  background: "none",
-  border: "1px solid black",
 };
 
 export default SpellCard;

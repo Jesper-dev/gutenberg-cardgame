@@ -14,13 +14,14 @@ const FunctionsComponent = () => {
   const [yourturn, setYourTurn] = useState(true);
   const [opponentBattleField, setOppoentBattleField] = useState([]);
   const [opponentCardsinhand, setopponentCardsinhand] = useState([]);
-  const [selected, setSelected] = useState([]);
+  // const [selected, setSelected] = useState([]);
   const [whichTurn, setWhichTurn] = useState('Your Turn!');
   const [battlefield, setBattlefield] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
   const [enoughgold, setEnoughGold] = useState(false);
   const [gold, setGold] = useState(200);
   const [hp, setHp] = useState(5000);
+  const [opponentHp, setOpponentHp] = useState(5000);
   const [startGameActive, setStartGameActive] = useState(false);
 
 
@@ -32,6 +33,10 @@ const FunctionsComponent = () => {
       [array[i], array[j]] = [array[j], array[i]];
     }
   };
+
+  const newOpponentHp = newHp => setOpponentHp(newHp)
+  
+  const newOpponentBattleField = (arr) => setOppoentBattleField(arr)
 
   const makeOpponentDeck = (array) => {
     shuffleArray(array);
@@ -62,8 +67,6 @@ const FunctionsComponent = () => {
     setTimeout(() => {
       startPlayerTurn(deck)
     }, 500);
-
-    console.log("Deck is: ", deck)
   };
 
   const startPlayerTurn = (arr) => {
@@ -74,6 +77,7 @@ const FunctionsComponent = () => {
     let card = arr[0]
     currentHand.push(card)
     setCardsInHand(currentHand);
+    setSelectedCard([])
   }
 
   const startOpponentTurn = (arr) => {
@@ -90,33 +94,48 @@ const FunctionsComponent = () => {
   };
 
   const onPlayCard = () => {
+    if(selectedCard.length === 0){
+      return
+    }
     if (selectedCard[0].cost > gold) {
       setEnoughGold(true);
       setTimeout(goldErrorReset, 3000);
       return;
     }
+    checkCardType()
     battlefieldArr.push(selectedCard[0]);
     setGold(gold - selectedCard[0].cost);
     setBattlefield(battlefieldArr);
 
     let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
-
     cardsinhand.splice(index, 1);
   };
+
+  const checkCardType = () => {
+    if(selectedCard[0].type === "spell"){
+      console.log("A spell was played")
+    } else {
+      console.log("A character card was played")
+    }
+  }
 
   const onCardClick = (e) => {
     let clicked = e.target.closest("div");
     let card = cardsinhand.filter((x) => x.id === clicked.id);
     setSelectedCard(card);
-    console.log("Card is clicked")
   };
 
   const playCard = (arr) => {
-    opponentBattleArr.push(arr[0]);
+    
+    let number = Math.floor(Math.random() * Math.floor(3));
+    opponentBattleArr.push(arr[number]);
+    if(arr[number].type === "spell"){
+      console.log("Opp played a spell")
+    } else {
+      console.log("Opp played a character")
+    }
     setOppoentBattleField(opponentBattleArr);
     arr.splice(0, 1);
-    console.log("Lol")
-    
   };
 
   const startGame = () => {
@@ -154,9 +173,14 @@ const FunctionsComponent = () => {
         enoughgold={enoughgold}
         gold={gold}
         hp={hp}
+        opponentHp={opponentHp}
+        newOpponentHp={newOpponentHp}
         startGameActive={startGameActive}
         deck={deck}
         oppDeck={opponentDeck}
+        yourturn={yourturn}
+        newOpponentBattleField={newOpponentBattleField}
+        
       />
     </>
   );

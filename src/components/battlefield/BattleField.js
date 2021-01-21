@@ -6,16 +6,15 @@ import {
   BattlefieldInnerContainer,
 } from "./BattleFieldElements";
 
-const BattleField = ({ Battlefield }) => {
+const BattleField = ({ Battlefield, onAttackCardClick }) => {
   const CheckType = (item) => {
-    if (item.type == "spell") {
+    if (item.type === "spell") {
       return false;
     } else {
       return true;
     }
   };
 
-  //   console.log(selectedCard);
 
   return (
     <>
@@ -35,6 +34,7 @@ const BattleField = ({ Battlefield }) => {
                   def={item.def}
                   descText={item.descText}
                   hp={item.hp}
+                  onAttackCardClick={onAttackCardClick}
                 />
               </div>
             ) : (

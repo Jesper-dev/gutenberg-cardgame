@@ -1,14 +1,15 @@
-import React from "react";
-import jesper from "../../Img/jesper.jpg";
+
 import jon from "../../Img/jon.jpg";
 import tinymce from "../../Img/tinymce.jpg";
 import tinymcecool from "../../Img/tiny-cool.jpg";
 import jesperWizard from "../../Img/jesperWizard.jpg";
 import tp1crown from "../../Img/tp1crown.png";
+import quire from "../../Img/quire.png";
+import gold from "../../Img/gold.jpg";
 
 export const CardsArray = [
   {
-    name: "Jesper",
+    name: "Jesper 1",
     img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
@@ -20,7 +21,7 @@ export const CardsArray = [
     descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
   },
   {
-    name: "Jesper",
+    name: "Jesper 2",
     img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
@@ -32,7 +33,7 @@ export const CardsArray = [
     descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
   },
   {
-    name: "Jesper",
+    name: "Jesper 3",
     img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
@@ -44,15 +45,51 @@ export const CardsArray = [
     descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
   },
   {
-    name: "Jesper",
+    name: "Jesper 4",
     img: jesperWizard,
     type: "Spellcaster",
     cost: 75,
-    atk: 900,
+    atk: 1050,
     def: 500,
     hp: 100,
     id: "jesper-four",
     value: 3,
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+  },
+  {
+    name: "Jesper 5",
+    img: jesperWizard,
+    type: "Spellcaster",
+    cost: 75,
+    atk: 1050,
+    def: 500,
+    hp: 100,
+    id: "jesper-five",
+    value: 26,
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+  },
+  {
+    name: "Jesper 6",
+    img: jesperWizard,
+    type: "Spellcaster",
+    cost: 75,
+    atk: 1000,
+    def: 500,
+    hp: 100,
+    id: "jesper-six",
+    value: 27,
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+  },
+  {
+    name: "Jesper 7",
+    img: jesperWizard,
+    type: "Spellcaster",
+    cost: 75,
+    atk: 1000,
+    def: 500,
+    hp: 100,
+    id: "jesper-seven",
+    value: 28,
     descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
   },
   {
@@ -61,7 +98,7 @@ export const CardsArray = [
     type: "Warrior",
     cost: 75,
     atk: 1200,
-    def: 200,
+    def: 1000,
     hp: 100,
     id: "jon-one",
     value: 4,
@@ -73,7 +110,7 @@ export const CardsArray = [
     type: "Warrior",
     cost: 75,
     atk: 1200,
-    def: 200,
+    def: 1000,
     hp: 100,
     id: "jon-two",
     value: 5,
@@ -85,7 +122,7 @@ export const CardsArray = [
     type: "Warrior",
     cost: 75,
     atk: 1200,
-    def: 200,
+    def: 1000,
     hp: 100,
     id: "jon-three",
     value: 6,
@@ -97,13 +134,49 @@ export const CardsArray = [
     type: "Warrior",
     cost: 75,
     atk: 1200,
-    def: 200,
+    def: 1000,
     hp: 100,
     id: "jon-four",
     value: 7,
     descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
   },
   {
+    name: "Jon",
+    img: jon,
+    type: "Warrior",
+    cost: 75,
+    atk: 1200,
+    def: 1000,
+    hp: 100,
+    id: "jon-five",
+    value: 23,
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+  },
+  {
+    name: "Jon",
+    img: jon,
+    type: "Warrior",
+    cost: 75,
+    atk: 1200,
+    def: 1000,
+    hp: 100,
+    id: "jon-six",
+    value: 24,
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+  },
+  {
+    name: "Jon",
+    img: jon,
+    type: "Warrior",
+    cost: 75,
+    atk: 1200,
+    def: 1000,
+    hp: 100,
+    id: "jon-seven",
+    value: 25,
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+  }
+  /* {
     name: "TinyMCE",
     img: tinymce,
     type: "spell",
@@ -208,4 +281,54 @@ export const CardsArray = [
     descText:
       "Give one of your cards the title “scrum-master” and give it +50atk",
   },
+  {
+    name: "Quire",
+    img: quire,
+    type: "spell",
+    cost: 25,
+    id: "quire-one",
+    value: 18,
+    descText:
+      "Draw one card",
+  },
+  {
+    name: "Quire",
+    img: quire,
+    type: "spell",
+    cost: 25,
+    id: "quire-two",
+    value: 19,
+    descText:
+      "Draw one card",
+  },
+  {
+    name: "Quire",
+    img: quire,
+    type: "spell",
+    cost: 25,
+    id: "quire-three",
+    value: 20,
+    descText:
+      "Draw one card",
+  },
+  {
+    name: "Money Making Idea",
+    img: gold,
+    type: "spell",
+    cost: 50,
+    id: "money-one",
+    value: 21,
+    descText:
+      "Get 150 gold",
+  },
+  {
+    name: "Money Making Idea",
+    img: gold,
+    type: "spell",
+    cost: 50,
+    id: "money-two",
+    value: 22,
+    descText:
+      "Get 150 gold",
+  }, */
 ];

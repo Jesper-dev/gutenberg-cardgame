@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 const OpponentTurn = ({ yourturn }) => {
-  if (yourturn == false) {
+  if (yourturn === false) {
     console.log("Now AI will take over");
   }
 
