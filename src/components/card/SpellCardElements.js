@@ -15,6 +15,8 @@ export const CardWrapper = styled.div`
   flex-flow: column nowrap;
   align-items: center;
 
+  margin-left: 15px;
+
   background: Background;
   background-image: url(${CardBackground}); /* The image used */
   background-color: #fff; /* Used if the image is unavailable */
@@ -22,10 +24,12 @@ export const CardWrapper = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  margin-top: 100px;
 
   &:hover {
     cursor: pointer;
     border: 5px solid yellow;
+    margin-top: 0px;
   }
 `;
 

@@ -1,15 +1,17 @@
 import styled from "styled-components";
+import GoldTexture from "../../Img/gold-texture.jpg";
 
 export const PlayerFiledContainer = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
-  bottom: 0;
+  bottom: 0px;
   height: 35vh;
   width: 100vw;
+  overflow: hidden;
 `;
 
-export const CardContainer = styled.div`
+export const OpponentCardContainer = styled.div`
   width: 80vw;
   margin: 0 auto;
   display: flex;
@@ -18,12 +20,12 @@ export const CardContainer = styled.div`
 
 export const PlayerCardsContainer = styled.div`
   display: flex;
- /*  display: none; */
+  /*  display: none; */
   position: absolute;
   height: 270px;
   bottom: 25px;
   left: 35%;
-`
+`;
 
 export const GoldStatus = styled.h2`
   color: gold;
@@ -31,13 +33,29 @@ export const GoldStatus = styled.h2`
 `;
 
 export const PlayCardButton = styled.button`
-  background: goldenrod;
-  color: seashell;
-  height: 30px;
+  margin-left: 3%;
+  font-family: "Lobster", cursive;
+  color: #000;
+  height: 35px;
+
+  border-radius: 5px;
+  box-shadow: 5px 7px 5px #000;
+  background-image: url(${GoldTexture}); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 export const LeftToolBarContainer = styled.div`
-  padding-left: 25px;
+  position: absolute;
+  bottom: 5%;
+  left: 3%;
+
 `;
 
 export const RightToolBarContainer = styled.div`
@@ -56,6 +74,7 @@ export const RightToolBarContainer = styled.div`
 export const Hpcontainer = styled.div`
   width: 100px;
   height: 100px;
+  margin-bottom: 50px;
   border: 3px solid green;
   border-radius: 50px;
   font-size: 2rem;

@@ -79,3 +79,11 @@ export const NotEnoughError = styled.h2`
   transform: translate(-270%, 100%);
   color: gold;
 `;
+
+export const TurnInicator = styled.h2`
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  font-size: 3rem;
+  color: goldenrod;
+`

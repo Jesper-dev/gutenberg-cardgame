@@ -23,15 +23,12 @@ export const CardWrapper = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  margin-top: 100px;
 
   &:hover {
     cursor: pointer;
     border: 5px solid red;
-  /*   height: 270px;
-    width: 170px;
-    border-radius: 10px;
-    border: 5px solid transparent;
-    border-image: url(${GoldTexture}) 1; */
+    margin-top: 0px;
   }
 `;
 
@@ -48,7 +45,6 @@ export const CardImg = styled.img`
   width: 130px;
   border: 1px solid black;
   border-radius: 10px;
-
 `;
 
 export const Type = styled.p`

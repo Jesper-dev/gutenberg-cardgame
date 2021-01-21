@@ -5,8 +5,8 @@ export const BattlefieldContainer = styled.div`
   display: flex;
   justify-content: center;
   top: 120px;
-  left: 250px;
-  width: 100vw;
+  left: 40%;
+  /* width: 100vw; */
 `;
 
 export const BattlefieldInnerContainer = styled.div`

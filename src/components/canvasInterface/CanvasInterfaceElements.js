@@ -2,25 +2,31 @@ import styled from "styled-components";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBack from "../../Img/card-deck-back.png";
 
-export const CardWrapper = styled.div`
+export const OpponentDeckWrapper = styled.div`
   position: absolute;
-  left: 40%;
-  top: -50px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  
+  right: 1%;
+  top: 16%;
+`;
+export const PlayerDeckWrapper = styled.div`
+  position: absolute;
+  right: 1%;
+  bottom: 22%;
 `;
 
-export const OppenentCardHand = styled.div`
-  width: 80px;
-  height: 130px;
+export const PlayerCardsLeft = styled.p`
+`
+export const OpponentCardsLeft = styled.p`
+`
+
+export const VisualDeck = styled.div`
+  width: 140px;
+  height: 200px;
   margin: 10px;
   background: red;
 
   border: 5px solid transparent;
   border-image: url(${GoldTexture}) 1;
-  box-shadow: 15px 15px 35px 5px #000;
+  /* box-shadow: 15px 15px 35px 5px #000; */
   border-radius: 10px;
 
   background: Background;
