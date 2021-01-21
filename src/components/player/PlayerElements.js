@@ -4,7 +4,7 @@ export const PlayerFiledContainer = styled.div`
   position: absolute;
   display: flex;
   align-items: center;
-  bottom: 85px;
+  bottom: 0;
   height: 35vh;
   width: 100vw;
 `;
@@ -13,8 +13,17 @@ export const CardContainer = styled.div`
   width: 80vw;
   margin: 0 auto;
   display: flex;
-  justify-content: space-evenly;
+  /* justify-content: space-evenly; */
 `;
+
+export const PlayerCardsContainer = styled.div`
+  display: flex;
+ /*  display: none; */
+  position: absolute;
+  height: 270px;
+  bottom: 25px;
+  left: 35%;
+`
 
 export const GoldStatus = styled.h2`
   color: gold;
@@ -32,8 +41,10 @@ export const LeftToolBarContainer = styled.div`
 `;
 
 export const RightToolBarContainer = styled.div`
-  /* border: 1px solid black; */
-  width: 600px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 400px;
   height: 400px;
   margin-right: 2%;
   display: flex;

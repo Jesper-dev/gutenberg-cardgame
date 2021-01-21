@@ -4,23 +4,22 @@ import GoldTexture from "../../Img/gold-texture.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 
 export const CardWrapper = styled.div`
-  height: 300px;
-  width: 180px;
+  height: 270px;
+  width: 170px;
   border-radius: 10px;
   border: 5px solid transparent;
+
   border-image: url(${GoldTexture}) 1;
 
+  margin-left: 15px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 
-  /*  height: 100vh;
-  width: 100vw; */
   box-shadow: 12px 10px 28px 3px #000;
   background: Background;
   background-image: url(${CardBackground}); /* The image used */
   background-color: #fff; /* Used if the image is unavailable */
-  /*  height: 100vh;  */ /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
@@ -28,6 +27,11 @@ export const CardWrapper = styled.div`
   &:hover {
     cursor: pointer;
     border: 5px solid red;
+  /*   height: 270px;
+    width: 170px;
+    border-radius: 10px;
+    border: 5px solid transparent;
+    border-image: url(${GoldTexture}) 1; */
   }
 `;
 
@@ -40,10 +44,11 @@ export const CardName = styled.h3`
 
 export const CardImg = styled.img`
   margin-top: 0%;
-  height: 120px;
-  width: 170px;
+  height: 90px;
+  width: 130px;
   border: 1px solid black;
   border-radius: 10px;
+
 `;
 
 export const Type = styled.p`
@@ -59,23 +64,26 @@ export const AtkDefWrapper = styled.span`
   justify-content: space-between;
   height: 20px;
   width: 170px;
-  margin-top: 5%;
+  margin-top: 1%;
 `;
 
 export const Atk = styled.p`
   color: green;
-  margin-left: 5px;
+  margin-left: 18px;
+  font-size: 0.9rem;
 `;
 
 export const Def = styled.p`
   color: blue;
   margin-right: 20px;
+  font-size: 0.9rem;
 `;
 
 export const DescriptionText = styled.p`
-  margin-top: 5%;
-  width: 160px;
-  height: 90px;
+  margin-top: 2%;
+  width: 150px;
+  height: px;
+  overflow: hidden;
   padding: 5px;
   margin-bottom: 0;
   border: 1px solid black;
@@ -88,7 +96,7 @@ export const DescriptionText = styled.p`
 `;
 
 export const CostHpWrapper = styled.span`
-  margin-top: 0;
+  margin-top: 5px;
   width: 170px;
   height: 20px;
 

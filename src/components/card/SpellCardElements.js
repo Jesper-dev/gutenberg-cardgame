@@ -4,8 +4,8 @@ import CardBackground from "../../Img/card-background.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 
 export const CardWrapper = styled.div`
-  height: 300px;
-  width: 180px;
+  height: 270px;
+  width: 170px;
   border-radius: 10px;
   border: 5px solid transparent;
   box-shadow: 12px 10px 28px 3px #000;
@@ -37,8 +37,8 @@ export const CardName = styled.h3`
 
 export const CardImg = styled.img`
   margin-top: 0%;
-  height: 120px;
-  width: 170px;
+  height: 90px;
+  width: 130px;
   border: 1px solid black;
   border-radius: 10px;
 `;
@@ -51,10 +51,12 @@ export const Type = styled.p`
 
 export const DescriptionText = styled.p`
   margin-top: 5%;
-  width: 160px;
-  height: 90px;
+  width: 150px;
+  height: 80px;
   padding: 2px 2px;
   border: 1px solid black;
+  border-radius: 4px;
+  overflow: hidden;
   background: #fff;
   background-image: url(${DescBack});
   background-position: center; /* Center the image */
@@ -64,6 +66,7 @@ export const DescriptionText = styled.p`
 
 export const CostWrapper = styled.div`
   margin-top: 2%;
+  margin-right: 5%;
   width: 170px;
   height: 20px;
 

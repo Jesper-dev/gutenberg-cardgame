@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Switch } from "react-router-dom";
-import { createStore, store } from "redux";
-/* import SelectReducer from "./SelectReducer"; */
+
+
 import {
   CardWrapper,
   CardName,
@@ -15,7 +14,7 @@ import {
   HP,
   Cost,
 } from "./CharacterCardElements";
-import Player from "../player/Player";
+
 
 const CharacterCard = ({
   name,

@@ -1,50 +1,34 @@
 import React, { useState, useEffect } from "react";
-import {
-  CanvasWrapper,
-  StartGameButton,
-  NotEnoughError,
-  EndTurnButton,
-} from "./CanvasElements";
+import { CanvasWrapper } from "./CanvasElements";
+import CanvasInterfaceRender from '../canvasInterface/CanvasInterfaceRender'
 import OpponentTurn from "../opponent/OpponentTurn";
 import BattleField from "../battlefield/BattleField";
 import OpponentBattleField from "../battlefield/OpponentBattleField";
+import OpponentCardsHandRender from '../cardsHand/OpponentCardsHandRender'
+import CardsHand from '../cardsHand/CardsHand'
 import Player from "../player/Player";
-import {
-  CardContainer,
-  PlayerFiledContainer,
-  PlayCardButton,
-  GoldStatus,
-  LeftToolBarContainer,
-  RightToolBarContainer,
-  Hpcontainer,
-} from "../player/PlayerElements";
+import LeftToolBar from '../player/LeftToolBar'
+import { CardContainer, PlayerFiledContainer, RightToolBarContainer, Hpcontainer, PlayerCardsContainer } from "../player/PlayerElements";
+import { BattlefieldContainer } from "../battlefield/BattleFieldElements";
 
-import CharacterCard from "../card/CharacterCard";
-import SpellCard from "../card/SpellCard";
-// import { CardsArray } from '../cardsarray/CardArray'
+
 let battlefieldArr = [];
 const Canvas = (
-  { array, 
-    shuffleArray, 
-    opponentDeck, 
-    endTurnFunc, 
-    opponentBattleField, 
-    opponentCardsinhand, 
-    startGame, 
+  {
+    endTurnFunc,
+    opponentBattleField,
+    opponentCardsinhand,
+    startGame,
     cardsinhand,
     buttonShow
   }) => {
-  
-
-
-  const [highlight, setHighlight] = useState(false);
 
   const [battlefield, setBattlefield] = useState([]);
-  
   const [selectedCard, setSelectedCard] = useState([]);
   const [enoughgold, setEnoughGold] = useState(false);
   const [gold, setGold] = useState(200);
   const [hp, setHp] = useState(5000);
+
 
   const CheckType = (item) => {
     if (item.type == "spell") {
@@ -82,110 +66,34 @@ const Canvas = (
   return (
     <CanvasWrapper>
       <OpponentTurn />
-      <EndTurnButton onClick={endTurnFunc}>End Turn</EndTurnButton>
-      <NotEnoughError
-        style={enoughgold ? { display: "block" } : { display: "none" }}
-      >
-        Not Enough Gold!
-      </NotEnoughError>
-      <StartGameButton
-        style={buttonShow ? { display: "flex" } : { display: "none" }}
-        onClick={startGame}
-      >
-        START GAME
-      </StartGameButton>
+
+      <CanvasInterfaceRender enoughgold={enoughgold} buttonShow={buttonShow} endTurnFunc={endTurnFunc} startGame={startGame} />
 
       <CardContainer>
-            {opponentCardsinhand.map(function (item, i) {
-              return CheckType(item) ? (
-                <div key={i} onClick={onCardClick}>
-                  <CharacterCard
-                    highlight={highlight}
-                    id={item.id}
-                    value={i}
-                    name={item.name}
-                    img={item.img}
-                    type={item.type}
-                    atk={item.atk}
-                    def={item.def}
-                    descText={item.descText}
-                    hp={item.hp}
-                    cost={item.cost}
-                  />
-                </div>
-              ) : (
-                <div key={i} onClick={onCardClick}>
-                  <SpellCard
-                    id={item.id}
-                    key={i}
-                    name={item.name}
-                    img={item.img}
-                    type={item.type}
-                    descText={item.descText}
-                    cost={item.cost}
-                  />
-                </div>
-              );
-            })}
-
-    </CardContainer>
-    
-
+        <OpponentCardsHandRender opponentCardsinhand={opponentCardsinhand} />
+      </CardContainer>
 
       <OpponentBattleField OpponentBattlefield={opponentBattleField} />
-      
-      <BattleField Battlefield={battlefield} />
-      <Player onPlayCard={onPlayCard} hp={hp} />
-      <PlayerFiledContainer>
-        <LeftToolBarContainer>
-          <GoldStatus>
-            {gold}{" "}
-            <i
-              class="fas fa-coins"
-              style={{ fontSize: "2rem", marginLeft: "6px" }}
-            ></i>
-          </GoldStatus>
-          <PlayCardButton onClick={onPlayCard}>
-            Play Selected Card!
-          </PlayCardButton>
 
-          <CardContainer>
-            {cardsinhand.map(function (item, i) {
-              return CheckType(item) ? (
-                <div key={i} onClick={onCardClick}>
-                  <CharacterCard
-                    highlight={highlight}
-                    id={item.id}
-                    value={i}
-                    name={item.name}
-                    img={item.img}
-                    type={item.type}
-                    atk={item.atk}
-                    def={item.def}
-                    descText={item.descText}
-                    hp={item.hp}
-                    cost={item.cost}
-                  />
-                </div>
-              ) : (
-                <div key={i} onClick={onCardClick}>
-                  <SpellCard
-                    id={item.id}
-                    key={i}
-                    name={item.name}
-                    img={item.img}
-                    type={item.type}
-                    descText={item.descText}
-                    cost={item.cost}
-                  />
-                </div>
-              );
-            })}
-          </CardContainer>
-        </LeftToolBarContainer>
+      <BattlefieldContainer>
+        <BattleField Battlefield={battlefield} />
+      </BattlefieldContainer>
+
+
+      <Player onPlayCard={onPlayCard} hp={hp} />
+
+      <PlayerFiledContainer>
+
+        <LeftToolBar onPlayCard={onPlayCard} gold={gold} />
+
+        <PlayerCardsContainer>
+          <CardsHand cardsinhand={cardsinhand} onCardClick={onCardClick} CheckType={CheckType} />
+        </PlayerCardsContainer>
+
         <RightToolBarContainer>
           <Hpcontainer>{hp}</Hpcontainer>
         </RightToolBarContainer>
+
       </PlayerFiledContainer>
     </CanvasWrapper>
   );

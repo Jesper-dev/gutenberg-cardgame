@@ -4,7 +4,7 @@ export const BattlefieldContainer = styled.div`
   position: absolute;
   display: flex;
   justify-content: center;
-  top: 320px;
+  top: 193px;
   width: 100vw;
 `;
 
