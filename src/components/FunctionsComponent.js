@@ -17,20 +17,30 @@ const FunctionsComponent = () => {
   const [opponentDeck, setOpponentDeck] = useState([]);
   //   const [opponentCards, setOpponentCards] = useState([]);
   const [yourturn, setYourTurn] = useState(true);
-  const [opponentBattleField, setOppoentBattleField] = useState([]);
-  const [opponentCardsinhand, setopponentCardsinhand] = useState([]);
-  // const [selected, setSelected] = useState([]);
-  const [whichTurn, setWhichTurn] = useState('Your Turn!');
-  const [battlefield, setBattlefield] = useState([]);
-  const [spellBattlefield, setSpellBattlefield] = useState([]);
-  const [selectedCard, setSelectedCard] = useState([]);
-  const [enoughgold, setEnoughGold] = useState(false);
-  const [gold, setGold] = useState(200);
-  const [hp, setHp] = useState(5000);
-  const [opponentHp, setOpponentHp] = useState(5000);
-  const [startGameActive, setStartGameActive] = useState(false);
+  
 
   const [cardsinhand, setCardsInHand] = useState([]);
+  const [opponentCardsinhand, setopponentCardsinhand] = useState([]);
+  
+  const [whichTurn, setWhichTurn] = useState('Your Turn!');
+
+  const [battlefield, setBattlefield] = useState([]);
+  const [opponentBattleField, setOppoentBattleField] = useState([]);
+  const [spellBattlefield, setSpellBattlefield] = useState([]);
+
+  const [selectedCard, setSelectedCard] = useState([]);
+  
+
+  const [gold, setGold] = useState(200);
+  const [oppGold, setOppGold] = useState(200)
+  const [enoughgold, setEnoughGold] = useState(false);
+
+  const [hp, setHp] = useState(5000);
+  const [opponentHp, setOpponentHp] = useState(5000);
+
+  const [startGameActive, setStartGameActive] = useState(false);
+
+  
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -60,10 +70,29 @@ const FunctionsComponent = () => {
     }
     setYourTurn(false);
     setWhichTurn('Opponents Turn')
+
     startOpponentTurn()
     
-    playCard();
+    if(opponentCardsinhand.length > 2) {
+      setTimeout(() => {
+        playCard();
+      }, 1000);
+      setTimeout(() => {
+        playCard();
+      }, 2000);
+      setTimeout(() => {
+        playCard();
+      }, 3000);
+
+    } else {
+      playCard();
+    }
+    
     aiAttack();
+
+    setTimeout(() => {
+      deleteSpellFromArr(spellBattlefieldArr)
+    }, 1000);
 
     setTimeout(() => {
       setYourTurn(true);
@@ -72,27 +101,39 @@ const FunctionsComponent = () => {
 
     setTimeout(() => {
       startPlayerTurn()
-    }, 3000);
+    }, 5000);
   };
 
   //On start of player turn
   const startPlayerTurn = () => {
     setGold(gold + 150)
-    let currentHand = cardsinhand;
-    let card = deck[0]
-    deck.splice(0, 1)
-    currentHand.push(card)
-    setCardsInHand(currentHand);
+
+    if(cardsinhand.length > 3){
+      deck.splice(0, 1)
+    } else {
+      let currentHand = cardsinhand;
+      let card = deck[0]
+      deck.splice(0, 1)
+      currentHand.push(card)
+      setCardsInHand(currentHand);
+    }
+    
     setSelectedCard([])
   }
 
   const startOpponentTurn = () => {
-    setGold(gold + 150)
-    let currentOppHand = opponentCardsinhand;
-    let card = opponentDeck[0]
-    opponentDeck.splice(0, 1)
-    currentOppHand.push(card)
-    setopponentCardsinhand(currentOppHand);
+    setOppGold(oppGold + 150)
+
+    if(opponentCardsinhand.length > 3){
+      opponentDeck.splice(0, 1)
+    } else {
+      let currentOppHand = opponentCardsinhand;
+      let card = opponentDeck[0]
+      opponentDeck.splice(0, 1)
+      currentOppHand.push(card)
+      setopponentCardsinhand(currentOppHand);
+    }
+    
   }
 
   const goldErrorReset = () => setEnoughGold(false)
@@ -131,8 +172,6 @@ const FunctionsComponent = () => {
     } else {
       checkBattlefieldLength(battlefieldArr, selectedCard[0])
     }
-    
-    
 
     setTimeout(() => {
         deleteSpellFromArr(spellBattlefieldArr)
@@ -179,12 +218,17 @@ const FunctionsComponent = () => {
   //När en motståndare/bot spelar ett kort
   const playCard = () => {
     
+    console.log(oppGold)
     let number = Math.floor(Math.random() * Math.floor(opponentCardsinhand.length));
     
+    if(opponentCardsinhand[number].cost > oppGold){
+      return;
+    }
 
     if(opponentCardsinhand[number].type === "spell"){
       spellBattlefieldArr.push(opponentCardsinhand[number])
-      deleteSpellFromArr()
+      
+      setOppGold(gold - opponentCardsinhand[number].cost)
       switch (opponentCardsinhand[number].name) {
         case "Quire":
           DrawOneCard(opponentDeck, opponentCardsinhand);
@@ -193,17 +237,20 @@ const FunctionsComponent = () => {
           setTimeout(() => {
             setGold(gold + 100)
           }, 500) 
+          
         break;
 
         default:
           break;
       }
 
+      
+
     } else {
-      console.log("Opp played a character")
       if(opponentBattleField.length === 3){
         return;
       } else {
+        setOppGold(gold - opponentCardsinhand[number].cost)
         opponentBattleArr.push(opponentCardsinhand[number]);
         setOppoentBattleField(opponentBattleArr);
         opponentCardsinhand.splice(number, 1);
@@ -212,9 +259,10 @@ const FunctionsComponent = () => {
   };
 
   const aiAttack = () => {
-    if(opponentBattleField.length === 0){
+    if(opponentBattleField.length === 0 || battlefield.length === 0){
       return;
     }
+
     let cardToAttackWithNumber = Math.floor(Math.random() * Math.floor(opponentBattleField.length));
     let cardToAttackWith = opponentBattleField[cardToAttackWithNumber]
     let cardToAttackToNumber = Math.floor(Math.random() * Math.floor(battlefield.length));
