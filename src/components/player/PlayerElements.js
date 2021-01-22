@@ -1,4 +1,5 @@
 import styled from "styled-components";
+/* import { ReactComponent as Swords} from "../../Img/swords.svg"; */
 import GoldTexture from "../../Img/gold-texture.jpg";
 
 export const PlayerFiledContainer = styled.div`
@@ -64,7 +65,7 @@ export const RightToolBarContainer = styled.div`
   bottom: 0;
   width: 400px;
   height: 400px;
-  margin-right: 2%;
+  margin-right: 9%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -84,3 +85,4 @@ export const Hpcontainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+

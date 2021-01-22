@@ -85,5 +85,9 @@ export const TurnInicator = styled.h2`
   top: 25px;
   left: 25px;
   font-size: 3rem;
+  font-family: "Lobster", cursive;
+  font-weight: normal;
   color: goldenrod;
+  -webkit-text-stroke: 1px black;
+  
 `

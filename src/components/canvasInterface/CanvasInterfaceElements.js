@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { keyframes} from "styled-components";
+import { ReactComponent as Swords} from "../../Img/swords.svg";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBack from "../../Img/card-deck-back.png";
 
@@ -55,8 +56,8 @@ export const AttackButton = styled.button`
 
 export const OpponentHpcontainer = styled.button`
   position: absolute;
-  top:2%;
-  right: 10%;
+  top: 2%;
+  right: 17%;
   width: 100px;
   height: 100px;
   background: none;
@@ -69,4 +70,31 @@ export const OpponentHpcontainer = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+`
+export const AttackText = styled.p`
+  position: absolute;
+  font-family: "Lobster", cursive;
+  font-size: 2rem;
+  bottom: 13.5%;
+  right: 27.7%;
+`
+const MoveSword = keyframes`
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(10deg);
+  }
+`;
+export const StyledSwords = styled(Swords)`
+  position: absolute;
+  z-index: 999;
+  bottom: 6.2%;
+  right: 28%;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+  animation: ${MoveSword} infinite 5s linear;
+
+
 `

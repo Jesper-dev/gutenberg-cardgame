@@ -5,9 +5,9 @@ import {
     EndTurnButton, 
     TurnInicator
 } from "../canvas/CanvasElements";
-import {RightToolBarContainer, Hpcontainer, GoldStatus, LeftToolBarContainer} from "../player/PlayerElements";
+import {RightToolBarContainer, Hpcontainer, GoldStatus, LeftToolBarContainer } from "../player/PlayerElements";
 /* import { PlayCardButton, GoldStatus, LeftToolBarContainer } from "./Player/PlayerElements"; */
-import { OpponentDeckWrapper, PlayerDeckWrapper, VisualDeck, OpponentCardsLeft, PlayerCardsLeft, AttackButton, OpponentHpcontainer } from './CanvasInterfaceElements'
+import { OpponentDeckWrapper, PlayerDeckWrapper, VisualDeck, OpponentCardsLeft, PlayerCardsLeft, AttackButton, OpponentHpcontainer, StyledSwords, AttackText } from './CanvasInterfaceElements'
 
 
 const CanvasInterfaceRender = ({ endTurnFunc, startGame, enoughgold, buttonShow, whichTurn, gold, onPlayCard, hp, deck, oppDeck, attackingFunc, opponentHp }) => {
@@ -44,9 +44,13 @@ const CanvasInterfaceRender = ({ endTurnFunc, startGame, enoughgold, buttonShow,
             
             
             <OpponentHpcontainer>{opponentHp}</OpponentHpcontainer>
-
+            
+            <AttackText>Attack!</AttackText>
+            <StyledSwords onClick={attackingFunc} />
+            
+            
             <RightToolBarContainer>
-            <AttackButton onClick={attackingFunc}>Attack</AttackButton>
+
 
                 <Hpcontainer>{hp}</Hpcontainer>
             </RightToolBarContainer>
@@ -57,3 +61,14 @@ const CanvasInterfaceRender = ({ endTurnFunc, startGame, enoughgold, buttonShow,
 }
 
 export default CanvasInterfaceRender
+
+/* 
+const StyledSwords = styled(Swords)`
+  position: absolute;
+  z-index: 999;
+  bottom: 6.2%;
+  right: 28%;
+  height: 5rem;
+  width: 5rem;
+  cursor: pointer;
+` */
