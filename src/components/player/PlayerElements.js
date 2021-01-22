@@ -20,11 +20,10 @@ export const OpponentCardContainer = styled.div`
 
 export const PlayerCardsContainer = styled.div`
   display: flex;
-  /*  display: none; */
   position: absolute;
   height: 270px;
   bottom: 25px;
-  left: 35%;
+  left: 32%;
 `;
 
 export const GoldStatus = styled.h2`

@@ -3,6 +3,8 @@ import CardBackground from "../../Img/card-background-two.jpg";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 
+
+
 export const CardWrapper = styled.div`
   height: 270px;
   width: 170px;
@@ -18,18 +20,20 @@ export const CardWrapper = styled.div`
 
   box-shadow: 12px 10px 28px 3px #000;
   background: Background;
-  background-image: url(${CardBackground}); /* The image used */
+  background-image: url(${CardBackground}); 
   background-color: #fff; /* Used if the image is unavailable */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   margin-top: 100px;
 
+  
+  
   &:hover {
     cursor: pointer;
-    border: 5px solid red;
     margin-top: 0px;
   }
+
 `;
 
 export const CardName = styled.h3`

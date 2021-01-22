@@ -25,21 +25,20 @@ const CharacterCardBattleField = ({
   id,
   value,
   onAttackCardClick,
-  onDefendingCardClick
+  onDefendingCardClick,
+  onClick,
+  active
 }) => {
   
-  const [highlight, setHighlight] = useState(false);
-
-
-  // style={highlight ? { border: '4px solid yellow'} : { border: 'none'} }
   return (
     <CardWrapper
       value={value}
-      style={highlight ? { border: "2px solid red" } : { border: "none" }}
+      style={active ? { border: "5px solid blue" } : { border: "" }}
       id={id}
       onClick={onAttackCardClick || onDefendingCardClick}
+      onClick={onClick}
     >
-      {/* <button onClick={onPlayCard} style={highlight ? buttonStyle : {display: "none"}}>Play card?</button> */}
+
       <CardName>{name}</CardName>
       <CardImg src={img} />
       <Type>[{type}]</Type>

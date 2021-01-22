@@ -12,7 +12,7 @@ import {
   Type,
   CostHpWrapper,
   HP,
-  Cost,
+  Cost
 } from "./CharacterCardElements";
 
 
@@ -27,31 +27,19 @@ const CharacterCard = ({
   id,
   value,
   cost,
+  cardsinhand,
+  onClick,
+  active
 }) => {
   
-  const [highlight, setHighlight] = useState(false);
-
-  const onCardClick = (e) => {
-    setHighlight(!highlight);
-  };
-
-  // const checkIfAlone = (array) => {
-  //   if (array.length < 1) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
-  // style={highlight ? { border: '4px solid yellow'} : { border: 'none'} }
   return (
     <CardWrapper
       value={value}
-      style={highlight ? { border: "5px solid red" } : { border: "" }}
+      style={active ? { border: "5px solid blue" } : { border: "" }}
       id={id}
-      onClick={onCardClick}
+      onClick={onClick}
     >
-      {/* <button onClick={onPlayCard} style={highlight ? buttonStyle : {display: "none"}}>Play card?</button> */}
+
       <CardName>{name}</CardName>
       <CardImg src={img} draggable={false} />
       <Type>[{type}]</Type>
@@ -67,11 +55,5 @@ const CharacterCard = ({
     </CardWrapper>
   );
 };
-
-// const buttonStyle = {
-//     padding: "5px 5px",
-//     background: "none",
-//     border: "1px solid black"
-// }
 
 export default CharacterCard;

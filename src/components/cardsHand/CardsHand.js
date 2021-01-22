@@ -1,8 +1,10 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import CharacterCard from "../card/CharacterCard";
 import SpellCard from "../card/SpellCard";
 
 const CardsHand = ({ cardsinhand, CheckType, onCardClick }) => {
+    const [chosen, setChosen] = useState();
+
     return (
         <>
             {cardsinhand.map(function (item, i) {
@@ -19,6 +21,9 @@ const CardsHand = ({ cardsinhand, CheckType, onCardClick }) => {
                             descText={item.descText}
                             hp={item.hp}
                             cost={item.cost}
+                            cardsinhand={cardsinhand}
+                            active={item === chosen}
+                            onClick={() => setChosen(item)}
                         />
                     </div>
                 ) : (
