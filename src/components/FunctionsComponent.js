@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Canvas from "./canvas/Canvas";
 import { CardsArray } from "./cardsarray/CardArray";
+import { OpponentCardArray } from "./cardsarray/OpponentCardArray";
 
 let opponentBattleArr = [];
 let battlefieldArr = [];
@@ -34,7 +35,8 @@ const FunctionsComponent = () => {
     }
   };
 
-  const newOpponentHp = newHp => setOpponentHp(newHp)
+  const newOpponentHp = newHp =>  setOpponentHp(newHp)
+  const newPlayerHp = newHp =>  setHp(newHp)
   
   const newOpponentBattleField = (arr) => setOppoentBattleField(arr)
 
@@ -48,43 +50,46 @@ const FunctionsComponent = () => {
     setDeck(CardsArray);
   }, []);
 
+  
+  
+
   const EndTurn = () => {
+    if (yourturn == false){
+      return
+    }
     setYourTurn(false);
     setWhichTurn('Opponents Turn')
-
-    setTimeout(() => {
-      startOpponentTurn(opponentDeck)
-    }, 500)
+    startOpponentTurn()
     
-    playCard(opponentCardsinhand);
+    
+    playCard();
 
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn('Your Turn!')
-      
-    }, 1000);
+    }, 3000);
 
     setTimeout(() => {
-      startPlayerTurn(deck)
-    }, 500);
+      startPlayerTurn()
+    }, 3000);
   };
 
-  const startPlayerTurn = (arr) => {
-    
+  //On start of player turn
+  const startPlayerTurn = () => {
     setGold(gold + 150)
-
     let currentHand = cardsinhand;
-    let card = arr[0]
+    let card = deck[0]
+    deck.splice(0, 1)
     currentHand.push(card)
     setCardsInHand(currentHand);
     setSelectedCard([])
   }
 
-  const startOpponentTurn = (arr) => {
-    setGold(200)
+  const startOpponentTurn = () => {
+    setGold(gold + 150)
     let currentOppHand = opponentCardsinhand;
-    let card = arr[0]
-    arr.splice(0, 1)
+    let card = opponentDeck[0]
+    opponentDeck.splice(0, 1)
     currentOppHand.push(card)
     setopponentCardsinhand(currentOppHand);
   }
@@ -93,7 +98,11 @@ const FunctionsComponent = () => {
     setEnoughGold(false);
   };
 
+  //När en spelare spelar ett kort
   const onPlayCard = () => {
+    if (yourturn == false){
+      return
+    }
     if(selectedCard.length === 0){
       return
     }
@@ -120,24 +129,31 @@ const FunctionsComponent = () => {
   }
 
   const onCardClick = (e) => {
+    if (yourturn == false){
+      return
+    }
     let clicked = e.target.closest("div");
     let card = cardsinhand.filter((x) => x.id === clicked.id);
     setSelectedCard(card);
   };
 
-  const playCard = (arr) => {
+  //När en motståndare/bot spelar ett kort
+  const playCard = () => {
     
     let number = Math.floor(Math.random() * Math.floor(3));
-    opponentBattleArr.push(arr[number]);
-    if(arr[number].type === "spell"){
+    opponentBattleArr.push(opponentCardsinhand[number]);
+
+    if(opponentCardsinhand[number].type === "spell"){
       console.log("Opp played a spell")
     } else {
       console.log("Opp played a character")
     }
     setOppoentBattleField(opponentBattleArr);
-    arr.splice(0, 1);
+    opponentCardsinhand.splice(number, 1);
   };
 
+
+  //När man startar gamet
   const startGame = () => {
     let playerArr = [];
     let opponentArr = [];
@@ -151,7 +167,7 @@ const FunctionsComponent = () => {
   };
 
   useEffect(() => {
-    makeOpponentDeck(CardsArray);
+    makeOpponentDeck(OpponentCardArray);
   }, []);
 
   return (
@@ -174,6 +190,7 @@ const FunctionsComponent = () => {
         gold={gold}
         hp={hp}
         opponentHp={opponentHp}
+        newPlayerHp={newPlayerHp}
         newOpponentHp={newOpponentHp}
         startGameActive={startGameActive}
         deck={deck}

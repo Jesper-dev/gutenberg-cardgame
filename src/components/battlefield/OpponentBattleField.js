@@ -1,5 +1,5 @@
-import React from "react";
-import CharacterCardBattleField from "../card/CharacterCardBattleField";
+import React, { useState} from "react";
+import OppCharBattleField from "../card/OppCharBattleField";
 import SpellCardBattleField from "../card/SpellCardBattleField";
 import {
   BattlefieldContainer,
@@ -7,6 +7,8 @@ import {
 } from "./OpponentBattleFieldElements";
 
 const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick }) => {
+  const [chosenDef, setChosenDef] = useState();
+
   const CheckType = (item) => {
     if (item.type === "spell") {
       return false;
@@ -22,7 +24,7 @@ const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick }) => {
           {opponentBattlefield.map(function (item, i) {
             return CheckType(item) ? (
               <div key={i}>
-                <CharacterCardBattleField
+                <OppCharBattleField
                   /* highlight={highlight} */
                   id={item.id}
                   value={i}
@@ -33,6 +35,8 @@ const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick }) => {
                   def={item.def}
                   descText={item.descText}
                   hp={item.hp}
+                  active={item === chosenDef}
+                  onClick={() => setChosenDef(item)}
                   onDefendingCardClick={onDefendingCardClick}
                 />
               </div>

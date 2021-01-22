@@ -27,16 +27,19 @@ const CharacterCardBattleField = ({
   onAttackCardClick,
   onDefendingCardClick,
   onClick,
-  active
+  active,
+  item,
+  playerClick,
+  setChosenAtk,
+  onPlayerClick
 }) => {
-  
+ 
   return (
     <CardWrapper
       value={value}
       style={active ? { border: "5px solid blue" } : { border: "" }}
       id={id}
-      onClick={onAttackCardClick || onDefendingCardClick}
-      onClick={onClick}
+      onClick={(e) => {onClick(); onAttackCardClick(e)} }
     >
 
       <CardName>{name}</CardName>
@@ -53,11 +56,5 @@ const CharacterCardBattleField = ({
     </CardWrapper>
   );
 };
-
-// const buttonStyle = {
-//     padding: "5px 5px",
-//     background: "none",
-//     border: "1px solid black"
-// }
 
 export default CharacterCardBattleField;

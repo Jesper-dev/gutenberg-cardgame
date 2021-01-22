@@ -7,7 +7,7 @@ import tp1crown from "../../Img/tp1crown.png";
 import quire from "../../Img/quire.png";
 import gold from "../../Img/gold.jpg";
 
-export const CardsArray = [
+export const OpponentCardArray = [
   {
     name: "Jesper 1",
     img: jesperWizard,

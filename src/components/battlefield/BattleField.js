@@ -7,7 +7,7 @@ import {
 } from "./BattleFieldElements";
 
 const BattleField = ({ Battlefield, onAttackCardClick }) => {
-  const [chosen, setChosen] = useState();
+  const [chosenAtk, setChosenAtk] = useState();
 
   const CheckType = (item) => {
     if (item.type === "spell") {
@@ -36,8 +36,8 @@ const BattleField = ({ Battlefield, onAttackCardClick }) => {
                   descText={item.descText}
                   hp={item.hp}
                   onAttackCardClick={onAttackCardClick}
-                  active={item === chosen}
-                  onClick={() => setChosen(item)}
+                  active={item === chosenAtk}
+                  onClick={() => setChosenAtk(item)}
                 />
               </div>
             ) : (

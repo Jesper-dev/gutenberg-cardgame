@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+/* import SelectReducer from "./SelectReducer"; */
 import {
   CardWrapper,
   CardName,
@@ -9,13 +9,12 @@ import {
   Def,
   DescriptionText,
   Type,
-  CostHpWrapper,
+  HPWrapper,
   HP,
-  Cost
-} from "./CharacterCardElements";
+} from "./CharacterCardBattleFieldElements";
 
 
-const CharacterCard = ({
+const OppCharBattleField = ({
   name,
   img,
   type,
@@ -25,34 +24,32 @@ const CharacterCard = ({
   hp,
   id,
   value,
-  cost,
-  cardsinhand,
-  onClick,
-  active
+  onDefendingCardClick,
+  active,
+  onClick
 }) => {
-  
+  // onDefendingCardClick || setChosen
   return (
     <CardWrapper
       value={value}
-      style={active ? { border: "5px solid blue" } : { border: "" }}
+      style={active ? { border: "5px solid red" } : { border: "" }}
       id={id}
-      onClick={onClick}
+      onClick={(e) => {onClick(); onDefendingCardClick(e)} }
     >
 
       <CardName>{name}</CardName>
-      <CardImg src={img} draggable={false} />
+      <CardImg src={img} />
       <Type>[{type}]</Type>
       <AtkDefWrapper>
         <Atk>Atk: {atk}</Atk>
         <Def>Def: {def}</Def>
       </AtkDefWrapper>
       <DescriptionText>{descText}</DescriptionText>
-      <CostHpWrapper>
-        <Cost>Cost: {cost}</Cost>
+      <HPWrapper>
         <HP>HP: {hp}</HP>
-      </CostHpWrapper>
+      </HPWrapper>
     </CardWrapper>
   );
 };
 
-export default CharacterCard;
+export default OppCharBattleField;
