@@ -7,6 +7,7 @@ import OpponentBattleField from "../battlefield/OpponentBattleField";
 import OpponentCardsHandRender from "../cardsHand/OpponentCardsHandRender";
 import CardsHand from "../cardsHand/CardsHand";
 import Player from "../player/Player";
+import SpellShowRender from '../Spelleffects/SpellShowRender'
 import {
   OpponentCardContainer,
   PlayerFiledContainer,
@@ -41,6 +42,7 @@ const Canvas = ({
   newOpponentHp,
   newPlayerHp,
   newOpponentBattleField,
+  spellBattlefieldArr
   
 }) => {
 
@@ -60,8 +62,10 @@ const Canvas = ({
     if(attackingCard.length == 0 || defendingCard.length == 0){
       return;
     } else {
-      compareAtkDefplusHp()
+      compareAtkDefplusHp();
       AtkReduceDefAndHp();
+      setAttackingCard([]);
+      setDefendingCard([]);
     }
   }
 
@@ -178,6 +182,9 @@ const Canvas = ({
       ) : (
         <></>
       )}
+
+
+        <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
 
       <OpponentCardContainer>
         <OpponentCardsHandRender opponentCardsinhand={opponentCardsinhand} />

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import BattleField from "./battlefield/BattleField";
+import OpponentBattleField from "./battlefield/OpponentBattleField";
 import Canvas from "./canvas/Canvas";
 import { CardsArray } from "./cardsarray/CardArray";
 import { OpponentCardArray } from "./cardsarray/OpponentCardArray";
+import {DrawOneCard} from "./Spelleffects/Spells"
 
 let opponentBattleArr = [];
 let battlefieldArr = [];
+let spellBattlefieldArr = [];
 
 const FunctionsComponent = () => {
   const [buttonShow, setButtonShow] = useState(true);
@@ -18,13 +22,13 @@ const FunctionsComponent = () => {
   // const [selected, setSelected] = useState([]);
   const [whichTurn, setWhichTurn] = useState('Your Turn!');
   const [battlefield, setBattlefield] = useState([]);
+  const [spellBattlefield, setSpellBattlefield] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
   const [enoughgold, setEnoughGold] = useState(false);
   const [gold, setGold] = useState(200);
   const [hp, setHp] = useState(5000);
   const [opponentHp, setOpponentHp] = useState(5000);
   const [startGameActive, setStartGameActive] = useState(false);
-
 
   const [cardsinhand, setCardsInHand] = useState([]);
 
@@ -50,9 +54,6 @@ const FunctionsComponent = () => {
     setDeck(CardsArray);
   }, []);
 
-  
-  
-
   const EndTurn = () => {
     if (yourturn == false){
       return
@@ -61,8 +62,8 @@ const FunctionsComponent = () => {
     setWhichTurn('Opponents Turn')
     startOpponentTurn()
     
-    
     playCard();
+    aiAttack();
 
     setTimeout(() => {
       setYourTurn(true);
@@ -94,16 +95,24 @@ const FunctionsComponent = () => {
     setopponentCardsinhand(currentOppHand);
   }
 
-  const goldErrorReset = () => {
-    setEnoughGold(false);
-  };
+  const goldErrorReset = () => setEnoughGold(false)
+  
+  const checkBattlefieldLength = (arr, card) => {
+    if(arr.length === 3){
+      return;
+    } else {
+      arr.push(card)
+      setGold(gold - card.cost);
+      setBattlefield(arr);
+    
+      let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
+      cardsinhand.splice(index, 1);
+    }
+  }
 
   //När en spelare spelar ett kort
   const onPlayCard = () => {
-    if (yourturn == false){
-      return
-    }
-    if(selectedCard.length === 0){
+    if (yourturn == false || selectedCard.length === 0){
       return
     }
     if (selectedCard[0].cost > gold) {
@@ -111,22 +120,52 @@ const FunctionsComponent = () => {
       setTimeout(goldErrorReset, 3000);
       return;
     }
+    
     checkCardType()
-    battlefieldArr.push(selectedCard[0]);
-    setGold(gold - selectedCard[0].cost);
-    setBattlefield(battlefieldArr);
 
-    let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
-    cardsinhand.splice(index, 1);
+    if(selectedCard[0].type === "spell"){
+      spellBattlefieldArr.push(selectedCard[0])
+      setSpellBattlefield(spellBattlefieldArr)
+      let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
+      cardsinhand.splice(index, 1);
+    } else {
+      checkBattlefieldLength(battlefieldArr, selectedCard[0])
+    }
+    
+    
+
+    setTimeout(() => {
+        deleteSpellFromArr(spellBattlefieldArr)
+    }, 500);
   };
+
+  const deleteSpellFromArr = () => {
+    setTimeout(() => {
+      spellBattlefieldArr.splice(0)
+      setSpellBattlefield(spellBattlefield)
+    }, 2000);
+  }
 
   const checkCardType = () => {
     if(selectedCard[0].type === "spell"){
-      console.log("A spell was played")
+      switch (selectedCard[0].name) {
+        case "Quire":
+          DrawOneCard(deck, cardsinhand);  
+        break;
+        case "Money Making Idea":
+          setTimeout(() => {
+            setGold(gold + 100)
+          }, 500) 
+        break;
+
+        default:
+          break;
+      }
     } else {
       console.log("A character card was played")
     }
   }
+
 
   const onCardClick = (e) => {
     if (yourturn == false){
@@ -140,18 +179,56 @@ const FunctionsComponent = () => {
   //När en motståndare/bot spelar ett kort
   const playCard = () => {
     
-    let number = Math.floor(Math.random() * Math.floor(3));
-    opponentBattleArr.push(opponentCardsinhand[number]);
+    let number = Math.floor(Math.random() * Math.floor(opponentCardsinhand.length));
+    
 
     if(opponentCardsinhand[number].type === "spell"){
-      console.log("Opp played a spell")
+      spellBattlefieldArr.push(opponentCardsinhand[number])
+      deleteSpellFromArr()
+      switch (opponentCardsinhand[number].name) {
+        case "Quire":
+          DrawOneCard(opponentDeck, opponentCardsinhand);
+        break;
+        case "Money Making Idea":
+          setTimeout(() => {
+            setGold(gold + 100)
+          }, 500) 
+        break;
+
+        default:
+          break;
+      }
+
     } else {
       console.log("Opp played a character")
+      if(opponentBattleField.length === 3){
+        return;
+      } else {
+        opponentBattleArr.push(opponentCardsinhand[number]);
+        setOppoentBattleField(opponentBattleArr);
+        opponentCardsinhand.splice(number, 1);
+      }
     }
-    setOppoentBattleField(opponentBattleArr);
-    opponentCardsinhand.splice(number, 1);
   };
 
+  const aiAttack = () => {
+    if(opponentBattleField.length === 0){
+      return;
+    }
+    let cardToAttackWithNumber = Math.floor(Math.random() * Math.floor(opponentBattleField.length));
+    let cardToAttackWith = opponentBattleField[cardToAttackWithNumber]
+    let cardToAttackToNumber = Math.floor(Math.random() * Math.floor(battlefield.length));
+    let cardToAttack = battlefield[cardToAttackToNumber]
+
+    let attack = cardToAttackWith.atk;
+    let totalHp = cardToAttack.def + cardToAttack.hp;
+    
+    if(attack > totalHp){
+      let index = battlefield.findIndex((x) => x.id === cardToAttack.id);
+      battlefield.splice(index, 1)
+    }
+    
+  }
 
   //När man startar gamet
   const startGame = () => {
@@ -197,6 +274,7 @@ const FunctionsComponent = () => {
         oppDeck={opponentDeck}
         yourturn={yourturn}
         newOpponentBattleField={newOpponentBattleField}
+        spellBattlefieldArr={spellBattlefieldArr}
         
       />
     </>

@@ -175,7 +175,7 @@ export const OpponentCardArray = [
     id: "jon-seven",
     value: 25,
     descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
-  }
+  },
   /* {
     name: "TinyMCE",
     img: tinymce,
@@ -280,7 +280,7 @@ export const OpponentCardArray = [
     value: 17,
     descText:
       "Give one of your cards the title “scrum-master” and give it +50atk",
-  },
+  },*/
   {
     name: "Quire",
     img: quire,
@@ -315,20 +315,20 @@ export const OpponentCardArray = [
     name: "Money Making Idea",
     img: gold,
     type: "spell",
-    cost: 50,
+    cost: 0,
     id: "money-one",
     value: 21,
     descText:
-      "Get 150 gold",
+      "Get 100 gold",
   },
   {
     name: "Money Making Idea",
     img: gold,
     type: "spell",
-    cost: 50,
+    cost: 0,
     id: "money-two",
     value: 22,
     descText:
-      "Get 150 gold",
-  }, */
+      "Get 100 gold",
+  },
 ];
