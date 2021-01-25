@@ -74,10 +74,23 @@ export const NotEnoughError = styled.h2`
   position: absolute;
   font-family: "Lobster", cursive;
   font-size: 2.4rem;
+  font-weight: normal;
   top: 50%;
   left: 50%;
   transform: translate(-270%, 100%);
   color: gold;
+`;
+export const AlreadyAtked = styled.h2`
+  z-index: 100;
+  position: absolute;
+  font-family: "Lobster", cursive;
+  font-weight: normal;
+  font-size: 2.4rem;
+  top: 68%;
+  left: 35%;
+/*   transform: translate(-100%, 100%); */
+  color: #ff0f0f;
+  -webkit-text-stroke: 1px black;
 `;
 
 export const TurnInicator = styled.h2`

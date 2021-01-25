@@ -66,6 +66,7 @@ export const DescriptionText = styled.p`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  font-size: 0.7rem;
 `;
 
 export const CostWrapper = styled.div`
@@ -76,12 +77,14 @@ export const CostWrapper = styled.div`
 
   display: flex;
   flex-flow: row nowrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
 `;
 
 export const Cost = styled.p`
-  width: 55px;
+  width: 65px;
   height: 20px;
-  color: blue;
+  color: white;
+  margin-left: 10%;
+  margin-bottom: 20%;
 `;

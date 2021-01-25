@@ -4,8 +4,8 @@ import GoldTexture from "../../Img/gold-texture.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 
 export const CardWrapper = styled.div`
-  height: 240px;
-  width: 140px;
+  height: 260px;
+  width: 160px;
   border-radius: 10px;
   border: 5px solid transparent;
   border-image: url(${GoldTexture}) 1;
@@ -34,7 +34,9 @@ export const CardWrapper = styled.div`
 export const CardName = styled.h3`
   margin-top: 2%;
   margin-bottom: 1%;
-  color: grey;
+  color: #000;
+  font-family: "Lobster", cursive;
+  
 `;
 
 export const CardImg = styled.img`
@@ -57,7 +59,7 @@ export const AtkDefWrapper = styled.span`
   align-items: center;
   justify-content: space-between;
   height: 20px;
-  width: 140px;
+  width: 160px;
   margin-top: 0%;
 `;
 
@@ -74,12 +76,13 @@ export const Def = styled.p`
 `;
 
 export const DescriptionText = styled.p`
-  margin-top: 0%;
-  width: 120px;
+  margin-top: 3%;
+  margin-bottom: 0%;
+  width: 150px;
   height: 90px;
   padding: 5px;
 
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   border: 1px solid black;
   border-radius: 4px;
   background: #fff;
@@ -87,10 +90,11 @@ export const DescriptionText = styled.p`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  
 `;
 
 export const HPWrapper = styled.span`
-  margin-top: 2%;
+  margin-top: 0%;
   width: 170px;
   height: 20px;
 

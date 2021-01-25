@@ -93,6 +93,7 @@ export const DescriptionText = styled.p`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  font-size: 0.7rem;
 `;
 
 export const CostHpWrapper = styled.span`
@@ -113,7 +114,7 @@ export const HP = styled.p`
 `;
 
 export const Cost = styled.p`
-  width: 55px;
+  width: 65px;
   height: 20px;
   color: white;
 `;

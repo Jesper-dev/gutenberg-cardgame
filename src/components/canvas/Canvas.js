@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { CanvasWrapper, StartGameButton } from "./CanvasElements";
+import React, {useState, useEffect} from "react";
+import { CanvasWrapper, StartGameButton, AlreadyAtked } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
 import OpponentTurn from "../opponent/OpponentTurn";
 import BattleField from "../battlefield/BattleField";
@@ -20,6 +20,7 @@ let newCardHp = 0;
 let newCardDef = 0;
 let AtkCardNewDef = 0;
 let AtkCardNewHp = 0;
+
 
 const Canvas = ({
   endTurnFunc,
@@ -42,13 +43,18 @@ const Canvas = ({
   newOpponentHp,
   newPlayerHp,
   newOpponentBattleField,
-  spellBattlefieldArr
+  spellBattlefieldArr,
+  setAttackingCard,
+  attackingCard,
+  onAttackCardClick,
+  setAlreadyAtkedCards,
+  attacked
   
 }) => {
 
-  const [attackingCard, setAttackingCard] = useState([])
   const [defendingCard, setDefendingCard] = useState([])
   const [chosenDef, setChosenDef] = useState();
+  const [thiscardhasatked, setThiscardhasatked] = useState(false);
 
   const CheckType = (item) => {
     if (item.type === "spell") {
@@ -61,8 +67,19 @@ const Canvas = ({
   const attackingFunc = () => {
     if(attackingCard.length == 0 || defendingCard.length == 0){
       return;
-    } else {
+    } else if(attacked.includes(attackingCard[0])){
+      setThiscardhasatked(
+        true
+      )
+      setTimeout(() => {
+        setThiscardhasatked(false)
+      }, 2500);
+      return;
+      
+    }else {
+      setAlreadyAtkedCards();
       compareAtkDefplusHp();
+      DefreduceDefAndHp();
       AtkReduceDefAndHp();
       setAttackingCard([]);
       setDefendingCard([]);
@@ -70,84 +87,66 @@ const Canvas = ({
   }
 
   const compareAtkDefplusHp = () => {
-    
-      if(attackingCard[0].atk > defendingCard[0].def + defendingCard[0].hp){
-        reduceOppHp()
-        destroyCard(opponentBattleField, defendingCard)
-        
-      } else {
-        DefreduceDefAndHp();
-      }
-      
+    if(attackingCard[0].atk > defendingCard[0].def + defendingCard[0].hp ){
+      reduceOppHp()
+      destroyCard(opponentBattleField, defendingCard)
+    } else if (defendingCard[0].def === 0 && defendingCard[0].hp === 0) {
+      destroyCard(opponentBattleField, defendingCard)
+      reduceOppHp()
+    } 
   }
 
   const reduceOppHp = () => {
     let attack = attackingCard[0].atk;
-    let def = defendingCard[0].def + defendingCard[0].hp;
-    let damage = attack - def;
+    let total = defendingCard[0].def + defendingCard[0].hp;
+    let damage = attack - total;
+    console.log(damage)
     newOpponentHp(opponentHp - damage)
   }
 
   const reducePlayerHp = () => {
     let attack = defendingCard[0].atk;
-    let def = attackingCard[0].def;
-    let cardHealth = attackingCard[0].hp
-    let total = def + cardHealth;
+    let total = attackingCard[0].def + attackingCard[0].hp;
     let damage = attack - total;
-    let damageTaken = hp - damage
-    newPlayerHp(damageTaken);
+    newPlayerHp(hp - damage);
   }
 
   const DefreduceDefAndHp = () => {
     if(attackingCard[0].atk < defendingCard[0].def){
      newCardDef = defendingCard[0].def - attackingCard[0].atk;
-     return newCardDef
+     defendingCard[0].def = newCardDef;
     } else if (attackingCard[0].atk > defendingCard[0].def) {
       let remainAtk = attackingCard[0].atk - defendingCard[0].def;
       newCardHp = defendingCard[0].hp - remainAtk;
+      defendingCard[0].hp = newCardHp;
+      defendingCard[0].def = 0;
     }
-     
-     defendingCard[0].hp = newCardHp;
-     defendingCard[0].def = 0;
   }
   
   const AtkReduceDefAndHp = () => {
     
     if(defendingCard[0].atk < attackingCard[0].def){
       AtkCardNewDef = attackingCard[0].def - defendingCard[0].atk;
+      attackingCard[0].def = AtkCardNewDef;
      return newCardDef
     } else if (defendingCard[0].atk > attackingCard[0].def) {
       let remainAtk = defendingCard[0].atk - attackingCard[0].def;
       AtkCardNewHp = attackingCard[0].hp - remainAtk;
+      if(AtkCardNewHp <= 0){
+        reducePlayerHp()
+        destroyCard(battlefield, attackingCard)
+      } else {
+        attackingCard[0].hp = AtkCardNewHp;
+        attackingCard[0].def = 0;
+      }
       
     }
-
-    setTimeout(() => {
-      attackingCard[0].hp = AtkCardNewHp;
-      attackingCard[0].def = 0;
-    }, 1000);
-    
-    
-    if(AtkCardNewHp <= 0){
-      reducePlayerHp()
-      destroyCard(battlefield, attackingCard)
-     }
   }
 
   const destroyCard = (arr, card) => {
     let index = arr.findIndex((x) => x.id === card[0].id);
     arr.splice(index, 1)
-    
   }
-  
-
-  const onAttackCardClick = (e) => {
-    let clickedBattleCard = e.target.closest("div");
-    let card = battlefield.filter((x) => x.id === clickedBattleCard.id);
-    setAttackingCard(card);
-  };
-
-
 
   const onDefendingCardClick = (e) => {
     let clickedDefendingCard = e.target.closest("div");
@@ -156,6 +155,17 @@ const Canvas = ({
     setChosenDef(card)
   }
 
+
+  useEffect(() => {
+    console.log('I was RUNED!')
+    if(hp <= 0){
+      alert('YOU LOST YOU FUCKING DOUCHEBAGAKFA!?*"-"1!!#')
+    } else if (opponentHp <= 0){
+      alert('YOU FUCING WON!')
+    }
+  }, [hp, opponentHp])
+
+
   return (
     <CanvasWrapper>
       <OpponentTurn />
@@ -163,7 +173,7 @@ const Canvas = ({
                 START GAME
       </StartGameButton>
             
-     
+     {thiscardhasatked ? <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked> : ''}
       {startGameActive ? (
          <CanvasInterfaceRender
          enoughgold={enoughgold}

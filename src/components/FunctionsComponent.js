@@ -9,6 +9,7 @@ import {DrawOneCard} from "./Spelleffects/Spells"
 let opponentBattleArr = [];
 let battlefieldArr = [];
 let spellBattlefieldArr = [];
+let attackedArray = [];
 
 const FunctionsComponent = () => {
   const [buttonShow, setButtonShow] = useState(true);
@@ -29,6 +30,8 @@ const FunctionsComponent = () => {
   const [spellBattlefield, setSpellBattlefield] = useState([]);
 
   const [selectedCard, setSelectedCard] = useState([]);
+  const [attackingCard, setAttackingCard] = useState([])
+  const [attacked, setAttacked] = useState([]);
   
 
   const [gold, setGold] = useState(200);
@@ -49,6 +52,11 @@ const FunctionsComponent = () => {
     }
   };
 
+  const setAlreadyAtkedCards = () => {
+      attackedArray.push(attackingCard[0]);
+      setAttacked(attackedArray);
+      console.log('this card can no longer atk')
+  }
   const newOpponentHp = newHp =>  setOpponentHp(newHp)
   const newPlayerHp = newHp =>  setHp(newHp)
   
@@ -64,44 +72,45 @@ const FunctionsComponent = () => {
     setDeck(CardsArray);
   }, []);
 
+  const onAttackCardClick = (e) => {
+    let clickedBattleCard = e.target.closest("div");
+    let card = battlefield.filter((x) => x.id === clickedBattleCard.id);
+    setAttackingCard(card);
+  };
+
   const EndTurn = () => {
     if (yourturn == false){
       return
     }
+
+    attackedArray = [];
+    setAttacked(attackedArray)
+
     setYourTurn(false);
     setWhichTurn('Opponents Turn')
 
-    startOpponentTurn()
+    setTimeout(() => {
+      startOpponentTurn()
+    }, 1000);
     
-    if(opponentCardsinhand.length > 2) {
-      setTimeout(() => {
-        playCard();
-      }, 1000);
-      setTimeout(() => {
-        playCard();
-      }, 2000);
-      setTimeout(() => {
-        playCard();
-      }, 3000);
-
-    } else {
-      playCard();
-    }
     
-    aiAttack();
+    
+    
 
     setTimeout(() => {
       deleteSpellFromArr(spellBattlefieldArr)
-    }, 1000);
+    }, 2500);
 
+    
+    setTimeout(() => {
+      aiAttack();
+    }, 3000);
+      
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn('Your Turn!')
-    }, 3000);
-
-    setTimeout(() => {
       startPlayerTurn()
-    }, 5000);
+    }, 6000);
   };
 
   //On start of player turn
@@ -133,6 +142,11 @@ const FunctionsComponent = () => {
       currentOppHand.push(card)
       setopponentCardsinhand(currentOppHand);
     }
+
+    playCard();
+    setTimeout(() => {
+      playCard();
+    }, 2000);
     
   }
 
@@ -165,6 +179,7 @@ const FunctionsComponent = () => {
     checkCardType()
 
     if(selectedCard[0].type === "spell"){
+      setGold(gold - selectedCard[0].cost)
       spellBattlefieldArr.push(selectedCard[0])
       setSpellBattlefield(spellBattlefieldArr)
       let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
@@ -176,6 +191,8 @@ const FunctionsComponent = () => {
     setTimeout(() => {
         deleteSpellFromArr(spellBattlefieldArr)
     }, 500);
+
+    setSelectedCard([])
   };
 
   const deleteSpellFromArr = () => {
@@ -218,7 +235,6 @@ const FunctionsComponent = () => {
   //När en motståndare/bot spelar ett kort
   const playCard = () => {
     
-    console.log(oppGold)
     let number = Math.floor(Math.random() * Math.floor(opponentCardsinhand.length));
     
     if(opponentCardsinhand[number].cost > oppGold){
@@ -227,24 +243,21 @@ const FunctionsComponent = () => {
 
     if(opponentCardsinhand[number].type === "spell"){
       spellBattlefieldArr.push(opponentCardsinhand[number])
-      
       setOppGold(gold - opponentCardsinhand[number].cost)
+
       switch (opponentCardsinhand[number].name) {
         case "Quire":
           DrawOneCard(opponentDeck, opponentCardsinhand);
         break;
         case "Money Making Idea":
           setTimeout(() => {
-            setGold(gold + 100)
+            setOppGold(oppGold + 100)
           }, 500) 
-          
         break;
 
         default:
           break;
       }
-
-      
 
     } else {
       if(opponentBattleField.length === 3){
@@ -272,11 +285,54 @@ const FunctionsComponent = () => {
     let totalHp = cardToAttack.def + cardToAttack.hp;
     
     if(attack > totalHp){
-      let index = battlefield.findIndex((x) => x.id === cardToAttack.id);
-      battlefield.splice(index, 1)
+      if(cardToAttack.atk < cardToAttackWith.def){
+        let newCardDef = cardToAttackWith.def - cardToAttack.atk
+        cardToAttackWith.def = newCardDef;
+      } else if(cardToAttack.atk > cardToAttackWith.def){
+      let remainAtk = cardToAttack.atk - cardToAttackWith.def;
+        let newHp = cardToAttackWith.hp - remainAtk;
+        cardToAttackWith.hp = newHp;
+        cardToAttackWith.def = 0;
+      }
+
+      if(cardToAttackWith.hp <= 0){
+        let cardAttackedAtk = cardToAttack.atk;
+        let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
+        let damage = cardAttackedAtk - totalOppCardHp;
+        setOpponentHp(opponentHp - damage)
+        opponentBattleField.splice(cardToAttackWithNumber, 1)
+      }
+      
+      battlefield.splice(cardToAttackToNumber, 1)
+      let damage = attack - totalHp;
+      setHp(hp - damage)
+
+    } else if(attack < totalHp){
+      if(attack < cardToAttack.def){
+        let newCardDef = cardToAttack.def - attack;
+        cardToAttack.def = newCardDef;
+        if(cardToAttackWith.def > cardToAttack.atk){
+          let newCardToAtkWithDef = cardToAttackWith.def - cardToAttack.atk;
+          cardToAttackWith.def = newCardToAtkWithDef;
+        } else if(cardToAttackWith.def < cardToAttack.atk){
+          let remainingAtk = cardToAttack.atk - cardToAttackWith.def;  
+          let newCardToAtkWithHp = cardToAttackWith.hp - remainingAtk;
+          cardToAttackWith.hp = newCardToAtkWithHp;
+          cardToAttackWith.def = 0;
+        }
+      }
+
+      if(cardToAttackWith.hp <= 0){
+        let cardAttackedAtk = cardToAttack.atk;
+        let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
+        let damage = cardAttackedAtk - totalOppCardHp;
+        setOpponentHp(opponentHp - damage)
+        opponentBattleField.splice(cardToAttackWithNumber, 1)
+      }
     }
-    
   }
+
+  
 
   //När man startar gamet
   const startGame = () => {
@@ -288,7 +344,6 @@ const FunctionsComponent = () => {
     setopponentCardsinhand(opponentArr);
     setButtonShow(false);
     setStartGameActive(true)
-    console.log(startGameActive)
   };
 
   useEffect(() => {
@@ -323,7 +378,11 @@ const FunctionsComponent = () => {
         yourturn={yourturn}
         newOpponentBattleField={newOpponentBattleField}
         spellBattlefieldArr={spellBattlefieldArr}
-        
+        attackingCard={attackingCard}
+        setAttackingCard={setAttackingCard}
+        onAttackCardClick={onAttackCardClick}
+        setAlreadyAtkedCards={setAlreadyAtkedCards}
+        attacked={attacked}
       />
     </>
   );
