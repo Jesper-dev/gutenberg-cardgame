@@ -36,7 +36,8 @@ export const CardWrapper = styled.div`
 export const CardName = styled.h3`
   margin-top: 2%;
   margin-bottom: 1%;
-  color: grey;
+  font-family: "Lobster", cursive;
+  color: #000;
 `;
 
 export const CardImg = styled.img`

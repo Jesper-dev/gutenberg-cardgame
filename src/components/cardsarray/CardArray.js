@@ -316,45 +316,76 @@ export const CardsArray = [
     value: 24,
     descText: "This card summuons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down.",
   },
-  // {
-  //   name: "TinyMCE",
-  //   img: tinymce,
-  //   type: "spell",
-  //   cost: 75,
-  //   id: "tiny-one",
-  //   value: 8,
-  //   descText:
-  //     "Heal 50hp to every card on your board and deal 20 dmg to random opponent.",
-  // },
-  // {
-  //   name: "TinyMCE",
-  //   img: tinymce,
-  //   type: "spell",
-  //   cost: 75,
-  //   id: "tiny-two",
-  //   descText:
-  //     "Heal 50hp to every card on your board and deal 20 dmg to random opponent.",
-  // },
-  // {
-  //   name: "TinyMCE",
-  //   img: tinymce,
-  //   type: "spell",
-  //   cost: 75,
-  //   id: "tiny-three",
-  //   value: 9,
-  //   descText:
-  //     "Heal 50hp to every card on your board and deal 20 dmg to random opponent.",
-  // },
-  // {
-  //   name: "TinyMCE",
-  //   img: tinymce,
-  //   type: "spell",
-  //   cost: 75,
-  //   id: "tiny-four",
-  //   value: 10,
-  //   descText:
-  //     "Heal 50hp to every card on your board and deal 20 dmg to random opponent.",
-  // },
+  {
+    name: "TinyMCE",
+    img: tinymce,
+    type: "spell",
+    cost: 70,
+    id: "tiny-one",
+    value: 25,
+    descText:
+      "Heal 50hp to every friendly card on your board and give +100 def.",
+  },
+  {
+    name: "TinyMCE",
+    img: tinymce,
+    type: "spell",
+    cost: 70,
+    id: "tiny-two",
+    value: 26,
+    descText:
+      "Heal 50hp to every friendly card on your board and give +100 def.",
+  },
+  {
+    name: "TinyMCE",
+    img: tinymce,
+    type: "spell",
+    cost: 70,
+    id: "tiny-three",
+    value: 27,
+    descText:
+      "Heal 50hp to every friendly card on your board and give +100 def.",
+  },
+  {
+    name: "TinyMCE",
+    img: tinymce,
+    type: "spell",
+    cost: 70,
+    id: "tiny-four",
+    value: 28,
+    descText:
+      "Heal 50hp to every friendly card on your board and give +100 def.",
+  },
+  {
+      name: "TP1",
+      img: tp1crown,
+      type: "spell",
+      cost: 50,
+      id: "tp1-one",
+      value: 29,
+      descText:
+        "Give one of your cards the title “scrum-master” and give it +100atk",
+    },
+    {
+      name: "TP1",
+      img: tp1crown,
+      type: "spell",
+      cost: 50,
+      id: "tp1-two",
+      value: 30,
+      descText:
+        "Give one of your cards the title “scrum-master” and give it +100atk",
+    },
+    {
+      name: "TP1",
+      img: tp1crown,
+      type: "spell",
+      cost: 50,
+      id: "tp1-three",
+      value: 31,
+      descText:
+        "Give one of your cards the title “scrum-master” and give it +100atk",
+    },
   // {
   //   name: "Tiny MC Daddy ",
   //   img: tinymcecool,
@@ -391,36 +422,7 @@ export const CardsArray = [
   //   value: 14,
   //   descText: "Dissables all enemy cards on the board for the next round",
   // },
-  // {
-  //   name: "TP1",
-  //   img: tp1crown,
-  //   type: "spell",
-  //   cost: 50,
-  //   id: "tp1-one",
-  //   value: 15,
-  //   descText:
-  //     "Give one of your cards the title “scrum-master” and give it +50atk",
-  // },
-  // {
-  //   name: "TP1",
-  //   img: tp1crown,
-  //   type: "spell",
-  //   cost: 50,
-  //   id: "tp1-two",
-  //   value: 16,
-  //   descText:
-  //     "Give one of your cards the title “scrum-master” and give it +50atk",
-  // },
-  // {
-  //   name: "TP1",
-  //   img: tp1crown,
-  //   type: "spell",
-  //   cost: 50,
-  //   id: "tp1-three",
-  //   value: 17,
-  //   descText:
-  //     "Give one of your cards the title “scrum-master” and give it +50atk",
-  // },
+  // 
   // {
   //   name: "Quire",
   //   img: quire,

@@ -4,7 +4,9 @@ import OpponentBattleField from "./battlefield/OpponentBattleField";
 import Canvas from "./canvas/Canvas";
 import { CardsArray } from "./cardsarray/CardArray";
 import { OpponentCardArray } from "./cardsarray/OpponentCardArray";
-import {DrawOneCard} from "./Spelleffects/Spells"
+import { DrawOneCard, HealEveryCard } from "./Spelleffects/Spells"
+import {startOpponentTurn} from "./opponent/OpponentTurn"
+import { forEach } from "lodash";
 
 let opponentBattleArr = [];
 let battlefieldArr = [];
@@ -89,29 +91,45 @@ const FunctionsComponent = () => {
     setYourTurn(false);
     setWhichTurn('Opponents Turn')
 
-    setTimeout(() => {
-      startOpponentTurn()
-    }, 1000);
-    
-    
-    
-    
+    oppTurn();
 
     setTimeout(() => {
       deleteSpellFromArr(spellBattlefieldArr)
-    }, 2500);
-
-    
-    setTimeout(() => {
-      aiAttack();
-    }, 3000);
+    }, 5000);
       
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn('Your Turn!')
       startPlayerTurn()
-    }, 6000);
+    }, 8000);
   };
+
+  const oppTurn = () => {
+    setOppGold(oppGold + 150)
+    
+    startOpponentTurn()
+    
+    setTimeout(() => {
+      playCard()
+    }, 1000);
+
+    setTimeout(() => {
+      aiAttack()
+    }, 3000);
+  }
+
+  const startOpponentTurn = () => {
+  
+    if(opponentCardsinhand.length > 3){
+      opponentDeck.splice(0, 1)
+    } else {
+      let currentOppHand = opponentCardsinhand;
+      let card = opponentDeck[0]
+      currentOppHand.push(card)
+      opponentDeck.splice(0, 1)
+      setopponentCardsinhand(currentOppHand);
+    }
+  }
 
   //On start of player turn
   const startPlayerTurn = () => {
@@ -130,25 +148,6 @@ const FunctionsComponent = () => {
     setSelectedCard([])
   }
 
-  const startOpponentTurn = () => {
-    setOppGold(oppGold + 150)
-
-    if(opponentCardsinhand.length > 3){
-      opponentDeck.splice(0, 1)
-    } else {
-      let currentOppHand = opponentCardsinhand;
-      let card = opponentDeck[0]
-      opponentDeck.splice(0, 1)
-      currentOppHand.push(card)
-      setopponentCardsinhand(currentOppHand);
-    }
-
-    playCard();
-    setTimeout(() => {
-      playCard();
-    }, 2000);
-    
-  }
 
   const goldErrorReset = () => setEnoughGold(false)
   
@@ -213,7 +212,8 @@ const FunctionsComponent = () => {
             setGold(gold + 100)
           }, 500) 
         break;
-
+        case "TinyMCE":
+          HealEveryCard(battlefield)
         default:
           break;
       }
@@ -234,40 +234,56 @@ const FunctionsComponent = () => {
 
   //När en motståndare/bot spelar ett kort
   const playCard = () => {
-    
-    let number = Math.floor(Math.random() * Math.floor(opponentCardsinhand.length));
-    
-    if(opponentCardsinhand[number].cost > oppGold){
-      return;
-    }
+    let i = 0;
 
-    if(opponentCardsinhand[number].type === "spell"){
-      spellBattlefieldArr.push(opponentCardsinhand[number])
-      setOppGold(gold - opponentCardsinhand[number].cost)
-
-      switch (opponentCardsinhand[number].name) {
-        case "Quire":
-          DrawOneCard(opponentDeck, opponentCardsinhand);
-        break;
-        case "Money Making Idea":
-          setTimeout(() => {
-            setOppGold(oppGold + 100)
-          }, 500) 
-        break;
-
-        default:
-          break;
-      }
-
-    } else {
-      if(opponentBattleField.length === 3){
-        return;
+    for(let i = 0; i < opponentCardsinhand.length;){
+      
+      if(opponentCardsinhand[i].cost > oppGold) {
+        i++
       } else {
-        setOppGold(gold - opponentCardsinhand[number].cost)
-        opponentBattleArr.push(opponentCardsinhand[number]);
-        setOppoentBattleField(opponentBattleArr);
-        opponentCardsinhand.splice(number, 1);
+        
+        let index = opponentCardsinhand.findIndex((x) => x.id === opponentCardsinhand[i].id);
+
+        console.log(opponentCardsinhand[index])
+        if(opponentCardsinhand[index].type === "spell"){
+          
+          spellBattlefieldArr.push(opponentCardsinhand[index])
+          setOppGold(oppGold - opponentCardsinhand[index].cost)
+    
+          switch (opponentCardsinhand[index].name) {
+            case "Quire":
+              DrawOneCard(opponentDeck, opponentCardsinhand);
+            break;
+            case "Money Making Idea":
+              setTimeout(() => {
+                setOppGold(oppGold + 100)
+              }, 500) 
+            break;
+    
+            default:
+              break;
+          }
+
+          let newArr =  opponentCardsinhand.splice(index, 1)
+          setopponentCardsinhand(newArr)
+          
+    
+        } else {
+          if(opponentBattleField.length === 3){
+            console.log("Too many cards in battlefield");
+          } else {
+            setOppGold(oppGold - opponentCardsinhand[index].cost)
+            opponentBattleArr.push(opponentCardsinhand[index]);
+            let newArr = opponentCardsinhand
+            newArr.splice(index, 1)
+            setopponentCardsinhand(newArr)
+            setOppoentBattleField(opponentBattleArr);
+           
+          }
+        }
+        i++
       }
+      
     }
   };
 
@@ -277,9 +293,24 @@ const FunctionsComponent = () => {
     }
 
     let cardToAttackWithNumber = Math.floor(Math.random() * Math.floor(opponentBattleField.length));
-    let cardToAttackWith = opponentBattleField[cardToAttackWithNumber]
-    let cardToAttackToNumber = Math.floor(Math.random() * Math.floor(battlefield.length));
-    let cardToAttack = battlefield[cardToAttackToNumber]
+    let cardToAttackWith = opponentBattleField[cardToAttackWithNumber];
+    let cardToAttackNumber;
+    let cardToAttack;
+
+    console.log("mister AI will attack with", cardToAttackWith)
+    for (let i = 0; i < battlefield.length; i++){
+      if(cardToAttackWith.atk > battlefield[i].def + battlefield[i].hp){
+        cardToAttack = battlefield[i];
+      } else if (cardToAttackWith.atk > battlefield[i].def) {
+        cardToAttack = battlefield[i];
+      } else {
+        cardToAttackNumber = Math.floor(Math.random() * Math.floor(battlefield.length));
+        cardToAttack = battlefield[cardToAttackNumber];
+      }
+
+    }
+
+    console.log("Mister AI will attack", cardToAttack)
 
     let attack = cardToAttackWith.atk;
     let totalHp = cardToAttack.def + cardToAttack.hp;
@@ -303,7 +334,8 @@ const FunctionsComponent = () => {
         opponentBattleField.splice(cardToAttackWithNumber, 1)
       }
       
-      battlefield.splice(cardToAttackToNumber, 1)
+      let index = battlefield.findIndex((x) => x.id === cardToAttack.id);
+      battlefield.splice(index, 1)
       let damage = attack - totalHp;
       setHp(hp - damage)
 
@@ -383,6 +415,7 @@ const FunctionsComponent = () => {
         onAttackCardClick={onAttackCardClick}
         setAlreadyAtkedCards={setAlreadyAtkedCards}
         attacked={attacked}
+        oppGold={oppGold}
       />
     </>
   );

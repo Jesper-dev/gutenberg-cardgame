@@ -13,3 +13,25 @@ export const DrawOneCard = (arr, cardsInHand) => {
     
 }
 
+export const HealEveryCard = (arr) => {
+    for(let i = 0; i < arr.length; i++){
+        
+        let newHp = arr[i].hp + 50;
+
+        if(newHp > 100){
+            let remainHp = newHp - 100;
+            let newHp2 = newHp - remainHp;
+            arr[i].hp = newHp2;
+        } else {
+            arr[i].hp = newHp;
+        }
+        
+        let newDef = arr[i].def + 100;
+        arr[i].def = newDef;
+    }
+}
+
+export const tp1 = () => {
+
+}
+

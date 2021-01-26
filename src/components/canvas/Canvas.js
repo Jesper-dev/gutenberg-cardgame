@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { CanvasWrapper, StartGameButton, AlreadyAtked } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
-import OpponentTurn from "../opponent/OpponentTurn";
+import {OpponentTurn} from "../opponent/OpponentTurn";
 import BattleField from "../battlefield/BattleField";
 import OpponentBattleField from "../battlefield/OpponentBattleField";
 import OpponentCardsHandRender from "../cardsHand/OpponentCardsHandRender";
@@ -37,6 +37,7 @@ const Canvas = ({
   hp,
   opponentHp,
   gold,
+  oppGold,
   startGameActive,
   deck,
   oppDeck,
@@ -194,7 +195,7 @@ const Canvas = ({
       )}
 
 
-        <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
+      <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
 
       <OpponentCardContainer>
         <OpponentCardsHandRender opponentCardsinhand={opponentCardsinhand} />
@@ -207,6 +208,7 @@ const Canvas = ({
       </BattlefieldContainer>
 
       <Player onPlayCard={onPlayCard} hp={hp} />
+      <p>{oppGold}</p>
 
       <PlayerFiledContainer>
 
