@@ -12,7 +12,7 @@ export const CanvasWrapper = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  /* background-color: #58391c; */
+ 
 `;
 export const StartGameButton = styled.button`
   position: absolute;
@@ -53,11 +53,17 @@ export const EndTurnButton = styled.button`
   left: 95%;
   transform: translate(-50%, -100%);
 
-  background: goldenrod;
+  background: Background;
+  background-image: url(${GoldTexture}); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
 
   padding: 10px 30px;
   border-radius: 8px;
   transition: 0.3s ease-in-out;
+  cursor: pointer;
 
   :focus {
     outline: none;

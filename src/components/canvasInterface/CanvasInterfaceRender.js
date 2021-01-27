@@ -7,58 +7,70 @@ import {
 } from "../canvas/CanvasElements";
 import {RightToolBarContainer, Hpcontainer, GoldStatus, LeftToolBarContainer } from "../player/PlayerElements";
 /* import { PlayCardButton, GoldStatus, LeftToolBarContainer } from "./Player/PlayerElements"; */
-import { OpponentDeckWrapper, PlayerDeckWrapper, VisualDeck, OpponentCardsLeft, PlayerCardsLeft, AttackButton, OpponentHpcontainer, StyledSwords, AttackText } from './CanvasInterfaceElements'
+import { OpponentDeckWrapper, PlayerDeckWrapper, VisualDeck, OpponentCardsLeft, PlayerCardsLeft, AttackButton, OpponentHpcontainer, StyledSwords, AttackText, EnemyAvatar } from './CanvasInterfaceElements'
 
 
-const CanvasInterfaceRender = ({ endTurnFunc, startGame, enoughgold, buttonShow, whichTurn, gold, onPlayCard, hp, deck, oppDeck, attackingFunc, opponentHp }) => {
+const CanvasInterfaceRender = ({
+  endTurnFunc,
+  startGame,
+  enoughgold,
+  buttonShow,
+  whichTurn,
+  gold,
+  onPlayCard,
+  hp,
+  deck,
+  oppDeck,
+  attackingFunc,
+  opponentHp,
+  toggleEnemyTarget,
+  enemyTargeted
+}) => {
+  return (
+    <>
+      <OpponentDeckWrapper>
+        <VisualDeck>
+          <OpponentCardsLeft>{oppDeck.length}</OpponentCardsLeft>
+        </VisualDeck>
+      </OpponentDeckWrapper>
+      <PlayerDeckWrapper>
+        <VisualDeck>
+          <PlayerCardsLeft>{deck.length}</PlayerCardsLeft>
+        </VisualDeck>
+      </PlayerDeckWrapper>
 
-
-    return (
-        <>
-           <OpponentDeckWrapper>
-                <VisualDeck><OpponentCardsLeft>{oppDeck.length}</OpponentCardsLeft></VisualDeck>
-            </OpponentDeckWrapper>
-           <PlayerDeckWrapper>
-                <VisualDeck><PlayerCardsLeft>{deck.length}</PlayerCardsLeft></VisualDeck>
-            </PlayerDeckWrapper>
-
-
-            
-            <LeftToolBarContainer>
-
-            <GoldStatus>
-            {gold}{" "}
-            <i
+      <LeftToolBarContainer>
+        <GoldStatus>
+          {gold}{" "}
+          <i
             className="fas fa-coins"
             style={{ fontSize: "2rem", marginLeft: "6px" }}
-                ></i>
-            </GoldStatus>
+          ></i>
+        </GoldStatus>
+      </LeftToolBarContainer>
 
-            </LeftToolBarContainer>
+      <EndTurnButton onClick={endTurnFunc}>End Turn</EndTurnButton>
 
-            <EndTurnButton onClick={endTurnFunc}>End Turn</EndTurnButton>
+      <NotEnoughError
+        style={enoughgold ? { display: "block" } : { display: "none" }}
+      >
+        Not Enough Gold!
+      </NotEnoughError>
 
-            <NotEnoughError style={enoughgold ? { display: "block" } : { display: "none" }} >
-                Not Enough Gold!
-            </NotEnoughError>
-            
-            
-            <OpponentHpcontainer>{opponentHp}</OpponentHpcontainer>
-            
-            <AttackText>Attack!</AttackText>
-            <StyledSwords onClick={attackingFunc} />
-            
-            
-            <RightToolBarContainer>
+      <EnemyAvatar style={!enemyTargeted ? {filter: 'brightness(75%) contrast(150%)' } : {filter: 'brightness(50%) contrast(150%)' } } onClick={toggleEnemyTarget} />
+      <OpponentHpcontainer>{opponentHp}</OpponentHpcontainer>
 
+      <AttackText>Attack!</AttackText>
+      <StyledSwords onClick={attackingFunc} />
 
-                <Hpcontainer>{hp}</Hpcontainer>
-            </RightToolBarContainer>
+      <RightToolBarContainer>
+        <Hpcontainer>{hp}</Hpcontainer>
+      </RightToolBarContainer>
 
-             <TurnInicator>{whichTurn}</TurnInicator>
-        </>
-    )
-}
+      <TurnInicator>{whichTurn}</TurnInicator>
+    </>
+  );
+};
 
 export default CanvasInterfaceRender
 

@@ -6,7 +6,7 @@ import {
   BattlefieldInnerContainer,
 } from "./BattleFieldElements";
 
-const BattleField = ({ Battlefield, onAttackCardClick }) => {
+const BattleField = ({ Battlefield, onAttackCardClick, yourturn }) => {
   const [chosenAtk, setChosenAtk] = useState();
 
   const CheckType = (item) => {
@@ -16,6 +16,8 @@ const BattleField = ({ Battlefield, onAttackCardClick }) => {
       return true;
     }
   };
+  
+  
 
 
   return (
@@ -36,7 +38,7 @@ const BattleField = ({ Battlefield, onAttackCardClick }) => {
                   descText={item.descText}
                   hp={item.hp}
                   onAttackCardClick={onAttackCardClick}
-                  active={item === chosenAtk}
+                  active={yourturn ? item === chosenAtk : false}
                   onClick={() => setChosenAtk(item)}
                 />
               </div>

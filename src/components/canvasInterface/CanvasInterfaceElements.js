@@ -1,5 +1,6 @@
 import styled, { keyframes} from "styled-components";
 import { ReactComponent as Swords} from "../../Img/swords.svg";
+import { ReactComponent as Enemy} from "../../Img/enemy.svg";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBack from "../../Img/card-deck-back.png";
 
@@ -95,6 +96,13 @@ export const StyledSwords = styled(Swords)`
   width: 5rem;
   cursor: pointer;
   animation: ${MoveSword} infinite 5s linear;
-
-
 `
+export const EnemyAvatar = styled(Enemy)`
+  position: absolute;
+ /*  z-index: 9999; */
+  top: -25%;
+  left: 27%;
+  width: 7%;
+  cursor: pointer;
+`;
+

@@ -35,8 +35,19 @@ export const tp1 = (selectedCard) => {
    
     let newAtk = selectedCard.atk + 100;
     selectedCard.atk = newAtk
-    let newName = selectedCard.name + " scrum-master";
-    selectedCard.name = newName;
-
+    if(selectedCard.name.includes("scrum-master")){
+        return;
+    } else {
+        let newName = selectedCard.name + " scrum-master";
+        selectedCard.name = newName;
+    }
 }
+
+export const harmonica = (arr) => {
+    for(let i = 0; i < arr.length; i++){
+        let newDef = arr[i].def - 200;
+        arr[i].def = newDef;
+    }
+}
+
 

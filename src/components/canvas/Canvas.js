@@ -49,14 +49,17 @@ const Canvas = ({
   attackingCard,
   onAttackCardClick,
   setAlreadyAtkedCards,
-  attacked
+  attacked,
+  silenceBot,
+  yourturn
   
 }) => {
-
-  const [defendingCard, setDefendingCard] = useState([])
+  const [defendingCard, setDefendingCard] = useState([]);
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
+  const [enemyTargeted, setEnemeyTarget] = useState(false);
 
+  const toggleEnemyTarget = () => setEnemeyTarget(!enemyTargeted);
   const CheckType = (item) => {
     if (item.type === "spell") {
       return false;
@@ -66,18 +69,35 @@ const Canvas = ({
   };
 
   const attackingFunc = () => {
-    if(attackingCard.length == 0 || defendingCard.length == 0){
+    if (silenceBot == true) {
+      console.log("You are silenced");
       return;
-    } else if(attacked.includes(attackingCard[0])){
-      setThiscardhasatked(
-        true
-      )
+    }
+    if (enemyTargeted === true && opponentBattleField.length === 0) {
+      console.log("Attacked enemy")
+      if (attacked.includes(attackingCard[0])){
+        setThiscardhasatked(true)
+        setTimeout(() => {
+          setThiscardhasatked(false);
+        }, 2500);
+      } else {
+        setAlreadyAtkedCards();
+        if(attackingCard.length === 0){
+          return;
+        }
+        let newOppHp = opponentHp - attackingCard[0].atk;
+        newOpponentHp(newOppHp);
+      }    
+    }
+    if (attackingCard.length == 0 || defendingCard.length == 0) {
+      return;
+    } else if (attacked.includes(attackingCard[0])) {
+      setThiscardhasatked(true);
       setTimeout(() => {
-        setThiscardhasatked(false)
+        setThiscardhasatked(false);
       }, 2500);
       return;
-      
-    }else {
+    } else {
       setAlreadyAtkedCards();
       compareAtkDefplusHp();
       DefreduceDefAndHp();
@@ -85,115 +105,127 @@ const Canvas = ({
       setAttackingCard([]);
       setDefendingCard([]);
     }
-  }
+  };
 
   const compareAtkDefplusHp = () => {
-    if(attackingCard[0].atk > defendingCard[0].def + defendingCard[0].hp ){
-      reduceOppHp()
-      destroyCard(opponentBattleField, defendingCard)
+    if (attackingCard[0].atk > defendingCard[0].def + defendingCard[0].hp) {
+      reduceOppHp();
+      destroyCard(opponentBattleField, defendingCard);
     } else if (defendingCard[0].def === 0 && defendingCard[0].hp === 0) {
-      destroyCard(opponentBattleField, defendingCard)
-      reduceOppHp()
-    } 
-  }
+      destroyCard(opponentBattleField, defendingCard);
+      reduceOppHp();
+    }
+  };
 
   const reduceOppHp = () => {
     let attack = attackingCard[0].atk;
     let total = defendingCard[0].def + defendingCard[0].hp;
     let damage = attack - total;
-    console.log(damage)
-    newOpponentHp(opponentHp - damage)
-  }
+    newOpponentHp(opponentHp - damage);
+  };
 
   const reducePlayerHp = () => {
     let attack = defendingCard[0].atk;
     let total = attackingCard[0].def + attackingCard[0].hp;
     let damage = attack - total;
     newPlayerHp(hp - damage);
-  }
+  };
 
   const DefreduceDefAndHp = () => {
-    if(attackingCard[0].atk < defendingCard[0].def){
-     newCardDef = defendingCard[0].def - attackingCard[0].atk;
-     defendingCard[0].def = newCardDef;
+    if (attackingCard[0].atk <= defendingCard[0].def) {
+      newCardDef = defendingCard[0].def - attackingCard[0].atk;
+      defendingCard[0].def = newCardDef;
     } else if (attackingCard[0].atk > defendingCard[0].def) {
       let remainAtk = attackingCard[0].atk - defendingCard[0].def;
       newCardHp = defendingCard[0].hp - remainAtk;
-      defendingCard[0].hp = newCardHp;
-      defendingCard[0].def = 0;
+      if(newCardHp <= 0){
+        reduceOppHp()
+        destroyCard(opponentBattleField, defendingCard);
+      } else {
+        defendingCard[0].hp = newCardHp;
+        defendingCard[0].def = 0;
+      }
+      
+
+      
     }
-  }
-  
+  };
+
   const AtkReduceDefAndHp = () => {
-    
-    if(defendingCard[0].atk < attackingCard[0].def){
+    if (defendingCard[0].atk < attackingCard[0].def) {
       AtkCardNewDef = attackingCard[0].def - defendingCard[0].atk;
       attackingCard[0].def = AtkCardNewDef;
-     return newCardDef
+      return newCardDef;
     } else if (defendingCard[0].atk > attackingCard[0].def) {
       let remainAtk = defendingCard[0].atk - attackingCard[0].def;
       AtkCardNewHp = attackingCard[0].hp - remainAtk;
-      if(AtkCardNewHp <= 0){
-        reducePlayerHp()
-        destroyCard(battlefield, attackingCard)
+      if (AtkCardNewHp <= 0) {
+        reducePlayerHp();
+        destroyCard(battlefield, attackingCard);
       } else {
         attackingCard[0].hp = AtkCardNewHp;
         attackingCard[0].def = 0;
       }
-      
     }
-  }
+  };
 
   const destroyCard = (arr, card) => {
     let index = arr.findIndex((x) => x.id === card[0].id);
-    arr.splice(index, 1)
-  }
+    arr.splice(index, 1);
+  };
 
   const onDefendingCardClick = (e) => {
     let clickedDefendingCard = e.target.closest("div");
-    let card = opponentBattleField.filter((x) => x.id === clickedDefendingCard.id);
-    setDefendingCard(card)
-    setChosenDef(card)
-  }
-
+    let card = opponentBattleField.filter(
+      (x) => x.id === clickedDefendingCard.id
+    );
+    setDefendingCard(card);
+    setChosenDef(card);
+  };
 
   useEffect(() => {
-    console.log('I was RUNED!')
-    if(hp <= 0){
-      alert('YOU LOST YOU FUCKING DOUCHEBAGAKFA!?*"-"1!!#')
-    } else if (opponentHp <= 0){
-      alert('YOU FUCING WON!')
+    if (hp <= 0) {
+      alert('YOU LOST YOU FUCKING DOUCHEBAGAKFA!?*"-"1!!#');
+    } else if (opponentHp <= 0) {
+      alert("YOU FUCING WON!");
     }
-  }, [hp, opponentHp])
-
+  }, [hp, opponentHp]);
 
   return (
     <CanvasWrapper>
       <OpponentTurn />
-      <StartGameButton style={buttonShow ? { display: "flex" } : { display: "none" }} onClick={startGame}>
-                START GAME
+      <StartGameButton
+        style={buttonShow ? { display: "flex" } : { display: "none" }}
+        onClick={startGame}
+      >
+        START GAME
       </StartGameButton>
-            
-     {thiscardhasatked ? <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked> : ''}
+
+      {thiscardhasatked ? (
+        <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked>
+      ) : (
+        ""
+      )}
       {startGameActive ? (
-         <CanvasInterfaceRender
-         enoughgold={enoughgold}
-         buttonShow={buttonShow}
-         endTurnFunc={endTurnFunc}
-         startGame={startGame}
-         whichTurn={whichTurn}
-         onPlayCard={onPlayCard} 
-         gold={gold}
-         hp={hp}
-         opponentHp={opponentHp}
-         deck={deck}
-         oppDeck={oppDeck}
-         attackingFunc={attackingFunc}
-       />
+        <CanvasInterfaceRender
+          enoughgold={enoughgold}
+          buttonShow={buttonShow}
+          endTurnFunc={endTurnFunc}
+          startGame={startGame}
+          whichTurn={whichTurn}
+          onPlayCard={onPlayCard}
+          gold={gold}
+          hp={hp}
+          opponentHp={opponentHp}
+          deck={deck}
+          oppDeck={oppDeck}
+          attackingFunc={attackingFunc}
+          toggleEnemyTarget={toggleEnemyTarget}
+          enemyTargeted={enemyTargeted}
+        />
       ) : (
         <></>
       )}
-
 
       <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
 
@@ -201,17 +233,23 @@ const Canvas = ({
         <OpponentCardsHandRender opponentCardsinhand={opponentCardsinhand} />
       </OpponentCardContainer>
 
-      <OpponentBattleField onDefendingCardClick={onDefendingCardClick} opponentBattlefield={opponentBattleField} />
+      <OpponentBattleField
+        onDefendingCardClick={onDefendingCardClick}
+        opponentBattlefield={opponentBattleField}
+      />
 
       <BattlefieldContainer>
-        <BattleField onAttackCardClick={onAttackCardClick} Battlefield={battlefield} />
+        <BattleField
+          yourturn={yourturn}
+          onAttackCardClick={onAttackCardClick}
+          Battlefield={battlefield}
+        />
       </BattlefieldContainer>
 
       <Player onPlayCard={onPlayCard} hp={hp} />
       <p>{oppGold}</p>
 
       <PlayerFiledContainer>
-
         <PlayerCardsContainer>
           <CardsHand
             cardsinhand={cardsinhand}
@@ -220,14 +258,12 @@ const Canvas = ({
           />
         </PlayerCardsContainer>
         {startGameActive ? (
-            <PlayCardButton onClick={onPlayCard}>
+          <PlayCardButton onClick={onPlayCard}>
             Play Selected Card!
           </PlayCardButton>
-       
-      ) : (
-        <></>
-      )}
-  
+        ) : (
+          <></>
+        )}
       </PlayerFiledContainer>
     </CanvasWrapper>
   );
