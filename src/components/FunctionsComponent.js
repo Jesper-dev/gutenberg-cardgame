@@ -4,8 +4,8 @@ import OpponentBattleField from "./battlefield/OpponentBattleField";
 import Canvas from "./canvas/Canvas";
 import { CardsArray } from "./cardsarray/CardArray";
 import { OpponentCardArray } from "./cardsarray/OpponentCardArray";
-import { DrawOneCard, HealEveryCard } from "./Spelleffects/Spells"
-import {startOpponentTurn} from "./opponent/OpponentTurn"
+import { DrawOneCard, HealEveryCard, tp1 } from "./Spelleffects/Spells"
+import {startOpponentTurn, reduceHpCard, reduceDefCard} from "./opponent/OpponentTurn"
 import { forEach } from "lodash";
 
 let opponentBattleArr = [];
@@ -45,6 +45,8 @@ const FunctionsComponent = () => {
 
   const [startGameActive, setStartGameActive] = useState(false);
 
+  const [tp1SelectCard, settp1SelectCard] = useState(false);
+
   
 
   const shuffleArray = (array) => {
@@ -78,6 +80,7 @@ const FunctionsComponent = () => {
     let clickedBattleCard = e.target.closest("div");
     let card = battlefield.filter((x) => x.id === clickedBattleCard.id);
     setAttackingCard(card);
+    settp1SelectCard(true)
   };
 
   const EndTurn = () => {
@@ -92,16 +95,12 @@ const FunctionsComponent = () => {
     setWhichTurn('Opponents Turn')
 
     oppTurn();
-
-    setTimeout(() => {
-      deleteSpellFromArr(spellBattlefieldArr)
-    }, 5000);
       
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn('Your Turn!')
       startPlayerTurn()
-    }, 8000);
+    }, 6000);
   };
 
   const oppTurn = () => {
@@ -144,7 +143,8 @@ const FunctionsComponent = () => {
       currentHand.push(card)
       setCardsInHand(currentHand);
     }
-    
+
+    setAttackingCard([])
     setSelectedCard([])
   }
 
@@ -187,10 +187,7 @@ const FunctionsComponent = () => {
       checkBattlefieldLength(battlefieldArr, selectedCard[0])
     }
 
-    setTimeout(() => {
-        deleteSpellFromArr(spellBattlefieldArr)
-    }, 500);
-
+    
     setSelectedCard([])
   };
 
@@ -205,15 +202,43 @@ const FunctionsComponent = () => {
     if(selectedCard[0].type === "spell"){
       switch (selectedCard[0].name) {
         case "Quire":
-          DrawOneCard(deck, cardsinhand);  
+          DrawOneCard(deck, cardsinhand);
+          setTimeout(() => {
+            deleteSpellFromArr(spellBattlefieldArr)
+          }, 1000);
+          
         break;
+        
         case "Money Making Idea":
           setTimeout(() => {
             setGold(gold + 100)
-          }, 500) 
+          }, 500)
+          setTimeout(() => {
+            deleteSpellFromArr(spellBattlefieldArr)
+          }, 1000);
         break;
+
         case "TinyMCE":
           HealEveryCard(battlefield)
+          setTimeout(() => {
+            deleteSpellFromArr(spellBattlefieldArr)
+          }, 1000);
+        break;
+
+        case "TP1":
+          if(battlefield.length === 0){
+            return;
+          }
+          let select = Math.floor(Math.random() * Math.floor(battlefield.length));
+          let selectedCard = battlefield[select]
+          
+          tp1(selectedCard)
+
+          setTimeout(() => {
+            deleteSpellFromArr(spellBattlefieldArr)
+          }, 1000);
+        break;
+
         default:
           break;
       }
@@ -253,11 +278,17 @@ const FunctionsComponent = () => {
           switch (opponentCardsinhand[index].name) {
             case "Quire":
               DrawOneCard(opponentDeck, opponentCardsinhand);
+              setTimeout(() => {
+                deleteSpellFromArr(spellBattlefieldArr)
+              }, 1000);
             break;
             case "Money Making Idea":
               setTimeout(() => {
                 setOppGold(oppGold + 100)
-              }, 500) 
+              }, 500)
+              setTimeout(() => {
+                deleteSpellFromArr(spellBattlefieldArr)
+              }, 1000);
             break;
     
             default:
@@ -297,7 +328,6 @@ const FunctionsComponent = () => {
     let cardToAttackNumber;
     let cardToAttack;
 
-    console.log("mister AI will attack with", cardToAttackWith)
     for (let i = 0; i < battlefield.length; i++){
       if(cardToAttackWith.atk > battlefield[i].def + battlefield[i].hp){
         cardToAttack = battlefield[i];
@@ -310,22 +340,23 @@ const FunctionsComponent = () => {
 
     }
 
-    console.log("Mister AI will attack", cardToAttack)
 
     let attack = cardToAttackWith.atk;
     let totalHp = cardToAttack.def + cardToAttack.hp;
     
     if(attack > totalHp){
+
+      //If attacked cards attack is less than cardToAttackWith def, reduce def
       if(cardToAttack.atk < cardToAttackWith.def){
-        let newCardDef = cardToAttackWith.def - cardToAttack.atk
-        cardToAttackWith.def = newCardDef;
+        
+        reduceDefCard(cardToAttack, cardToAttackWith)
+
+        //If attacked cards atk is more than cardToAttackWith def, reduce hp
       } else if(cardToAttack.atk > cardToAttackWith.def){
-      let remainAtk = cardToAttack.atk - cardToAttackWith.def;
-        let newHp = cardToAttackWith.hp - remainAtk;
-        cardToAttackWith.hp = newHp;
-        cardToAttackWith.def = 0;
+        reduceHpCard(cardToAttack, cardToAttackWith)
       }
 
+      //If card gets destroyed
       if(cardToAttackWith.hp <= 0){
         let cardAttackedAtk = cardToAttack.atk;
         let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
@@ -334,6 +365,7 @@ const FunctionsComponent = () => {
         opponentBattleField.splice(cardToAttackWithNumber, 1)
       }
       
+      //Splice/delete our card
       let index = battlefield.findIndex((x) => x.id === cardToAttack.id);
       battlefield.splice(index, 1)
       let damage = attack - totalHp;
@@ -364,7 +396,6 @@ const FunctionsComponent = () => {
     }
   }
 
-  
 
   //När man startar gamet
   const startGame = () => {

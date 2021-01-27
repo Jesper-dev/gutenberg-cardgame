@@ -31,7 +31,12 @@ export const HealEveryCard = (arr) => {
     }
 }
 
-export const tp1 = () => {
+export const tp1 = (selectedCard) => {
+   
+    let newAtk = selectedCard.atk + 100;
+    selectedCard.atk = newAtk
+    let newName = selectedCard.name + " scrum-master";
+    selectedCard.name = newName;
 
 }
 
