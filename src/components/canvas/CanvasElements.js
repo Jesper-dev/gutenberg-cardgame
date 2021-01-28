@@ -110,3 +110,67 @@ export const TurnInicator = styled.h2`
   -webkit-text-stroke: 1px black;
   
 `
+
+export const WonGamePage = styled.div`
+  position: absolute;
+  background: Background;
+  background-image: url(${Background}); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  height: 100vh; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  top: 0;
+  bottom: 0;
+  left: 0%;
+  right: 0%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+
+`
+
+export const WonGamePageButton = styled.button`
+  position: absolute;
+  z-index: 999999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: Background;
+  background-image: url(${GoldTexture}); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+
+  font-family: "Lobster", cursive;
+  font-size: 2rem;
+  font-weight: normal;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+
+  width: 10vw;
+  height: 8vh;
+
+  transition: 0.8s ease-in-out;
+  :hover {
+    transition: 0.8s ease-in-out;
+    width: 12vw;
+    height: 10vh;
+    font-size: 2.4rem;
+  }
+`
+export const WonGamePageHeader = styled.h1`
+  position: absolute;
+  z-index: 999999;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-weight: normal;
+  font-family: "Lobster", cursive;
+  font-size: 2.3rem;
+
+`

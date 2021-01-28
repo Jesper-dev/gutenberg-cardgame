@@ -489,14 +489,4 @@ export const CardsArray = [
         value: 41,
         descText: "Change the environment to “Espresso House”",
       },
-      {
-        name: "Espresso House",
-        img: espressoHouse,
-        type: "spell",
-        cost: 150,
-        id: "house-two",
-        value: 42,
-        descText: "Change the environment to “Espresso House”",
-      },
-      
 ];

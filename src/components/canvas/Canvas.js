@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { CanvasWrapper, StartGameButton, AlreadyAtked } from "./CanvasElements";
+import { CanvasWrapper, StartGameButton, AlreadyAtked, WonGamePage, WonGamePageButton, WonGamePageHeader } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
 import {OpponentTurn} from "../opponent/OpponentTurn";
 import BattleField from "../battlefield/BattleField";
@@ -59,6 +59,9 @@ const Canvas = ({
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
   const [enemyTargeted, setEnemeyTarget] = useState(false);
 
+  const [lostgame, setLostGame] = useState(false)
+  const [wongame, setWonGame] = useState(false)
+
   const toggleEnemyTarget = () => setEnemeyTarget(!enemyTargeted);
   const CheckType = (item) => {
     if (item.type === "spell") {
@@ -74,7 +77,7 @@ const Canvas = ({
       return;
     }
     if (enemyTargeted === true && opponentBattleField.length === 0) {
-      console.log("Attacked enemy")
+      
       if (attacked.includes(attackingCard[0])){
         setThiscardhasatked(true)
         setTimeout(() => {
@@ -99,21 +102,10 @@ const Canvas = ({
       return;
     } else {
       setAlreadyAtkedCards();
-      compareAtkDefplusHp();
       DefreduceDefAndHp();
       AtkReduceDefAndHp();
       setAttackingCard([]);
       setDefendingCard([]);
-    }
-  };
-
-  const compareAtkDefplusHp = () => {
-    if (attackingCard[0].atk > defendingCard[0].def + defendingCard[0].hp) {
-      reduceOppHp();
-      destroyCard(opponentBattleField, defendingCard);
-    } else if (defendingCard[0].def === 0 && defendingCard[0].hp === 0) {
-      destroyCard(opponentBattleField, defendingCard);
-      reduceOppHp();
     }
   };
 
@@ -145,9 +137,6 @@ const Canvas = ({
         defendingCard[0].hp = newCardHp;
         defendingCard[0].def = 0;
       }
-      
-
-      
     }
   };
 
@@ -185,11 +174,17 @@ const Canvas = ({
 
   useEffect(() => {
     if (hp <= 0) {
-      alert('YOU LOST YOU FUCKING DOUCHEBAGAKFA!?*"-"1!!#');
+      setLostGame(true)
     } else if (opponentHp <= 0) {
-      alert("YOU FUCING WON!");
+      setWonGame(true)
     }
   }, [hp, opponentHp]);
+
+ const restartGame = () => {
+  window.location.reload();
+  return false;
+ }
+
 
   return (
     <CanvasWrapper>
@@ -200,6 +195,9 @@ const Canvas = ({
       >
         START GAME
       </StartGameButton>
+
+      {wongame ? <WonGamePage><WonGamePageHeader>Congratulations! You won over the evil bot! You're the man, champ.</WonGamePageHeader><WonGamePageButton onClick={restartGame}>Restart Game</WonGamePageButton></WonGamePage> : '' }
+      {/* {lostgame ? <LostGamePage></LostGamePage> : ''} */}
 
       {thiscardhasatked ? (
         <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked>

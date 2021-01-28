@@ -36,7 +36,7 @@ const FunctionsComponent = () => {
   const [attacked, setAttacked] = useState([]);
   
 
-  const [gold, setGold] = useState(100);
+  const [gold, setGold] = useState(150);
   const [oppGold, setOppGold] = useState(300)
   const [enoughgold, setEnoughGold] = useState(false);
 
@@ -62,7 +62,6 @@ const FunctionsComponent = () => {
   const setAlreadyAtkedCards = () => {
       attackedArray.push(attackingCard[0]);
       setAttacked(attackedArray);
-      console.log('this card can no longer atk')
   }
   const newOpponentHp = newHp =>  setOpponentHp(newHp)
   const newPlayerHp = newHp =>  setHp(newHp)
@@ -89,14 +88,20 @@ const FunctionsComponent = () => {
     if (yourturn == false){
       return
     }
-
+    
+    console.log(opponentCardsinhand)
     attackedArray = [];
     setAttacked(attackedArray)
 
     setYourTurn(false);
     setWhichTurn('Opponents Turn')
-
+    
+    setSilenceBot(false)
+    botDrawCard();
     oppTurn();
+
+    playCard();
+
       
     setTimeout(() => {
       setYourTurn(true);
@@ -106,38 +111,37 @@ const FunctionsComponent = () => {
   };
 
   const oppTurn = () => {
-    setOppGold(oppGold + 150)
     
-    startOpponentTurn()
-    
-    setTimeout(() => {
-      playCard()
-    }, 1000);
-
     setTimeout(() => {
       aiAttack()
     }, 6000);
   }
 
-  const startOpponentTurn = () => {
-    setSilenceBot(false)
-    if(opponentCardsinhand.length > 3){
+
+  const botDrawCard = () => {
+    if(opponentCardsinhand.length > 4){
       opponentDeck.splice(0, 1)
     } else {
       // let currentOppHand = opponentCardsinhand;
       let card = opponentDeck[0]
-      opponentCardsinhand.push(card)
+      let newHand = opponentCardsinhand;
+      newHand.push(card)
       opponentDeck.splice(0, 1)
-      setopponentCardsinhand(opponentCardsinhand);
+      setopponentCardsinhand(newHand);
     }
   }
 
   //On start of player turn
   const startPlayerTurn = () => {
     setGold(gold + 150)
-    setSilencePlayer(false)
 
-    if(cardsinhand.length > 3){
+    console.log("Opp gold is: ", oppGold)
+    
+    setOppGold(oppGold + 150)
+    setSilencePlayer(false)
+    
+
+    if(cardsinhand.length > 4){
       deck.splice(0, 1)
     } else {
       let currentHand = cardsinhand;
@@ -206,9 +210,9 @@ const FunctionsComponent = () => {
         case "Quire":
           DrawOneCard(deck, cardsinhand);
 
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+          
+          deleteSpellFromArr(spellBattlefieldArr)
+          
         break;
         
         case "Money Making Idea":
@@ -216,31 +220,31 @@ const FunctionsComponent = () => {
             setGold(gold + 100)
           }, 500)
          
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+          
+          deleteSpellFromArr(spellBattlefieldArr)
+          
         break;
 
         case "TinyMCE":
           HealEveryCard(battlefield)
 
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+          deleteSpellFromArr(spellBattlefieldArr)
+          
         break;
 
         case "TP1":
           if(battlefield.length === 0){
             return;
           }
+
           let select = Math.floor(Math.random() * Math.floor(battlefield.length));
           let selectedCard = battlefield[select]
           
           tp1(selectedCard)
 
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+          
+          deleteSpellFromArr(spellBattlefieldArr)
+          
         break;
 
         case "Harmonica":
@@ -248,25 +252,25 @@ const FunctionsComponent = () => {
 
           harmonica(opponentBattleField)
 
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+          
+          deleteSpellFromArr(spellBattlefieldArr)
+         
         break;
 
         case "Tiny MC Daddy":
           setSilencePlayer(true)
           
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+          
+          deleteSpellFromArr(spellBattlefieldArr)
+          
         break;
 
         case "Espresso House":
           setEnvironment("Espresso House")
           
-          setTimeout(() => {
-            deleteSpellFromArr(spellBattlefieldArr)
-          }, 1000);
+         
+          deleteSpellFromArr(spellBattlefieldArr)
+         
         break;
 
         default:
@@ -305,154 +309,132 @@ const FunctionsComponent = () => {
 
   //När en motståndare/bot spelar ett kort
   const playCard = () => {
-    let i = 0;
-
-    for(i; i < opponentCardsinhand.length;){
+  
+    for(let i = 0; i < opponentCardsinhand.length; i++){
       
-      if(opponentCardsinhand[i].cost > oppGold) {
-        i++
-      } else {
-        
-        let index = opponentCardsinhand.findIndex((x) => x.id === opponentCardsinhand[i].id);
+      
+      //Card to be played
+      let card = opponentCardsinhand[i];
 
-        if(opponentCardsinhand[index].type === "spell"){
-
-          spellBattlefieldArr.push(opponentCardsinhand[index])
-          setOppGold(oppGold - opponentCardsinhand[index].cost)
-          
-          switch (opponentCardsinhand[index].name) {
-
-            case "Quire":
-              
-              DrawOneCard(opponentDeck, opponentCardsinhand);
-              
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-            break;
-
-            case "TinyMCE":
-              setTimeout(() => {
-                HealEveryCard(opponentBattleField)
-              }, 1000);
-
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-            break;
-
-            case "Money Making Idea":
-              
-              setTimeout(() => {
-                setOppGold(oppGold + 100)
-              }, 1000)
-
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-
-            break;
-
-            case "TP1":
-
-              if(opponentBattleField.length === 0){
-                setTimeout(() => {
-                  deleteSpellFromArr(spellBattlefieldArr)
-                }, 2000);
+      if(opponentCardsinhand[i].cost < oppGold && opponentCardsinhand[i].typeTwo === 'character' && opponentBattleField.length < 3) {
+      
+        switch (opponentCardsinhand[i].name) {
+          case "Onur":
+              if(environment === "Espresso House"){
+                selectedCard[0].atk = 1300;
+                selectedCard[0].def = 2000;
+              } else {
                 return;
               }
-              setTimeout(() => {
-                let select = Math.floor(Math.random() * Math.floor(opponentBattleField.length));
-                let selectedCard = opponentBattleField[select]
-          
-                tp1(selectedCard)
-              }, 1000);
-
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-
             break;
-
-            case "Harmonica":
-
-              harmonica(battlefield)
-
-              setTimeout(() => {
-                setSilenceBot(true)
-              }, 1000);
-
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-
-            break;
-
-            case "Tiny MC Daddy":
-
-              setTimeout(() => {
-                setSilenceBot(true)
-              }, 1000);
-
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-
-            break;
-
-            case "Espresso House":
-
-              setEnvironment("Espresso House")
-              
-              setTimeout(() => {
-                deleteSpellFromArr(spellBattlefieldArr)
-              }, 1500);
-
-            break;
-    
-            default:
-            break;
-          }
         
-          opponentCardsinhand.splice(index, 1)
-          setopponentCardsinhand(opponentCardsinhand)
- 
-        } else {
-          if(opponentBattleField.length === 3){
-            console.log("Too many cards in battlefield");
-          } else {
-            switch (opponentCardsinhand[index].name) {
-              case "Onur":
-                  if(environment === "Espresso House"){
-                    opponentCardsinhand[index].atk = 3000;
-                    opponentCardsinhand[index].def = 2500;
-                  } else {
-                    return;
-                  }
-                  
-                break;
-            
-              default:
-              break;
-            }
-
-            setOppGold(oppGold - opponentCardsinhand[index].cost)
-            opponentBattleArr.push(opponentCardsinhand[index]);
-
-            setTimeout(() => {
-              let newArr = opponentCardsinhand
-              newArr.splice(index, 1)
-              setopponentCardsinhand(newArr)
-              setOppoentBattleField(opponentBattleArr);
-            }, 500);
-            
-           
-          }
+          default:
+            break;
         }
-        i++
+
+        opponentBattleField.push(card)
+        setOppoentBattleField(opponentBattleField)
+        
+        opponentCardsinhand.splice(i, 1)  
+  
+      } else if (opponentCardsinhand[i].cost < oppGold && opponentCardsinhand[i].type == 'self-spell') {
+
+          checkBotSpell(i)
+          spellBattlefieldArr.push(card)
+          setSpellBattlefield(spellBattlefieldArr)
+
+          opponentCardsinhand.splice(i, 1)
+
+      } else if (opponentCardsinhand[i].cost < oppGold && opponentBattleField.length > 0 && opponentCardsinhand[i].type == 'synergi-spell') {
+          
+          checkBotSpell(i)
+          spellBattlefieldArr.push(card)
+          setSpellBattlefield(spellBattlefieldArr)
+
+          opponentCardsinhand.splice(i, 1)
+          
+      } else if(opponentCardsinhand[i].cost < oppGold && battlefield.length > 0 && opponentCardsinhand[i].type == 'damage-spell') {
+        checkBotSpell(i)
+        spellBattlefieldArr.push(card)
+        setSpellBattlefield(spellBattlefieldArr)
+
+        opponentCardsinhand.splice(i, 1)
+      } else {
+        console.log("lol")
       }
     }
   };
+
+  const checkBotSpell = (index) => {
+    switch (opponentCardsinhand[index].name) {
+
+      case "Quire":
+        
+        DrawOneCard(opponentDeck, opponentCardsinhand);
+        
+        deleteSpellFromArr(spellBattlefieldArr);
+        
+      break;
+
+      case "TinyMCE":
+        setTimeout(() => {
+          HealEveryCard(opponentBattleField);
+        }, 500);
+        
+        deleteSpellFromArr(spellBattlefieldArr);
+        
+      break;
+
+      case "Money Making Idea":
+        setTimeout(() => {
+          setOppGold(oppGold + 100);
+        }, 500); 
+
+        deleteSpellFromArr(spellBattlefieldArr);
+        
+      break;
+
+      case "TP1":
+
+        let select = Math.floor(Math.random() * Math.floor(opponentBattleField.length));
+        let selectedCard = opponentBattleField[select]
+    
+        tp1(selectedCard)
+        
+        deleteSpellFromArr(spellBattlefieldArr);
+        
+      break;
+
+      case "Harmonica":
+
+        harmonica(battlefield);
+
+        setSilenceBot(true);
+        
+        deleteSpellFromArr(spellBattlefieldArr);
+        
+      break;
+
+      case "Tiny MC Daddy":
+
+        setSilenceBot(true);
+        
+        deleteSpellFromArr(spellBattlefieldArr);
+  
+      break;
+
+      case "Espresso House":
+
+        setEnvironment("Espresso House");
+        
+        deleteSpellFromArr(spellBattlefieldArr);
+
+      break;
+
+      default:
+      break;
+    }
+  }
 
   const aiAttack = () => {
     if(opponentBattleField.length === 0 || battlefield.length === 0){
@@ -540,8 +522,8 @@ const FunctionsComponent = () => {
   const startGame = () => {
     let playerArr = [];
     let opponentArr = [];
-    playerArr = deck.splice(0, 3);
-    opponentArr = opponentDeck.splice(0, 3);
+    playerArr = deck.splice(0, 5);
+    opponentArr = opponentDeck.splice(0, 4);
     setCardsInHand(playerArr);
     setopponentCardsinhand(opponentArr);
     setButtonShow(false);

@@ -77,7 +77,7 @@ export const AttackText = styled.p`
   font-family: "Lobster", cursive;
   font-size: 2rem;
   bottom: 13.5%;
-  right: 27.7%;
+  right: 18%;
 `
 const MoveSword = keyframes`
   from {
@@ -91,7 +91,7 @@ export const StyledSwords = styled(Swords)`
   position: absolute;
   z-index: 999;
   bottom: 6.2%;
-  right: 28%;
+  right: 18%;
   height: 5rem;
   width: 5rem;
   cursor: pointer;

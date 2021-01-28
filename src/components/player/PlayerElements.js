@@ -24,7 +24,7 @@ export const PlayerCardsContainer = styled.div`
   position: absolute;
   height: 270px;
   bottom: 25px;
-  left: 32%;
+  left: 25%;
 `;
 
 export const GoldStatus = styled.h2`
@@ -65,7 +65,7 @@ export const RightToolBarContainer = styled.div`
   bottom: 0;
   width: 400px;
   height: 400px;
-  margin-right: 9%;
+  margin-right: 3%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;

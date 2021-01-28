@@ -61,6 +61,7 @@ export const DescriptionText = styled.p`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
+  font-size: 0.7rem;
 `;
 
 export const CostWrapper = styled.div`

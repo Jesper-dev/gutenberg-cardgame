@@ -45,9 +45,14 @@ export const tp1 = (selectedCard) => {
 
 export const harmonica = (arr) => {
     for(let i = 0; i < arr.length; i++){
-        let newDef = arr[i].def - 200;
-        arr[i].def = newDef;
+        if(arr[i].def > 200){
+            let newDef = arr[i].def - 200;
+            arr[i].def = newDef;
+        } else if(arr[i].def <= 200){
+            let newHp = arr[i].hp - 200;
+            arr[i].hp = newHp;
+        } 
+        
     }
 }
-
 
