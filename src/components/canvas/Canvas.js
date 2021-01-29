@@ -1,18 +1,25 @@
-import React, {useState, useEffect} from "react";
-import { CanvasWrapper, StartGameButton, AlreadyAtked, WonGamePage, WonGamePageButton, WonGamePageHeader } from "./CanvasElements";
+import React, { useState, useEffect } from "react";
+import {
+  CanvasWrapper,
+  StartGameButton,
+  AlreadyAtked,
+  WonGamePage,
+  WonGamePageButton,
+  WonGamePageHeader,
+} from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
-import {OpponentTurn} from "../opponent/OpponentTurn";
+import { OpponentTurn } from "../opponent/OpponentTurn";
 import BattleField from "../battlefield/BattleField";
 import OpponentBattleField from "../battlefield/OpponentBattleField";
 import OpponentCardsHandRender from "../cardsHand/OpponentCardsHandRender";
 import CardsHand from "../cardsHand/CardsHand";
 import Player from "../player/Player";
-import SpellShowRender from '../Spelleffects/SpellShowRender'
+import SpellShowRender from "../Spelleffects/SpellShowRender";
 import {
   OpponentCardContainer,
   PlayerFiledContainer,
   PlayerCardsContainer,
-  PlayCardButton
+  PlayCardButton,
 } from "../player/PlayerElements";
 import { BattlefieldContainer } from "../battlefield/BattleFieldElements";
 
@@ -20,7 +27,6 @@ let newCardHp = 0;
 let newCardDef = 0;
 let AtkCardNewDef = 0;
 let AtkCardNewHp = 0;
-
 
 const Canvas = ({
   endTurnFunc,
@@ -51,16 +57,15 @@ const Canvas = ({
   setAlreadyAtkedCards,
   attacked,
   silenceBot,
-  yourturn
-  
+  yourturn,
 }) => {
   const [defendingCard, setDefendingCard] = useState([]);
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
   const [enemyTargeted, setEnemeyTarget] = useState(false);
 
-  const [lostgame, setLostGame] = useState(false)
-  const [wongame, setWonGame] = useState(false)
+  const [lostgame, setLostGame] = useState(false);
+  const [wongame, setWonGame] = useState(false);
 
   const toggleEnemyTarget = () => setEnemeyTarget(!enemyTargeted);
   const CheckType = (item) => {
@@ -77,20 +82,19 @@ const Canvas = ({
       return;
     }
     if (enemyTargeted === true && opponentBattleField.length === 0) {
-      
-      if (attacked.includes(attackingCard[0])){
-        setThiscardhasatked(true)
+      if (attacked.includes(attackingCard[0])) {
+        setThiscardhasatked(true);
         setTimeout(() => {
           setThiscardhasatked(false);
         }, 2500);
       } else {
         setAlreadyAtkedCards();
-        if(attackingCard.length === 0){
+        if (attackingCard.length === 0) {
           return;
         }
         let newOppHp = opponentHp - attackingCard[0].atk;
         newOpponentHp(newOppHp);
-      }    
+      }
     }
     if (attackingCard.length == 0 || defendingCard.length == 0) {
       return;
@@ -130,8 +134,8 @@ const Canvas = ({
     } else if (attackingCard[0].atk > defendingCard[0].def) {
       let remainAtk = attackingCard[0].atk - defendingCard[0].def;
       newCardHp = defendingCard[0].hp - remainAtk;
-      if(newCardHp <= 0){
-        reduceOppHp()
+      if (newCardHp <= 0) {
+        reduceOppHp();
         destroyCard(opponentBattleField, defendingCard);
       } else {
         defendingCard[0].hp = newCardHp;
@@ -141,7 +145,7 @@ const Canvas = ({
   };
 
   const AtkReduceDefAndHp = () => {
-    if (defendingCard[0].atk < attackingCard[0].def) {
+    if (defendingCard[0].atk <= attackingCard[0].def) {
       AtkCardNewDef = attackingCard[0].def - defendingCard[0].atk;
       attackingCard[0].def = AtkCardNewDef;
       return newCardDef;
@@ -174,17 +178,16 @@ const Canvas = ({
 
   useEffect(() => {
     if (hp <= 0) {
-      setLostGame(true)
+      setLostGame(true);
     } else if (opponentHp <= 0) {
-      setWonGame(true)
+      setWonGame(true);
     }
   }, [hp, opponentHp]);
 
- const restartGame = () => {
-  window.location.reload();
-  return false;
- }
-
+  const restartGame = () => {
+    window.location.reload();
+    return false;
+  };
 
   return (
     <CanvasWrapper>
@@ -196,7 +199,18 @@ const Canvas = ({
         START GAME
       </StartGameButton>
 
-      {wongame ? <WonGamePage><WonGamePageHeader>Congratulations! You won over the evil bot! You're the man, champ.</WonGamePageHeader><WonGamePageButton onClick={restartGame}>Restart Game</WonGamePageButton></WonGamePage> : '' }
+      {wongame ? (
+        <WonGamePage>
+          <WonGamePageHeader>
+            Congratulations! You won over the evil bot! You're the man, champ.
+          </WonGamePageHeader>
+          <WonGamePageButton onClick={restartGame}>
+            Restart Game
+          </WonGamePageButton>
+        </WonGamePage>
+      ) : (
+        ""
+      )}
       {/* {lostgame ? <LostGamePage></LostGamePage> : ''} */}
 
       {thiscardhasatked ? (
