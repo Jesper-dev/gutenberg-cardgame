@@ -174,3 +174,11 @@ export const WonGamePageHeader = styled.h1`
   font-size: 2.3rem;
 
 `
+
+export const PlayButton = styled.button`
+position: absolute;
+right: 5%;
+top: 3%;
+width: 60px;
+height: 30px;
+`
