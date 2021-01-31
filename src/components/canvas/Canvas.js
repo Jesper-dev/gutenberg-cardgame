@@ -62,8 +62,15 @@ const Canvas = ({
   attacked,
   silenceBot,
   yourturn,
+  chosenAtk,
+  setChosenAtk,
+  setChosenDefHigh,
+  chosenDefHigh,
+  selCardHand,
+  setSelCardHand,
+  defendingCard,
+  setDefendingCard
 }) => {
-  const [defendingCard, setDefendingCard] = useState([]);
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
   const [enemyTargeted, setEnemeyTarget] = useState(false);
@@ -176,12 +183,17 @@ const Canvas = ({
   };
 
   const onDefendingCardClick = (e) => {
+    if (yourturn == false) {
+      return;
+    }
+
     let clickedDefendingCard = e.target.closest("div");
-    let card = opponentBattleField.filter(
-      (x) => x.id === clickedDefendingCard.id
-    );
-    setDefendingCard(card);
-    setChosenDef(card);
+    let card = opponentBattleField.filter((x) => x.id === clickedDefendingCard.id);
+    if (defendingCard.length === 0) {
+      setDefendingCard(card);
+    } else if (defendingCard[0].id === card[0].id) {
+      setDefendingCard([]);
+    }
   };
 
   useEffect(() => {
@@ -258,6 +270,9 @@ const Canvas = ({
       <OpponentBattleField
         onDefendingCardClick={onDefendingCardClick}
         opponentBattlefield={opponentBattleField}
+        yourturn={yourturn}
+        setChosenDefHigh={setChosenDefHigh}
+        chosenDefHigh={chosenDefHigh}
       />
 
       <BattlefieldContainer>
@@ -265,6 +280,8 @@ const Canvas = ({
           yourturn={yourturn}
           onAttackCardClick={onAttackCardClick}
           Battlefield={battlefield}
+          setChosenAtk={setChosenAtk}
+          chosenAtk={chosenAtk}
         />
       </BattlefieldContainer>
 
@@ -277,6 +294,9 @@ const Canvas = ({
             cardsinhand={cardsinhand}
             onCardClick={onCardClick}
             CheckType={CheckType}
+            setSelCardHand={setSelCardHand}
+            selCardHand={selCardHand}
+            yourturn={yourturn}
           />
         </PlayerCardsContainer>
         {startGameActive ? (

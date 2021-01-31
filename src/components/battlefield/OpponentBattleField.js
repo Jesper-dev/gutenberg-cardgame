@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import OppCharBattleField from "../card/OppCharBattleField";
 import SpellCardBattleField from "../card/SpellCardBattleField";
 import {
@@ -6,8 +6,19 @@ import {
   BattlefieldInnerContainer,
 } from "./OpponentBattleFieldElements";
 
-const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick }) => {
-  const [chosenDef, setChosenDef] = useState();
+const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick, yourturn, chosenDefHigh, setChosenDefHigh }) => {
+
+
+  const highlightCard = (item) => {
+    if (!yourturn) {
+      return
+    }
+    if (item == chosenDefHigh) {
+      setChosenDefHigh()
+    } else {
+      setChosenDefHigh(item)
+    }
+  }
 
   const CheckType = (item) => {
     if (item.type === "spell") {
@@ -35,25 +46,25 @@ const OpponentBattleField = ({ opponentBattlefield, onDefendingCardClick }) => {
                   def={item.def}
                   descText={item.descText}
                   hp={item.hp}
-                  active={item === chosenDef}
-                  onClick={() => setChosenDef(item)}
+                  active={item === chosenDefHigh}
+                  onClick={() => highlightCard(item)}
                   onDefendingCardClick={onDefendingCardClick}
                 />
               </div>
             ) : (
-              <div key={i}>
-                <SpellCardBattleField
-                  id={item.id}
-                  key={i}
-                  name={item.name}
-                  img={item.img}
-                  type={item.type}
-                  descText={item.descText}
-                  cost={item.cost}
-                  onDefendingCardClick={onDefendingCardClick}
-                />
-              </div>
-            );
+                <div key={i}>
+                  <SpellCardBattleField
+                    id={item.id}
+                    key={i}
+                    name={item.name}
+                    img={item.img}
+                    type={item.type}
+                    descText={item.descText}
+                    cost={item.cost}
+                    onDefendingCardClick={onDefendingCardClick}
+                  />
+                </div>
+              );
           })}
         </BattlefieldInnerContainer>
       </BattlefieldContainer>

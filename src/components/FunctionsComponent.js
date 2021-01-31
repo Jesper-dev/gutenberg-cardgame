@@ -32,6 +32,9 @@ const FunctionsComponent = () => {
   const [opponentDeck, setOpponentDeck] = useState([]);
   //   const [opponentCards, setOpponentCards] = useState([]);
   const [yourturn, setYourTurn] = useState(true);
+  const [chosenAtk, setChosenAtk] = useState();
+  const [chosenDefHigh, setChosenDefHigh] = useState();
+  const [selCardHand, setSelCardHand] = useState()
 
   const [cardsinhand, setCardsInHand] = useState([]);
   const [opponentCardsinhand, setopponentCardsinhand] = useState([]);
@@ -44,9 +47,10 @@ const FunctionsComponent = () => {
 
   const [selectedCard, setSelectedCard] = useState([]);
   const [attackingCard, setAttackingCard] = useState([]);
+  const [defendingCard, setDefendingCard] = useState([]);
   const [attacked, setAttacked] = useState([]);
 
-  const [gold, setGold] = useState(150);
+  const [gold, setGold] = useState(350);
   const [oppGold, setOppGold] = useState(300);
   const [enoughgold, setEnoughGold] = useState(false);
 
@@ -90,9 +94,17 @@ const FunctionsComponent = () => {
   }, []);
 
   const onAttackCardClick = (e) => {
+    if (yourturn == false) {
+      return;
+    }
     let clickedBattleCard = e.target.closest("div");
     let card = battlefield.filter((x) => x.id === clickedBattleCard.id);
-    setAttackingCard(card);
+
+    if (attackingCard.length === 0) {
+      setAttackingCard(card);
+    } else if (attackingCard[0].id === card[0].id) {
+      setAttackingCard([])
+    }
   };
 
   const EndTurn = () => {
@@ -104,6 +116,11 @@ const FunctionsComponent = () => {
     attackedArray = [];
     setAttacked(attackedArray);
 
+    setSelCardHand()
+    setChosenAtk()
+    setChosenDefHigh()
+    setAttackingCard([])
+    setDefendingCard([])
     setYourTurn(false);
     setWhichTurn("Opponents Turn");
 
@@ -342,7 +359,12 @@ const FunctionsComponent = () => {
     }
     let clicked = e.target.closest("div");
     let card = cardsinhand.filter((x) => x.id === clicked.id);
-    setSelectedCard(card);
+
+    if (selectedCard.length === 0) {
+      setSelectedCard(card);
+    } else if (selectedCard[0].id === card[0].id) {
+      setSelectedCard([])
+    }
   };
 
   //När en motståndare/bot spelar ett kort
@@ -663,6 +685,14 @@ const FunctionsComponent = () => {
         attacked={attacked}
         oppGold={oppGold}
         silenceBot={silenceBot}
+        chosenAtk={chosenAtk}
+        setChosenAtk={setChosenAtk}
+        chosenDefHigh={chosenDefHigh}
+        setChosenDefHigh={setChosenDefHigh}
+        setSelCardHand={setSelCardHand}
+        selCardHand={selCardHand}
+        setDefendingCard={setDefendingCard}
+        defendingCard={defendingCard}
       />
     </>
   );

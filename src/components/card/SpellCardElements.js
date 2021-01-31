@@ -28,7 +28,6 @@ export const CardWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
-    border: 5px solid yellow;
     margin-top: 0px;
   }
 `;

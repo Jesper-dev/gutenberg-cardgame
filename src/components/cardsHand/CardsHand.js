@@ -1,9 +1,19 @@
-import React,{ useState } from 'react'
+import React, { useState } from 'react'
 import CharacterCard from "../card/CharacterCard";
 import SpellCard from "../card/SpellCard";
 
-const CardsHand = ({ cardsinhand, CheckType, onCardClick }) => {
-    const [chosen, setChosen] = useState();
+const CardsHand = ({ cardsinhand, CheckType, onCardClick, selCardHand, setSelCardHand, yourturn }) => {
+
+    const highlightCard = (item) => {
+        if (!yourturn) {
+            return
+        }
+        if (item == selCardHand) {
+            setSelCardHand()
+        } else {
+            setSelCardHand(item)
+        }
+    }
 
     return (
         <>
@@ -22,8 +32,8 @@ const CardsHand = ({ cardsinhand, CheckType, onCardClick }) => {
                             hp={item.hp}
                             cost={item.cost}
                             cardsinhand={cardsinhand}
-                            active={item === chosen}
-                            onClick={() => setChosen(item)}
+                            active={item === selCardHand}
+                            onClick={() => highlightCard(item)}
                         />
                     </div>
                 ) : (
@@ -36,6 +46,8 @@ const CardsHand = ({ cardsinhand, CheckType, onCardClick }) => {
                                 type={item.type}
                                 descText={item.descText}
                                 cost={item.cost}
+                                active={item === selCardHand}
+                                onClick={() => highlightCard(item)}
                             />
                         </div>
                     );

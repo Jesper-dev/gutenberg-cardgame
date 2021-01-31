@@ -82,7 +82,7 @@ export const Def = styled.p`
 export const DescriptionText = styled.p`
   margin-top: 2%;
   width: 150px;
-  height: px;
+  max-height: 130px;
   overflow: hidden;
   padding: 5px;
   margin-bottom: 0;

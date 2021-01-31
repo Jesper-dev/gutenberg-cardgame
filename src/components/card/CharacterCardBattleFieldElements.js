@@ -34,6 +34,9 @@ export const CardWrapper = styled.div`
 export const CardName = styled.h3`
   margin-top: 2%;
   margin-bottom: 1%;
+  text-align: center;
+  /* max-height: 35px;
+  overflow: hidden; */
   color: #000;
   font-family: "Lobster", cursive;
   
@@ -78,10 +81,10 @@ export const Def = styled.p`
 export const DescriptionText = styled.p`
   margin-top: 3%;
   margin-bottom: 0%;
-  width: 150px;
-  height: 90px;
+  width: 140px;
+  max-height: 65px;
   padding: 5px;
-
+  overflow: hidden;
   font-size: 0.7rem;
   border: 1px solid black;
   border-radius: 4px;
