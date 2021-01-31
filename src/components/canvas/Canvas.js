@@ -7,7 +7,7 @@ import {
   WonGamePageButton,
   WonGamePageHeader,
   PlayButton,
-  MuteButton
+  MuteButton,
 } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
 import { OpponentTurn } from "../opponent/OpponentTurn";
@@ -24,8 +24,8 @@ import {
   PlayCardButton,
 } from "../player/PlayerElements";
 import { BattlefieldContainer } from "../battlefield/BattleFieldElements";
-import useSound from 'use-sound'
-import backMusic from '../../music/background-music.mp3'
+import useSound from "use-sound";
+import backMusic from "../../music/background-music.mp3";
 
 let newCardHp = 0;
 let newCardDef = 0;
@@ -74,7 +74,6 @@ const Canvas = ({
   /*   const soundUrl = '../../music/background-music.mp3' */
 
   const [play] = useSound(backMusic);
-
 
   const toggleEnemyTarget = () => setEnemeyTarget(!enemyTargeted);
   const CheckType = (item) => {
@@ -220,15 +219,15 @@ const Canvas = ({
           </WonGamePageButton>
         </WonGamePage>
       ) : (
-          ""
-        )}
+        ""
+      )}
       {/* {lostgame ? <LostGamePage></LostGamePage> : ''} */}
 
       {thiscardhasatked ? (
         <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked>
       ) : (
-          ""
-        )}
+        ""
+      )}
       {startGameActive ? (
         <CanvasInterfaceRender
           enoughgold={enoughgold}
@@ -247,8 +246,8 @@ const Canvas = ({
           enemyTargeted={enemyTargeted}
         />
       ) : (
-          <></>
-        )}
+        <></>
+      )}
 
       <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
 
@@ -285,8 +284,8 @@ const Canvas = ({
             Play Selected Card!
           </PlayCardButton>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
       </PlayerFiledContainer>
     </CanvasWrapper>
   );

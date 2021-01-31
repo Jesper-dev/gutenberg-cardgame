@@ -15,6 +15,7 @@ import espressoHouse from "../../Img/espressoHouse.jpg";
 import jonPlus from "../../Img/jonPlus.jpg";
 import malware from "../../Img/malware.jpg";
 import coffee from "../../Img/coffee.jpg";
+import anton from "../../Img/anton.png";
 
 export const CardsArray = [
   {
@@ -581,5 +582,31 @@ export const CardsArray = [
     value: 48,
     descText:
       "Give every character on battlefield and in hand with type programmer +250 atk and +150 def",
+  },
+  {
+    name: "Anton",
+    img: anton,
+    type: "Musician",
+    atk: 1000,
+    def: 750,
+    hp: 100,
+    cost: 270,
+    id: "anton-one",
+    value: 49,
+    descText:
+      "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +650 atk",
+  },
+  {
+    name: "Anton",
+    img: anton,
+    type: "Musician",
+    atk: 1000,
+    def: 750,
+    hp: 100,
+    cost: 270,
+    id: "anton-two",
+    value: 50,
+    descText:
+      "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +650 atk",
   },
 ];

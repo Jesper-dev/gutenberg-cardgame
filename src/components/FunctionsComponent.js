@@ -60,6 +60,9 @@ const FunctionsComponent = () => {
 
   const [environment, setEnvironment] = useState("");
 
+  const [harmonicaPlayer, setHarmonicaPlayer] = useState(false);
+  const [harmonicaBot, setHarmonicaBot] = useState(false);
+
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -106,21 +109,19 @@ const FunctionsComponent = () => {
 
     setSilenceBot(false);
     botDrawCard();
-    oppTurn();
+    // oppTurn();
 
     playCard();
+
+    setTimeout(() => {
+      aiAttack();
+    }, 6000);
 
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn("Your Turn!");
       startPlayerTurn();
     }, 10000);
-  };
-
-  const oppTurn = () => {
-    setTimeout(() => {
-      aiAttack();
-    }, 6000);
   };
 
   const botDrawCard = () => {
@@ -208,6 +209,7 @@ const FunctionsComponent = () => {
     }, 2000);
   };
 
+  //För spelaren
   const checkCardType = () => {
     if (selectedCard[0].type === "spell") {
       switch (selectedCard[0].name) {
@@ -254,6 +256,7 @@ const FunctionsComponent = () => {
           setSilencePlayer(true);
 
           harmonica(opponentBattleField);
+          setHarmonicaPlayer(true);
 
           deleteSpellFromArr(spellBattlefieldArr);
 
@@ -302,8 +305,10 @@ const FunctionsComponent = () => {
       switch (selectedCard[0].name) {
         case "Onur":
           if (environment === "Espresso House") {
-            selectedCard[0].atk = 1300;
-            selectedCard[0].def = 2000;
+            let newAtk = selectedCard[0].atk + 500;
+            let newDef = selectedCard[0].def + 500;
+            selectedCard[0].atk = newAtk;
+            selectedCard[0].def = newDef;
           } else {
             return;
           }
@@ -312,6 +317,16 @@ const FunctionsComponent = () => {
 
         case "Gutenberg Mariachi":
           mariachiOnPlay(opponentBattleField);
+
+          break;
+
+        case "Anton":
+          if (harmonicaPlayer === true) {
+            let newAtk = selectedCard[0].atk + 650;
+            selectedCard[0].atk = newAtk;
+          } else {
+            return;
+          }
 
           break;
 
@@ -344,8 +359,10 @@ const FunctionsComponent = () => {
         switch (opponentCardsinhand[i].name) {
           case "Onur":
             if (environment === "Espresso House") {
-              opponentCardsinhand[i].atk = 1300;
-              opponentCardsinhand[i].def = 2000;
+              let newAtk = opponentCardsinhand[i].atk + 500;
+              let newDef = opponentCardsinhand[i].def + 500;
+              opponentCardsinhand[i].atk = newAtk;
+              opponentCardsinhand[i].def = newDef;
             } else {
               return;
             }
@@ -358,6 +375,14 @@ const FunctionsComponent = () => {
             mariachiOnPlay(battlefield);
 
             break;
+
+          case "Anton":
+            if (harmonicaBot === true) {
+              let newAtk = opponentCardsinhand[i].atk + 650;
+              opponentCardsinhand[i].atk = newAtk;
+            } else {
+              return;
+            }
         }
 
         let newOppGold = oppGold - card.cost;
@@ -369,7 +394,7 @@ const FunctionsComponent = () => {
         opponentCardsinhand.splice(i, 1);
       } else if (
         opponentCardsinhand[i].cost < oppGold &&
-        opponentCardsinhand[i].type == "self-spell"
+        opponentCardsinhand[i].type === "self-spell"
       ) {
         let newOppGold = oppGold - card.cost;
         setOppGold(newOppGold);
@@ -382,7 +407,7 @@ const FunctionsComponent = () => {
       } else if (
         opponentCardsinhand[i].cost < oppGold &&
         opponentBattleField.length > 0 &&
-        opponentCardsinhand[i].type == "synergi-spell"
+        opponentCardsinhand[i].type === "synergi-spell"
       ) {
         let newOppGold = oppGold - card.cost;
         setOppGold(newOppGold);
@@ -394,11 +419,12 @@ const FunctionsComponent = () => {
       } else if (
         opponentCardsinhand[i].cost < oppGold &&
         battlefield.length > 0 &&
-        opponentCardsinhand[i].type == "damage-spell"
+        opponentCardsinhand[i].type === "damage-spell"
       ) {
         let newOppGold = oppGold - card.cost;
         setOppGold(newOppGold);
         checkBotSpell(i);
+
         spellBattlefieldArr.push(card);
         setSpellBattlefield(spellBattlefieldArr);
 
@@ -450,6 +476,7 @@ const FunctionsComponent = () => {
         harmonica(battlefield);
 
         setSilenceBot(true);
+        setHarmonicaBot(true);
 
         deleteSpellFromArr(spellBattlefieldArr);
 
