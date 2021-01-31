@@ -524,15 +524,23 @@ const FunctionsComponent = () => {
   };
 
   const aiAttack = () => {
-    if (opponentBattleField.length === 0 || battlefield.length === 0) {
-      return;
-    }
 
+    //Checks states to see which type of attack bot will execute 
     if (silencePlayer === true) {
       console.log("You are silenced");
       return;
+    } else if (opponentBattleField.length === 0) {
+      return;
+    } else if (battlefield.length === 0) {
+      let playerDmg = 0;
+      for (let i = 0; i < opponentBattleField.length; i++) {
+        playerDmg += opponentBattleField[i].atk
+      }
+      setHp(hp - playerDmg)
+      return;
     }
 
+    // This section of code will only execute if both sides have cards in batttle array and if the bot isn't silenced
     let cardToAttackWithNumber = Math.floor(
       Math.random() * Math.floor(opponentBattleField.length)
     );

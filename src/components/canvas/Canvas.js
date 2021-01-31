@@ -212,22 +212,22 @@ const Canvas = ({
       {wongame ? (
         <WonGamePage>
           <WonGamePageHeader>
-            Congratulations! You won over the evil bot! You're the man, champ.
+            Congratulations! You bested the eyepatch dude! Well done. You're the man, champ.
           </WonGamePageHeader>
           <WonGamePageButton onClick={restartGame}>
             Restart Game
           </WonGamePageButton>
         </WonGamePage>
       ) : (
-        ""
-      )}
+          ""
+        )}
       {/* {lostgame ? <LostGamePage></LostGamePage> : ''} */}
 
       {thiscardhasatked ? (
         <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked>
       ) : (
-        ""
-      )}
+          ""
+        )}
       {startGameActive ? (
         <CanvasInterfaceRender
           enoughgold={enoughgold}
@@ -246,8 +246,8 @@ const Canvas = ({
           enemyTargeted={enemyTargeted}
         />
       ) : (
-        <></>
-      )}
+          <></>
+        )}
 
       <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
 
@@ -284,8 +284,8 @@ const Canvas = ({
             Play Selected Card!
           </PlayCardButton>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </PlayerFiledContainer>
     </CanvasWrapper>
   );
