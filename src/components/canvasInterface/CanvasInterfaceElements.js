@@ -1,6 +1,6 @@
-import styled, { keyframes} from "styled-components";
-import { ReactComponent as Swords} from "../../Img/swords.svg";
-import { ReactComponent as Enemy} from "../../Img/enemy.svg";
+import styled, { keyframes } from "styled-components";
+import { ReactComponent as Swords } from "../../Img/swords.svg";
+import { ReactComponent as Enemy } from "../../Img/enemy.svg";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBack from "../../Img/card-deck-back.png";
 
@@ -100,9 +100,11 @@ export const StyledSwords = styled(Swords)`
 export const EnemyAvatar = styled(Enemy)`
   position: absolute;
  /*  z-index: 9999; */
-  top: -25%;
-  left: 27%;
+  top: 2%;
+  left: 30%;
   width: 7%;
+  height: 150px;
   cursor: pointer;
+/*   border: 1px solid black; */
 `;
 

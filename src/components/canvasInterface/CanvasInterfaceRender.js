@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
-    
-    NotEnoughError,
-    EndTurnButton, 
-    TurnInicator
+
+  NotEnoughError,
+  EndTurnButton,
+  TurnInicator
 } from "../canvas/CanvasElements";
-import {RightToolBarContainer, Hpcontainer, GoldStatus, LeftToolBarContainer } from "../player/PlayerElements";
+import { RightToolBarContainer, Hpcontainer, GoldStatus, LeftToolBarContainer } from "../player/PlayerElements";
+import useSound from 'use-sound'
+import swordSfx from "../../music/sword.mp3";
+import enemySfx from "../../music/arr.wav";
 /* import { PlayCardButton, GoldStatus, LeftToolBarContainer } from "./Player/PlayerElements"; */
 import { OpponentDeckWrapper, PlayerDeckWrapper, VisualDeck, OpponentCardsLeft, PlayerCardsLeft, AttackButton, OpponentHpcontainer, StyledSwords, AttackText, EnemyAvatar } from './CanvasInterfaceElements'
 
@@ -26,6 +29,13 @@ const CanvasInterfaceRender = ({
   toggleEnemyTarget,
   enemyTargeted
 }) => {
+
+  const [swordSound] = useSound(swordSfx);
+
+  const [enemySound] = useSound(enemySfx);
+
+
+
   return (
     <>
       <OpponentDeckWrapper>
@@ -57,11 +67,11 @@ const CanvasInterfaceRender = ({
         Not Enough Gold!
       </NotEnoughError>
 
-      <EnemyAvatar style={!enemyTargeted ? {filter: 'brightness(75%) contrast(150%)' } : {filter: 'brightness(50%) contrast(150%)' } } onClick={toggleEnemyTarget} />
+      <EnemyAvatar onMouseEnter={enemySound} style={!enemyTargeted ? { filter: 'brightness(75%) contrast(150%)' } : { filter: 'brightness(50%) contrast(150%)' }} onClick={toggleEnemyTarget} />
       <OpponentHpcontainer>{opponentHp}</OpponentHpcontainer>
 
       <AttackText>Attack!</AttackText>
-      <StyledSwords onClick={attackingFunc} />
+      <StyledSwords onMouseEnter={swordSound} onClick={attackingFunc} />
 
       <RightToolBarContainer>
         <Hpcontainer>{hp}</Hpcontainer>
@@ -74,7 +84,7 @@ const CanvasInterfaceRender = ({
 
 export default CanvasInterfaceRender
 
-/* 
+/*
 const StyledSwords = styled(Swords)`
   position: absolute;
   z-index: 999;
