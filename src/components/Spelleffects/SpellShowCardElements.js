@@ -67,7 +67,7 @@ export const DescriptionText = styled.p`
 export const CostWrapper = styled.div`
   margin-top: 2%;
   margin-right: 5%;
-  width: 170px;
+  width: 180px;
   height: 20px;
 
   display: flex;

@@ -61,10 +61,12 @@ export const Type = styled.p`
 `;
 
 export const DescriptionText = styled.p`
+  font-family: 'EB Garamond', serif;
+  font-weight: 700;
   margin-top: 5%;
   width: 150px;
   height: 80px;
-  padding: 2px 2px;
+  padding: 2px 2px 2px 2px;
   border: 1px solid black;
   border-radius: 4px;
   overflow: hidden;

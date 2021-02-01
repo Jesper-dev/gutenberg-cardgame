@@ -58,7 +58,7 @@ export const AttackButton = styled.button`
 export const OpponentHpcontainer = styled.button`
   position: absolute;
   top: 2%;
-  right: 17%;
+  right: 10.5%;
   width: 100px;
   height: 100px;
   background: none;
@@ -101,7 +101,7 @@ export const EnemyAvatar = styled(Enemy)`
   position: absolute;
  /*  z-index: 9999; */
   top: 2%;
-  left: 30%;
+  left: 23%;
   width: 7%;
   height: 150px;
   cursor: pointer;

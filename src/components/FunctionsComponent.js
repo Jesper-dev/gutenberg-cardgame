@@ -13,18 +13,20 @@ import {
   mariachiOnPlay,
   coffee,
   error,
+  jesperOnPlay,
+  goldenInstrument
 } from "./Spelleffects/Spells";
 import {
   startOpponentTurn,
   reduceHpCard,
   reduceDefCard,
 } from "./opponent/OpponentTurn";
-import { forEach } from "lodash";
 
 let opponentBattleArr = [];
 let battlefieldArr = [];
 let spellBattlefieldArr = [];
 let attackedArray = [];
+let oppGold = 300;
 
 const FunctionsComponent = () => {
   const [buttonShow, setButtonShow] = useState(true);
@@ -51,8 +53,7 @@ const FunctionsComponent = () => {
   const [defendingCard, setDefendingCard] = useState([]);
   const [attacked, setAttacked] = useState([]);
 
-  const [gold, setGold] = useState(350);
-  const [oppGold, setOppGold] = useState(300);
+  const [gold, setGold] = useState(150);
   const [enoughgold, setEnoughGold] = useState(false);
 
   const [hp, setHp] = useState(10000);
@@ -105,6 +106,8 @@ const FunctionsComponent = () => {
       setAttackingCard(card);
     } else if (attackingCard[0].id === card[0].id) {
       setAttackingCard([]);
+    } else {
+      setAttackingCard(card);
     }
   };
 
@@ -159,10 +162,8 @@ const FunctionsComponent = () => {
   const startPlayerTurn = () => {
     setGold(gold + 150);
 
-    console.log("Opp gold is: ", oppGold);
-
     let newOppGold = oppGold + 150;
-    setOppGold(newOppGold);
+    oppGold = newOppGold;
     setSilencePlayer(false);
 
     if (cardsinhand.length > 4) {
@@ -182,7 +183,7 @@ const FunctionsComponent = () => {
   const goldErrorReset = () => setEnoughGold(false);
 
   const checkBattlefieldLength = (arr, card) => {
-    if (arr.length === 3) {
+    if (arr.length === 4) {
       return;
     } else {
       arr.push(card);
@@ -203,21 +204,21 @@ const FunctionsComponent = () => {
       setEnoughGold(true);
       setTimeout(goldErrorReset, 3000);
       return;
+    } else if (selectedCard[0].cost <= gold) {
+      checkCardType();
+
+      if (selectedCard[0].type === "spell") {
+        setGold(gold - selectedCard[0].cost);
+        spellBattlefieldArr.push(selectedCard[0]);
+        setSpellBattlefield(spellBattlefieldArr);
+        let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
+        cardsinhand.splice(index, 1);
+      } else {
+        checkBattlefieldLength(battlefieldArr, selectedCard[0]);
+      }
+
+      setSelectedCard([]);
     }
-
-    checkCardType();
-
-    if (selectedCard[0].type === "spell") {
-      setGold(gold - selectedCard[0].cost);
-      spellBattlefieldArr.push(selectedCard[0]);
-      setSpellBattlefield(spellBattlefieldArr);
-      let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
-      cardsinhand.splice(index, 1);
-    } else {
-      checkBattlefieldLength(battlefieldArr, selectedCard[0]);
-    }
-
-    setSelectedCard([]);
   };
 
   const deleteSpellFromArr = () => {
@@ -323,6 +324,13 @@ const FunctionsComponent = () => {
 
           break;
 
+        case "Golden Instrument":
+          goldenInstrument(battlefield);
+
+          deleteSpellFromArr(spellBattlefieldArr);
+
+          break;
+
         default:
           break;
       }
@@ -355,6 +363,11 @@ const FunctionsComponent = () => {
 
           break;
 
+        case "Jesper":
+          jesperOnPlay(battlefield, selectedCard[0])
+
+          break;
+
         default:
           break;
       }
@@ -362,16 +375,19 @@ const FunctionsComponent = () => {
   };
 
   const onCardClick = (e) => {
-    if (yourturn == false) {
-      return;
-    }
     let clicked = e.target.closest("div");
     let card = cardsinhand.filter((x) => x.id === clicked.id);
+    
+    if (yourturn == false || card[0] === undefined) {
+      return;
+    }
 
     if (selectedCard.length === 0) {
       setSelectedCard(card);
     } else if (selectedCard[0].id === card[0].id) {
       setSelectedCard([]);
+    } else {
+      setSelectedCard(card);
     }
   };
 
@@ -382,52 +398,26 @@ const FunctionsComponent = () => {
       let card = opponentCardsinhand[i];
 
       if (
-        opponentCardsinhand[i].cost < oppGold &&
-        opponentCardsinhand[i].typeTwo === "character" &&
-        opponentBattleField.length < 3
+        card.cost < oppGold &&
+        card.typeTwo === "character" &&
+        opponentBattleField.length < 4
       ) {
-        switch (opponentCardsinhand[i].name) {
-          case "Onur":
-            if (environment === "Espresso House") {
-              let newAtk = opponentCardsinhand[i].atk + 500;
-              let newDef = opponentCardsinhand[i].def + 500;
-              opponentCardsinhand[i].atk = newAtk;
-              opponentCardsinhand[i].def = newDef;
-            } else {
-              return;
-            }
-            break;
 
-          default:
-            break;
-
-          case "Gutenberg Mariachi":
-            mariachiOnPlay(battlefield);
-
-            break;
-
-          case "Anton":
-            if (harmonicaBot === true) {
-              let newAtk = opponentCardsinhand[i].atk + 650;
-              opponentCardsinhand[i].atk = newAtk;
-            } else {
-              return;
-            }
-        }
+        checkBotChar(i)
 
         let newOppGold = oppGold - card.cost;
-        setOppGold(newOppGold);
+        oppGold = newOppGold
 
         opponentBattleField.push(card);
         setOppoentBattleField(opponentBattleField);
 
         opponentCardsinhand.splice(i, 1);
       } else if (
-        opponentCardsinhand[i].cost < oppGold &&
-        opponentCardsinhand[i].type === "self-spell"
+        card.cost < oppGold &&
+        card.type === "self-spell"
       ) {
         let newOppGold = oppGold - card.cost;
-        setOppGold(newOppGold);
+        oppGold = newOppGold;
         checkBotSpell(i);
 
         spellBattlefieldArr.push(card);
@@ -435,24 +425,24 @@ const FunctionsComponent = () => {
 
         opponentCardsinhand.splice(i, 1);
       } else if (
-        opponentCardsinhand[i].cost < oppGold &&
+        card.cost < oppGold &&
         opponentBattleField.length > 0 &&
-        opponentCardsinhand[i].type === "synergi-spell"
+        card.type === "synergi-spell"
       ) {
         let newOppGold = oppGold - card.cost;
-        setOppGold(newOppGold);
+        oppGold = newOppGold
         checkBotSpell(i);
         spellBattlefieldArr.push(card);
         setSpellBattlefield(spellBattlefieldArr);
 
         opponentCardsinhand.splice(i, 1);
       } else if (
-        opponentCardsinhand[i].cost < oppGold &&
+        card.cost < oppGold &&
         battlefield.length > 0 &&
-        opponentCardsinhand[i].type === "damage-spell"
+        card.type === "damage-spell"
       ) {
         let newOppGold = oppGold - card.cost;
-        setOppGold(newOppGold);
+        oppGold = newOppGold
         checkBotSpell(i);
 
         spellBattlefieldArr.push(card);
@@ -464,6 +454,42 @@ const FunctionsComponent = () => {
       }
     }
   };
+
+  const checkBotChar = (i) => {
+    switch (opponentCardsinhand[i].name) {
+      case "Onur":
+        if (environment === "Espresso House") {
+          let newAtk = opponentCardsinhand[i].atk + 500;
+          let newDef = opponentCardsinhand[i].def + 500;
+          opponentCardsinhand[i].atk = newAtk;
+          opponentCardsinhand[i].def = newDef;
+        } else {
+          return;
+        }
+        break;
+
+      default:
+        break;
+
+      case "Gutenberg Mariachi":
+        mariachiOnPlay(battlefield);
+
+        break;
+
+      case "Anton":
+        if (harmonicaBot === true) {
+          let newAtk = opponentCardsinhand[i].atk + 650;
+          opponentCardsinhand[i].atk = newAtk;
+        } else {
+          return;
+        }
+
+      case "Jesper":
+        jesperOnPlay(opponentBattleField, opponentCardsinhand[i])
+
+      break;
+    }
+  }
 
   const checkBotSpell = (index) => {
     switch (opponentCardsinhand[index].name) {
@@ -483,7 +509,8 @@ const FunctionsComponent = () => {
 
       case "Money Making Idea":
         setTimeout(() => {
-          setOppGold(oppGold + 100);
+          let newOppGold = oppGold + 100;
+          oppGold = newOppGold;
         }, 500);
 
         deleteSpellFromArr(spellBattlefieldArr);
@@ -550,6 +577,13 @@ const FunctionsComponent = () => {
 
       case "Error":
         error(battlefield);
+
+        deleteSpellFromArr(spellBattlefieldArr);
+
+        break;
+
+      case "Golden Instrument":
+        goldenInstrument(opponentBattleField);
 
         deleteSpellFromArr(spellBattlefieldArr);
 

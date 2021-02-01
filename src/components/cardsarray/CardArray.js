@@ -17,6 +17,7 @@ import malware from "../../Img/malware.jpg";
 import coffee from "../../Img/coffee.jpg";
 import anton from "../../Img/anton.png";
 import error from "../../Img/error.png";
+import goldenInstrument from "../../Img/goldenInstrument.jpg"
 
 export const CardsArray = [
   {
@@ -24,36 +25,34 @@ export const CardsArray = [
     img: jesperWizard,
     type: "Spellcaster",
     cost: 50,
-    atk: 200,
+    atk: 300,
     def: 500,
     hp: 100,
     id: "wizard-one",
     value: 0,
-    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
   },
   {
     name: "Wizard",
     img: jesperWizard,
     type: "Spellcaster",
     cost: 50,
-    atk: 200,
+    atk: 300,
     def: 500,
     hp: 100,
     id: "wizard-two",
-    value: 1,
-    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
   },
   {
     name: "Wizard",
     img: jesperWizard,
     type: "Spellcaster",
     cost: 50,
-    atk: 200,
+    atk: 300,
     def: 500,
     hp: 100,
     id: "wizard-three",
-    value: 2,
-    descText: "Fearsome spellcaster! Known for its strength and cruelsome.",
+    descText: "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
   },
   {
     name: "Jon",
@@ -64,7 +63,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-one",
-    value: 3,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -77,7 +75,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-two",
-    value: 4,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -90,7 +87,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-three",
-    value: 5,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -103,7 +99,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-four",
-    value: 6,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -116,7 +111,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-five",
-    value: 7,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -129,7 +123,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-six",
-    value: 8,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -142,7 +135,6 @@ export const CardsArray = [
     def: 1000,
     hp: 100,
     id: "jon-seven",
-    value: 9,
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
@@ -155,7 +147,6 @@ export const CardsArray = [
     def: 1200,
     hp: 100,
     id: "karl-one",
-    value: 10,
     descText:
       "This is the mysterious Sexy man once found as the winner of 'world sexiest man alive' in forbes, GQ and many other magazines.",
   },
@@ -168,7 +159,6 @@ export const CardsArray = [
     def: 1200,
     hp: 100,
     id: "karl-one",
-    value: 11,
     descText:
       "This is the mysterious Sexy man once found as the winner of 'world sexiest man alive' in forbes, GQ and many other magazines.",
   },
@@ -181,7 +171,6 @@ export const CardsArray = [
     def: 1200,
     hp: 100,
     id: "karl-two",
-    value: 12,
     descText:
       "This is the mysterious Sexy man once found as the winner of 'world sexiest man alive' in forbes, GQ and many other magazines.",
   },
@@ -194,46 +183,30 @@ export const CardsArray = [
     def: 1200,
     hp: 100,
     id: "karl-three",
-    value: 13,
     descText:
       "This is the mysterious Sexy man once found as the winner of 'world sexiest man alive' in forbes, GQ and many other magazines.",
   },
   {
     name: "Juice Ghost",
     img: kristian,
-    type: "King",
+    type: "Code King",
     cost: 600,
     atk: 2000,
     def: 3500,
     hp: 100,
     id: "juice-one",
-    value: 14,
     descText:
       "The Notorious JuiceGhost. Hide you family, hide your friends. Everythin you know and love can and WILL be gone.",
   },
   {
     name: "Juice Ghost",
     img: kristian,
-    type: "King",
+    type: "Code King",
     cost: 600,
     atk: 2000,
     def: 3500,
     hp: 100,
     id: "juice-two",
-    value: 15,
-    descText:
-      "The Notorious JuiceGhost. Hide you family, hide your friends. Everythin you know and love can and WILL be gone.",
-  },
-  {
-    name: "Juice Ghost",
-    img: kristian,
-    type: "King",
-    cost: 600,
-    atk: 2000,
-    def: 3500,
-    hp: 100,
-    id: "juice-three",
-    value: 16,
     descText:
       "The Notorious JuiceGhost. Hide you family, hide your friends. Everythin you know and love can and WILL be gone.",
   },
@@ -246,9 +219,8 @@ export const CardsArray = [
     def: 1200,
     hp: 100,
     id: "programmer-one",
-    value: 17,
     descText:
-      "He will use code to defeat his enemies, if(enemy exist){destroy it}...",
+      "He will use code to defeat his enemies, for every other programmer on board get +100 atk when played",
   },
   {
     name: "Jesper",
@@ -259,9 +231,8 @@ export const CardsArray = [
     def: 1200,
     hp: 100,
     id: "programmer-two",
-    value: 18,
     descText:
-      "He will use code to defeat his enemies, if(enemy exist){destroy it}...",
+      "He will use code to defeat his enemies, for every other programmer on board get +100 atk when played",
   },
   {
     name: "Harmonica",
@@ -269,7 +240,6 @@ export const CardsArray = [
     type: "spell",
     cost: 250,
     id: "harmonica-one",
-    value: 19,
     descText:
       "It's 8am. Your about to meet with the buyer. All of a sudden Anton plays the harmonica and all enemys are silienced for the next round and damages all enemy card for 200.",
   },
@@ -279,7 +249,6 @@ export const CardsArray = [
     type: "spell",
     cost: 250,
     id: "harmonica-two",
-    value: 20,
     descText:
       "It's 8am. Your about to meet with the buyer. All of a sudden Anton plays the harmonica and all enemys are silienced for the next round and damages all enemy card for 200.",
   },
@@ -289,7 +258,6 @@ export const CardsArray = [
     type: "spell",
     cost: 250,
     id: "harmonica-three",
-    value: 21,
     descText:
       "It's 8am. Your about to meet with the buyer. All of a sudden Anton plays the harmonica and all enemys are silienced for the next round and damages all enemy card for 200.",
   },
@@ -302,9 +270,8 @@ export const CardsArray = [
     hp: 100,
     cost: 350,
     id: "mariachi-one",
-    value: 21,
     descText:
-      "This card summuons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
+      "This card summuons the almighty Mariachi Group that decends from the Gutenberg era. This group deals 150 dmg to all opponents with its mighty music",
   },
   {
     name: "Gutenberg Mariachi",
@@ -315,9 +282,8 @@ export const CardsArray = [
     hp: 100,
     cost: 350,
     id: "mariachi-two",
-    value: 22,
     descText:
-      "This card summons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
+      "This card summons the almighty Mariachi Group that decends from the Gutenberg era. This group deals 150 dmg to all opponents with its mighty music",
   },
   {
     name: "Gutenberg Mariachi",
@@ -328,9 +294,8 @@ export const CardsArray = [
     hp: 100,
     cost: 350,
     id: "mariachi-three",
-    value: 23,
     descText:
-      "This card summons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
+      "This card summons the almighty Mariachi Group that decends from the Gutenberg era. This group deals 150 dmg to all opponents with its mighty music",
   },
   {
     name: "Gutenberg Mariachi",
@@ -341,9 +306,17 @@ export const CardsArray = [
     hp: 100,
     cost: 350,
     id: "mariachi-four",
-    value: 24,
     descText:
-      "This card summons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
+      "This card summons the almighty Mariachi Group that decends from the Gutenberg era. This group deals 150 dmg to all opponents with its mighty music",
+  },
+  {
+    name: "Golden Instrument",
+    img: goldenInstrument,
+    type: "spell",
+    cost: 250,
+    id: "golden-one",
+    descText:
+      "Use this on Gutenberg Mariachi and behold...",
   },
   {
     name: "TinyMCE",
@@ -351,7 +324,6 @@ export const CardsArray = [
     type: "spell",
     cost: 70,
     id: "tiny-one",
-    value: 25,
     descText:
       "Heal 50hp to every friendly card on your board and give +100 def.",
   },
@@ -361,27 +333,6 @@ export const CardsArray = [
     type: "spell",
     cost: 70,
     id: "tiny-two",
-    value: 26,
-    descText:
-      "Heal 50hp to every friendly card on your board and give +100 def.",
-  },
-  {
-    name: "TinyMCE",
-    img: tinymce,
-    type: "spell",
-    cost: 70,
-    id: "tiny-three",
-    value: 27,
-    descText:
-      "Heal 50hp to every friendly card on your board and give +100 def.",
-  },
-  {
-    name: "TinyMCE",
-    img: tinymce,
-    type: "spell",
-    cost: 70,
-    id: "tiny-four",
-    value: 28,
     descText:
       "Heal 50hp to every friendly card on your board and give +100 def.",
   },
@@ -391,9 +342,8 @@ export const CardsArray = [
     type: "spell",
     cost: 50,
     id: "tp1-one",
-    value: 29,
     descText:
-      "Give one random card the title “scrum-master” and give it +100atk",
+      "Give one random card the title “scrum-master” and give it +200atk",
   },
   {
     name: "TP1",
@@ -401,9 +351,8 @@ export const CardsArray = [
     type: "spell",
     cost: 50,
     id: "tp1-two",
-    value: 30,
     descText:
-      "Give one random card the title “scrum-master” and give it +100atk",
+      "Give one random card the title “scrum-master” and give it +200atk",
   },
   {
     name: "TP1",
@@ -411,9 +360,8 @@ export const CardsArray = [
     type: "spell",
     cost: 50,
     id: "tp1-three",
-    value: 31,
     descText:
-      "Give one random card the title “scrum-master” and give it +100atk",
+      "Give one random card the title “scrum-master” and give it +200atk",
   },
   {
     name: "Quire",
@@ -421,7 +369,6 @@ export const CardsArray = [
     type: "spell",
     cost: 25,
     id: "quire-one",
-    value: 32,
     descText: "Draw one card",
   },
   {
@@ -430,7 +377,6 @@ export const CardsArray = [
     type: "spell",
     cost: 25,
     id: "quire-two",
-    value: 33,
     descText: "Draw one card",
   },
 
@@ -440,7 +386,6 @@ export const CardsArray = [
     type: "spell",
     cost: 0,
     id: "money-one",
-    value: 34,
     descText: "Get 100 gold",
   },
   {
@@ -449,7 +394,6 @@ export const CardsArray = [
     type: "spell",
     cost: 0,
     id: "money-two",
-    value: 35,
     descText: "Get 100 gold",
   },
   {
@@ -457,17 +401,7 @@ export const CardsArray = [
     img: tinymcecool,
     type: "spell",
     cost: 100,
-    id: "tiny-mc-one",
-    value: 36,
-    descText: "Dissables all enemy cards on the board for the next round",
-  },
-  {
-    name: "Tiny MC Daddy",
-    img: tinymcecool,
-    type: "spell",
-    cost: 100,
     id: "tiny-mc-two",
-    value: 37,
     descText: "Dissables all enemy cards on the board for the next round",
   },
   {
@@ -476,7 +410,6 @@ export const CardsArray = [
     type: "spell",
     cost: 100,
     id: "tiny-mc-three",
-    value: 38,
     descText: "Dissables all enemy cards on the board for the next round",
   },
   {
@@ -488,7 +421,6 @@ export const CardsArray = [
     hp: 100,
     cost: 250,
     id: "onur-one",
-    value: 39,
     descText:
       "If the environment is “espresso house” this card gets +500 atk and +500 def",
   },
@@ -501,7 +433,6 @@ export const CardsArray = [
     hp: 100,
     cost: 250,
     id: "onur-two",
-    value: 40,
     descText:
       "If the environment is “espresso house” this card gets +500 atk and +500 def",
   },
@@ -511,7 +442,6 @@ export const CardsArray = [
     type: "spell",
     cost: 150,
     id: "house-one",
-    value: 41,
     descText: "Change the environment to “Espresso House”",
   },
   {
@@ -520,7 +450,6 @@ export const CardsArray = [
     type: "spell",
     cost: 200,
     id: "jonUpgrade-one",
-    value: 42,
     descText:
       "Give every Jon on the battlefield, in your hand and deck, +500 atk and +300 def.",
   },
@@ -530,7 +459,6 @@ export const CardsArray = [
     type: "spell",
     cost: 200,
     id: "malware-one",
-    value: 43,
     descText:
       "This malware affects your opponent. Deal 100 dmg directly to your opponent.",
   },
@@ -540,7 +468,6 @@ export const CardsArray = [
     type: "spell",
     cost: 200,
     id: "malware-two",
-    value: 44,
     descText:
       "This malware affects your opponent. Deal 100 dmg directly to your opponent.",
   },
@@ -550,7 +477,6 @@ export const CardsArray = [
     type: "spell",
     cost: 200,
     id: "malware-three",
-    value: 45,
     descText:
       "This malware affects your opponent. Deal 100 dmg directly to your opponent.",
   },
@@ -560,7 +486,6 @@ export const CardsArray = [
     type: "spell",
     cost: 100,
     id: "coffee-one",
-    value: 46,
     descText:
       "Give every character on battlefield and in hand with type programmer +250 atk and +150 def",
   },
@@ -570,17 +495,6 @@ export const CardsArray = [
     type: "spell",
     cost: 100,
     id: "coffee-two",
-    value: 47,
-    descText:
-      "Give every character on battlefield and in hand with type programmer +250 atk and +150 def",
-  },
-  {
-    name: "Coffee",
-    img: coffee,
-    type: "spell",
-    cost: 100,
-    id: "coffee-three",
-    value: 48,
     descText:
       "Give every character on battlefield and in hand with type programmer +250 atk and +150 def",
   },
@@ -589,26 +503,24 @@ export const CardsArray = [
     img: anton,
     type: "Musician",
     atk: 1000,
-    def: 750,
+    def: 650,
     hp: 100,
-    cost: 270,
+    cost: 250,
     id: "anton-one",
-    value: 49,
     descText:
-      "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +650 atk",
+      "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +450 atk",
   },
   {
     name: "Anton",
     img: anton,
     type: "Musician",
     atk: 1000,
-    def: 750,
+    def: 650,
     hp: 100,
-    cost: 270,
+    cost: 250,
     id: "anton-two",
-    value: 50,
     descText:
-      "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +650 atk",
+      "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +450 atk",
   },
   {
     name: "Error",
@@ -616,8 +528,8 @@ export const CardsArray = [
     type: "spell",
     cost: 300,
     id: "error-one",
-    value: 51,
-    descText: "An error! Throw a error on a random opponent and deal 600 dmg",
+    descText:
+      "An error! Throw a error on a random opponent and deal 600 damage",
   },
   {
     name: "Error",
@@ -625,7 +537,7 @@ export const CardsArray = [
     type: "spell",
     cost: 300,
     id: "error-two",
-    value: 52,
-    descText: "An error! Throw a error on a random opponent and deal 600 dmg",
+    descText:
+      "An error! Throw a error on a random opponent and deal 600 damage",
   },
 ];

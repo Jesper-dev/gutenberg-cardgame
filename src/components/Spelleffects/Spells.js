@@ -29,7 +29,7 @@ export const HealEveryCard = (arr) => {
 };
 
 export const tp1 = (selectedCard) => {
-  let newAtk = selectedCard.atk + 100;
+  let newAtk = selectedCard.atk + 200;
   selectedCard.atk = newAtk;
   if (selectedCard.name.includes("scrum-master")) {
     return;
@@ -54,12 +54,15 @@ export const harmonica = (arr) => {
 export const jonLevelTwo = (battlefield, hand, deck) => {
   //First battlefield
   for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].name === "Jon") {
+    if (battlefield[i].name === "Jon" || battlefield[i].name === "Jon scrum-master" ) {
       let newAtk = battlefield[i].atk + 500;
       battlefield[i].atk = newAtk;
 
       let newDef = battlefield[i].def + 300;
       battlefield[i].def = newDef;
+
+      let newName = battlefield[i].name + " Level Two";
+      battlefield[i].name = newName;
     } else {
       console.log("Nothing");
     }
@@ -67,12 +70,15 @@ export const jonLevelTwo = (battlefield, hand, deck) => {
 
   //Second hand
   for (let i = 0; i < hand.length; i++) {
-    if (hand[i].name === "Jon") {
+    if (hand[i].name === "Jon" || hand[i].name === "Jon scrum-master") {
       let newAtk = hand[i].atk + 500;
       hand[i].atk = newAtk;
 
       let newDef = hand[i].def + 300;
       hand[i].def = newDef;
+
+      let newName = hand[i].name + " Level Two";
+      hand[i].name = newName;
     } else {
       console.log("Nothing");
     }
@@ -80,12 +86,15 @@ export const jonLevelTwo = (battlefield, hand, deck) => {
 
   //Third deck
   for (let i = 0; i < deck.length; i++) {
-    if (deck[i].name === "Jon") {
+    if (deck[i].name === "Jon" || deck[i].name === "Jon scrum-master") {
       let newAtk = deck[i].atk + 500;
       deck[i].atk = newAtk;
 
       let newDef = deck[i].def + 300;
       deck[i].def = newDef;
+
+      let newName = deck[i].name + " Level Two";
+      deck[i].name = newName;
     } else {
       console.log("Nothing");
     }
@@ -137,6 +146,16 @@ export const error = (arr) => {
   }
 };
 
+export const goldenInstrument = (arr) => {
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i].name === "Gutenberg Mariachi"){
+      let newDef = arr[i].def + 650;
+      arr[i].def = newDef;
+      return;
+    }
+  }
+};
+
 export const mariachiOnPlay = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].def > 150) {
@@ -147,4 +166,19 @@ export const mariachiOnPlay = (arr) => {
       arr[i].hp = newHp;
     }
   }
+};
+
+export const jesperOnPlay = (arr, card) => {
+
+  let attack = 0;
+  for (let i = 0; i < arr.length; i++){
+    if(arr[i].type === "Programmer"){
+      attack += 100;
+    }
+  }
+  
+  let newAtk = attack;
+  let newCardAtk = card.atk + newAtk;
+  card.atk = newCardAtk
+
 };

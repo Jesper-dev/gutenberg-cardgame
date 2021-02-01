@@ -4,6 +4,10 @@ import GoldTexture from "../../Img/gold-texture.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 import { after } from "lodash";
 
+import { ReactComponent as Shield } from '../../Img/defense.svg'
+import { ReactComponent as Sword } from '../../Img/attack.svg'
+import { ReactComponent as Hearth } from '../../Img/health.svg'
+
 export const CardWrapper = styled.div`
   height: 270px;
   width: 170px;
@@ -20,7 +24,6 @@ export const CardWrapper = styled.div`
 
   box-shadow: 12px 10px 28px 3px #000;
   background: Background;
-  /* background-image: url(${CardBackground}); */
   background-image: url(${CardBackground});
         
   background-color: #fff; 
@@ -66,29 +69,52 @@ margin-bottom: 0%;
 color: purple;
 `;
 
-export const AtkDefWrapper = styled.span`
+export const AtkDefWrapper = styled.div`
 display: flex;
-flex-flow: row nowrap;
 align-items: center;
 justify-content: space-between;
 height: 20px;
 width: 170px;
-margin-top: 1%;
+/* margin-top: 1%; */
 `;
 
+export const AtkWrapper = styled.div`
+display: flex;
+flex-direction: row;
+height: 20px;
+align-items: center;
+justify-content: flex-start;
+
+`
+export const DefWrapper = styled.div`
+display: flex;
+flex-direction: row;
+height: 20px;
+align-items: center;
+justify-content: flex-end;
+
+`
+
 export const Atk = styled.p`
+font-family: 'EB Garamond', serif;
+font-weight: 800;
 color: green;
-margin-left: 18px;
-font-size: 0.9rem;
+font-size: 1.2rem;
 `;
 
 export const Def = styled.p`
+font-family: 'EB Garamond', serif;
+font-weight: 800;
 color: blue;
-margin-right: 20px;
-font-size: 0.9rem;
+
+margin-right: 10px;
+font-size: 1.2rem;
 `;
 
 export const DescriptionText = styled.p`
+font-family: 'EB Garamond', serif;
+font-weight: 700;
+
 margin-top: 2%;
 width: 150px;
 max-height: 130px;
@@ -100,7 +126,6 @@ border-radius: 4px;
 background: #fff;
 background-image: url(${DescBack});
 background-position: center; /* Center the image */
-background-repeat: no - repeat; /* Do not repeat the image */
 background-size: cover;
 font-size: 0.7rem;
 `;
@@ -127,3 +152,16 @@ width: 65px;
 height: 20px;
 color: white;
 `;
+
+export const StyledShield = styled(Shield)`
+  width: 100%;
+  height: 100%;
+`
+export const StyledSword = styled(Sword)`
+  width: 50%;
+  height: 100%;
+`
+export const StyledHearth = styled(Hearth)`
+  width: 20%;
+  height: 20%;
+`

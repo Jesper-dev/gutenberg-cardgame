@@ -1,17 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
-
   NotEnoughError,
   EndTurnButton,
-  TurnInicator
+  TurnInicator,
 } from "../canvas/CanvasElements";
-import { RightToolBarContainer, Hpcontainer, GoldStatus, LeftToolBarContainer } from "../player/PlayerElements";
-import useSound from 'use-sound'
+import {
+  RightToolBarContainer,
+  Hpcontainer,
+  GoldStatus,
+  LeftToolBarContainer,
+} from "../player/PlayerElements";
+import useSound from "use-sound";
 import swordSfx from "../../music/sword.mp3";
 import enemySfx from "../../music/arr.wav";
 /* import { PlayCardButton, GoldStatus, LeftToolBarContainer } from "./Player/PlayerElements"; */
-import { OpponentDeckWrapper, PlayerDeckWrapper, VisualDeck, OpponentCardsLeft, PlayerCardsLeft, AttackButton, OpponentHpcontainer, StyledSwords, AttackText, EnemyAvatar } from './CanvasInterfaceElements'
-
+import {
+  OpponentDeckWrapper,
+  PlayerDeckWrapper,
+  VisualDeck,
+  OpponentCardsLeft,
+  PlayerCardsLeft,
+  AttackButton,
+  OpponentHpcontainer,
+  StyledSwords,
+  AttackText,
+  EnemyAvatar,
+} from "./CanvasInterfaceElements";
 
 const CanvasInterfaceRender = ({
   endTurnFunc,
@@ -27,14 +41,11 @@ const CanvasInterfaceRender = ({
   attackingFunc,
   opponentHp,
   toggleEnemyTarget,
-  enemyTargeted
+  enemyTargeted,
 }) => {
+  const [swordSound] = useSound(swordSfx, { volume: 0.18 });
 
-  const [swordSound] = useSound(swordSfx);
-
-  const [enemySound] = useSound(enemySfx);
-
-
+  const [enemySound] = useSound(enemySfx, { volume: 0.18 });
 
   return (
     <>
@@ -67,7 +78,15 @@ const CanvasInterfaceRender = ({
         Not Enough Gold!
       </NotEnoughError>
 
-      <EnemyAvatar onMouseEnter={enemySound} style={!enemyTargeted ? { filter: 'brightness(75%) contrast(150%)' } : { filter: 'brightness(50%) contrast(150%)' }} onClick={toggleEnemyTarget} />
+      <EnemyAvatar
+        onMouseEnter={enemySound}
+        style={
+          !enemyTargeted
+            ? { filter: "brightness(75%) contrast(150%)" }
+            : { filter: "brightness(50%) contrast(150%)" }
+        }
+        onClick={toggleEnemyTarget}
+      />
       <OpponentHpcontainer>{opponentHp}</OpponentHpcontainer>
 
       <AttackText>Attack!</AttackText>
@@ -82,7 +101,7 @@ const CanvasInterfaceRender = ({
   );
 };
 
-export default CanvasInterfaceRender
+export default CanvasInterfaceRender;
 
 /*
 const StyledSwords = styled(Swords)`

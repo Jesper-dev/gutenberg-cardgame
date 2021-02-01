@@ -11,7 +11,12 @@ import {
   Type,
   CostHpWrapper,
   HP,
-  Cost
+  Cost,
+  StyledShield,
+  StyledSword,
+  StyledHearth,
+  DefWrapper,
+  AtkWrapper
 } from "./CharacterCardElements";
 
 
@@ -44,8 +49,14 @@ const CharacterCard = ({
         <CardImg src={img} draggable={false} />
         <Type>[{type}]</Type>
         <AtkDefWrapper>
-          <Atk>Atk: {atk}</Atk>
-          <Def>Def: {def}</Def>
+          <AtkWrapper>
+          <StyledSword />
+          <Atk>{atk}</Atk>
+          </AtkWrapper>
+          <DefWrapper>
+          <StyledShield />
+          <Def>{def}</Def>
+          </DefWrapper>
         </AtkDefWrapper>
         <DescriptionText>{descText}</DescriptionText>
         <CostHpWrapper>

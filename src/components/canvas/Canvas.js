@@ -17,6 +17,7 @@ import OpponentCardsHandRender from "../cardsHand/OpponentCardsHandRender";
 import CardsHand from "../cardsHand/CardsHand";
 import Player from "../player/Player";
 import SpellShowRender from "../Spelleffects/SpellShowRender";
+import { DrawOneCard } from "../Spelleffects/Spells";
 import {
   OpponentCardContainer,
   PlayerFiledContainer,
@@ -80,7 +81,7 @@ const Canvas = ({
 
   /*   const soundUrl = '../../music/background-music.mp3' */
 
-  const [play] = useSound(backMusic);
+  const [play] = useSound(backMusic, { volume: 0.18 });
 
   const toggleEnemyTarget = () => setEnemeyTarget(!enemyTargeted);
   const CheckType = (item) => {
@@ -97,6 +98,7 @@ const Canvas = ({
       return;
     }
     if (enemyTargeted === true && opponentBattleField.length === 0) {
+      
       if (attacked.includes(attackingCard[0])) {
         setThiscardhasatked(true);
         setTimeout(() => {
@@ -120,6 +122,7 @@ const Canvas = ({
       }, 2500);
       return;
     } else {
+      
       setAlreadyAtkedCards();
       DefreduceDefAndHp();
       AtkReduceDefAndHp();
@@ -178,6 +181,9 @@ const Canvas = ({
   };
 
   const destroyCard = (arr, card) => {
+    if(attackingCard[0].name == 'Wizard'){
+      DrawOneCard(deck, cardsinhand)
+    }
     let index = arr.findIndex((x) => x.id === card[0].id);
     arr.splice(index, 1);
   };
@@ -195,6 +201,8 @@ const Canvas = ({
       setDefendingCard(card);
     } else if (defendingCard[0].id === card[0].id) {
       setDefendingCard([]);
+    } else {
+      setDefendingCard(card);
     }
   };
 
@@ -289,7 +297,6 @@ const Canvas = ({
       </BattlefieldContainer>
 
       <Player onPlayCard={onPlayCard} hp={hp} />
-      <p>{oppGold}</p>
 
       <PlayerFiledContainer>
         <PlayerCardsContainer>
