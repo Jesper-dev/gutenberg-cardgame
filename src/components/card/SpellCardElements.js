@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBackground from "../../Img/card-background.jpg";
 import DescBack from "../../Img/desc-back.jpg";
@@ -30,6 +30,13 @@ export const CardWrapper = styled.div`
     cursor: pointer;
     margin-top: 0px;
   }
+  
+  ${({ active }) =>
+    active &&
+    css`
+      border: 5px solid red;
+    ` }
+
 `;
 
 export const CardName = styled.h3`
