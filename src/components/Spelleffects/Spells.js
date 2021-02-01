@@ -120,6 +120,23 @@ export const coffee = (battlefield, hand) => {
   }
 };
 
+export const error = (arr) => {
+  let select = Math.floor(Math.random() * Math.floor(arr.length));
+
+  if (arr[select].def > 600) {
+    let newDef = arr[select].def - 600;
+    arr[select].def = newDef;
+  } else if ((arr[select].def = 600)) {
+    let newHp = arr[select].hp - 600;
+    arr[select].hp = newHp;
+  } else if (arr[select].def < 600) {
+    let remainDmg = 600 - arr[select].def;
+    let newCardHp = arr[select].hp - remainDmg;
+    arr[select].hp = newCardHp;
+    arr[select].def = 0;
+  }
+};
+
 export const mariachiOnPlay = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].def > 150) {

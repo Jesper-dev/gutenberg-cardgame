@@ -69,7 +69,7 @@ const Canvas = ({
   selCardHand,
   setSelCardHand,
   defendingCard,
-  setDefendingCard
+  setDefendingCard,
 }) => {
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
@@ -188,7 +188,9 @@ const Canvas = ({
     }
 
     let clickedDefendingCard = e.target.closest("div");
-    let card = opponentBattleField.filter((x) => x.id === clickedDefendingCard.id);
+    let card = opponentBattleField.filter(
+      (x) => x.id === clickedDefendingCard.id
+    );
     if (defendingCard.length === 0) {
       setDefendingCard(card);
     } else if (defendingCard[0].id === card[0].id) {
@@ -224,22 +226,23 @@ const Canvas = ({
       {wongame ? (
         <WonGamePage>
           <WonGamePageHeader>
-            Congratulations! You bested the eyepatch dude! Well done. You're the man, champ.
+            Congratulations! You bested the eyepatch dude! Well done. You're the
+            man, champ.
           </WonGamePageHeader>
           <WonGamePageButton onClick={restartGame}>
             Restart Game
           </WonGamePageButton>
         </WonGamePage>
       ) : (
-          ""
-        )}
+        ""
+      )}
       {/* {lostgame ? <LostGamePage></LostGamePage> : ''} */}
 
       {thiscardhasatked ? (
         <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked>
       ) : (
-          ""
-        )}
+        ""
+      )}
       {startGameActive ? (
         <CanvasInterfaceRender
           enoughgold={enoughgold}
@@ -258,8 +261,8 @@ const Canvas = ({
           enemyTargeted={enemyTargeted}
         />
       ) : (
-          <></>
-        )}
+        <></>
+      )}
 
       <SpellShowRender spellBattlefieldArr={spellBattlefieldArr} />
 
@@ -304,8 +307,8 @@ const Canvas = ({
             Play Selected Card!
           </PlayCardButton>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
       </PlayerFiledContainer>
     </CanvasWrapper>
   );

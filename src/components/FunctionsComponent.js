@@ -12,6 +12,7 @@ import {
   jonLevelTwo,
   mariachiOnPlay,
   coffee,
+  error,
 } from "./Spelleffects/Spells";
 import {
   startOpponentTurn,
@@ -34,7 +35,7 @@ const FunctionsComponent = () => {
   const [yourturn, setYourTurn] = useState(true);
   const [chosenAtk, setChosenAtk] = useState();
   const [chosenDefHigh, setChosenDefHigh] = useState();
-  const [selCardHand, setSelCardHand] = useState()
+  const [selCardHand, setSelCardHand] = useState();
 
   const [cardsinhand, setCardsInHand] = useState([]);
   const [opponentCardsinhand, setopponentCardsinhand] = useState([]);
@@ -103,7 +104,7 @@ const FunctionsComponent = () => {
     if (attackingCard.length === 0) {
       setAttackingCard(card);
     } else if (attackingCard[0].id === card[0].id) {
-      setAttackingCard([])
+      setAttackingCard([]);
     }
   };
 
@@ -116,11 +117,11 @@ const FunctionsComponent = () => {
     attackedArray = [];
     setAttacked(attackedArray);
 
-    setSelCardHand()
-    setChosenAtk()
-    setChosenDefHigh()
-    setAttackingCard([])
-    setDefendingCard([])
+    setSelCardHand();
+    setChosenAtk();
+    setChosenDefHigh();
+    setAttackingCard([]);
+    setDefendingCard([]);
     setYourTurn(false);
     setWhichTurn("Opponents Turn");
 
@@ -315,6 +316,13 @@ const FunctionsComponent = () => {
 
           break;
 
+        case "Error":
+          error(opponentBattleField);
+
+          deleteSpellFromArr(spellBattlefieldArr);
+
+          break;
+
         default:
           break;
       }
@@ -363,7 +371,7 @@ const FunctionsComponent = () => {
     if (selectedCard.length === 0) {
       setSelectedCard(card);
     } else if (selectedCard[0].id === card[0].id) {
-      setSelectedCard([])
+      setSelectedCard([]);
     }
   };
 
@@ -540,14 +548,20 @@ const FunctionsComponent = () => {
 
         break;
 
+      case "Error":
+        error(battlefield);
+
+        deleteSpellFromArr(spellBattlefieldArr);
+
+        break;
+
       default:
         break;
     }
   };
 
   const aiAttack = () => {
-
-    //Checks states to see which type of attack bot will execute 
+    //Checks states to see which type of attack bot will execute
     if (silencePlayer === true) {
       console.log("You are silenced");
       return;
@@ -556,9 +570,9 @@ const FunctionsComponent = () => {
     } else if (battlefield.length === 0) {
       let playerDmg = 0;
       for (let i = 0; i < opponentBattleField.length; i++) {
-        playerDmg += opponentBattleField[i].atk
+        playerDmg += opponentBattleField[i].atk;
       }
-      setHp(hp - playerDmg)
+      setHp(hp - playerDmg);
       return;
     }
 

@@ -16,6 +16,7 @@ import jonPlus from "../../Img/jonPlus.jpg";
 import malware from "../../Img/malware.jpg";
 import coffee from "../../Img/coffee.jpg";
 import anton from "../../Img/anton.png";
+import error from "../../Img/error.png";
 
 export const OpponentCardArray = [
   {
@@ -635,5 +636,23 @@ export const OpponentCardArray = [
     value: 50,
     descText:
       "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +650 atk",
+  },
+  {
+    name: "Error",
+    img: error,
+    type: "damage-spell",
+    cost: 300,
+    id: "error-one",
+    value: 51,
+    descText: "An error! Throw a error on a random opponent and deal 600 dmg",
+  },
+  {
+    name: "Error",
+    img: error,
+    type: "damage-spell",
+    cost: 300,
+    id: "error-two",
+    value: 52,
+    descText: "An error! Throw a error on a random opponent and deal 600 dmg",
   },
 ];
