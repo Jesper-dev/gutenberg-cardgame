@@ -3,6 +3,7 @@ import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBackground from "../../Img/card-background.jpg";
 import DescBack from "../../Img/desc-back.jpg";
 
+
 export const CardWrapper = styled.div`
   height: 240px;
   width: 140px;
@@ -74,9 +75,3 @@ export const CostWrapper = styled.div`
   align-items: center;
 `;
 
-export const Cost = styled.p`
-  width: 55px;
-  height: 20px;
-  color: blue;
-  margin-right: 18px;
-`;

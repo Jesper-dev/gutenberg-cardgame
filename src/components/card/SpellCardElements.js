@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBackground from "../../Img/card-background.jpg";
 import DescBack from "../../Img/desc-back.jpg";
+import { ReactComponent as Coin } from "../../Img/coin.svg";
 
 export const CardWrapper = styled.div`
   height: 270px;
@@ -91,9 +92,16 @@ export const CostWrapper = styled.div`
 `;
 
 export const Cost = styled.p`
-  width: 65px;
+  font-family: 'Old Standard TT', serif;
+  font-weight: 700;
+  margin-left: 5px;
   height: 20px;
-  color: white;
-  margin-left: 10%;
-  margin-bottom: 20%;
+  text-shadow: 1.5px 1.5px 1.5px #000;
+  color: gold;
+`;
+
+export const StyledCoin = styled(Coin)`
+  margin-left: 10px;
+  width: 20%;
+  height: 100%;
 `;

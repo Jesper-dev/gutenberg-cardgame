@@ -71,6 +71,7 @@ const Canvas = ({
   setSelCardHand,
   defendingCard,
   setDefendingCard,
+  round
 }) => {
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
@@ -83,7 +84,11 @@ const Canvas = ({
 
   const [play] = useSound(backMusic, { volume: 0.18 });
 
-  const toggleEnemyTarget = () => setEnemeyTarget(!enemyTargeted);
+  const toggleEnemyTarget = () => {
+    if(!yourturn || opponentBattleField.length > 0 || !battlefield.length > 0) return
+  
+    setEnemeyTarget(!enemyTargeted);
+  }
   const CheckType = (item) => {
     if (item.type === "spell") {
       return false;
@@ -109,8 +114,13 @@ const Canvas = ({
         if (attackingCard.length === 0) {
           return;
         }
+
         let newOppHp = opponentHp - attackingCard[0].atk;
         newOpponentHp(newOppHp);
+
+        toggleEnemyTarget()
+        setChosenAtk()
+        setAttackingCard([]);
       }
     }
     if (attackingCard.length == 0 || defendingCard.length == 0) {
@@ -128,6 +138,11 @@ const Canvas = ({
       AtkReduceDefAndHp();
       setAttackingCard([]);
       setDefendingCard([]);
+      setChosenAtk()
+      setChosenDefHigh()
+    /*   if(enemyTargeted){
+        toggleEnemyTarget()
+      } */
     }
   };
 
@@ -155,6 +170,12 @@ const Canvas = ({
       if (newCardHp <= 0) {
         reduceOppHp();
         destroyCard(opponentBattleField, defendingCard);
+        if(attackingCard[0].name === 'Wizard'){
+          
+          if(cardsinhand.length < 4){
+            DrawOneCard(deck, cardsinhand)
+          }
+        }
       } else {
         defendingCard[0].hp = newCardHp;
         defendingCard[0].def = 0;
@@ -181,9 +202,7 @@ const Canvas = ({
   };
 
   const destroyCard = (arr, card) => {
-    if(attackingCard[0].name == 'Wizard'){
-      DrawOneCard(deck, cardsinhand)
-    }
+    
     let index = arr.findIndex((x) => x.id === card[0].id);
     arr.splice(index, 1);
   };
@@ -267,6 +286,7 @@ const Canvas = ({
           attackingFunc={attackingFunc}
           toggleEnemyTarget={toggleEnemyTarget}
           enemyTargeted={enemyTargeted}
+          round={round}
         />
       ) : (
         <></>

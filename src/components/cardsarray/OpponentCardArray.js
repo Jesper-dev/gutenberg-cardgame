@@ -109,45 +109,6 @@ export const OpponentCardArray = [
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
   {
-    name: "Jon",
-    img: jon,
-    type: "Programmer",
-    typeTwo: "character",
-    cost: 50,
-    atk: 200,
-    def: 1000,
-    hp: 100,
-    id: "jon-five",
-    descText:
-      "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
-  },
-  {
-    name: "Jon",
-    img: jon,
-    type: "Programmer",
-    typeTwo: "character",
-    cost: 50,
-    atk: 200,
-    def: 1000,
-    hp: 100,
-    id: "jon-six",
-    descText:
-      "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
-  },
-  {
-    name: "Jon",
-    img: jon,
-    type: "Programmer",
-    typeTwo: "character",
-    cost: 50,
-    atk: 200,
-    def: 1000,
-    hp: 100,
-    id: "jon-seven",
-    descText:
-      "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
-  },
-  {
     name: "Mysterious Sexy Man",
     img: karlSexyman,
     type: "Seducer",
@@ -349,24 +310,6 @@ export const OpponentCardArray = [
       "Heal 50hp to every friendly card on your board and give +100 def.",
   },
   {
-    name: "TinyMCE",
-    img: tinymce,
-    type: "synergi-spell",
-    cost: 70,
-    id: "tiny-three",
-    descText:
-      "Heal 50hp to every friendly card on your board and give +100 def.",
-  },
-  {
-    name: "TinyMCE",
-    img: tinymce,
-    type: "synergi-spell",
-    cost: 70,
-    id: "tiny-four",
-    descText:
-      "Heal 50hp to every friendly card on your board and give +100 def.",
-  },
-  {
     name: "TP1",
     img: tp1crown,
     type: "synergi-spell",
@@ -440,14 +383,6 @@ export const OpponentCardArray = [
     type: "damage-spell",
     cost: 100,
     id: "tiny-mc-two",
-    descText: "Dissables all enemy cards on the board for the next round",
-  },
-  {
-    name: "Tiny MC Daddy",
-    img: tinymcecool,
-    type: "damage-spell",
-    cost: 100,
-    id: "tiny-mc-three",
     descText: "Dissables all enemy cards on the board for the next round",
   },
   {

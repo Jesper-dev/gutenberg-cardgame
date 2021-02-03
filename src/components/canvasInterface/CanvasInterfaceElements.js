@@ -3,6 +3,7 @@ import { ReactComponent as Swords } from "../../Img/swords.svg";
 import { ReactComponent as Enemy } from "../../Img/enemy.svg";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import CardBack from "../../Img/card-deck-back.png";
+import { ReactComponent as Gold} from "../../Img/coin.svg";
 
 export const OpponentDeckWrapper = styled.div`
   position: absolute;
@@ -17,10 +18,12 @@ export const PlayerDeckWrapper = styled.div`
 `;
 
 export const PlayerCardsLeft = styled.span`
+  font-family: 'Old Standard TT', serif;
   font-size: 3rem;
   color: gold;
 `
 export const OpponentCardsLeft = styled.span`
+  font-family: 'Old Standard TT', serif;
   font-size: 3rem;
   color: gold;
 `
@@ -108,3 +111,11 @@ export const EnemyAvatar = styled(Enemy)`
 /*   border: 1px solid black; */
 `;
 
+export const StyledGold = styled(Gold)`
+  position: absolute;
+  top: 25%;
+  left: 115%;
+  width: 50px;
+  height: 40%;
+
+`

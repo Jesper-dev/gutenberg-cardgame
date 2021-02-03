@@ -25,6 +25,7 @@ import {
   StyledSwords,
   AttackText,
   EnemyAvatar,
+  StyledGold
 } from "./CanvasInterfaceElements";
 
 const CanvasInterfaceRender = ({
@@ -42,6 +43,7 @@ const CanvasInterfaceRender = ({
   opponentHp,
   toggleEnemyTarget,
   enemyTargeted,
+  round
 }) => {
   const [swordSound] = useSound(swordSfx, { volume: 0.18 });
 
@@ -61,15 +63,13 @@ const CanvasInterfaceRender = ({
       </PlayerDeckWrapper>
 
       <LeftToolBarContainer>
+        
         <GoldStatus>
           {gold}{" "}
-          <i
-            className="fas fa-coins"
-            style={{ fontSize: "2rem", marginLeft: "6px" }}
-          ></i>
+          <StyledGold />
         </GoldStatus>
       </LeftToolBarContainer>
-
+      
       <EndTurnButton onClick={endTurnFunc}>End Turn</EndTurnButton>
 
       <NotEnoughError
@@ -96,7 +96,8 @@ const CanvasInterfaceRender = ({
         <Hpcontainer>{hp}</Hpcontainer>
       </RightToolBarContainer>
 
-      <TurnInicator>{whichTurn}</TurnInicator>
+      <TurnInicator font="1.7rem" left="30px" top="45px">{whichTurn}</TurnInicator>
+      <TurnInicator font="3rem" left="30px" top="-35px" >Round  {round}</TurnInicator>
     </>
   );
 };

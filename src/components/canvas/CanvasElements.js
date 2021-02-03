@@ -99,14 +99,19 @@ export const AlreadyAtked = styled.h2`
   -webkit-text-stroke: 1px black;
 `;
 
-export const TurnInicator = styled.h2`
+export const TurnInicator = styled.h2.attrs(props => ({
+  top: props.top,
+  left: props.left,
+  font: props.font
+}))`
   position: absolute;
-  top: 25px;
-  left: 25px;
-  font-size: 3rem;
+  top: ${props => props.top};
+  left: ${props => props.left};
+  font-size: ${props => props.font};
   font-family: "Lobster", cursive;
-  font-weight: normal;
+  font-weight: lighter;
   color: goldenrod;
+  text-shadow: 5px 5px 5px #000;
   -webkit-text-stroke: 1px black;
   
 `

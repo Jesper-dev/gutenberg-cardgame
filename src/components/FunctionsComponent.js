@@ -6,6 +6,7 @@ import { CardsArray } from "./cardsarray/CardArray";
 import { OpponentCardArray } from "./cardsarray/OpponentCardArray";
 import {
   DrawOneCard,
+  DrawThreeCards,
   harmonica,
   HealEveryCard,
   tp1,
@@ -14,7 +15,7 @@ import {
   coffee,
   error,
   jesperOnPlay,
-  goldenInstrument
+  goldenInstrument,
 } from "./Spelleffects/Spells";
 import {
   startOpponentTurn,
@@ -26,6 +27,7 @@ let opponentBattleArr = [];
 let battlefieldArr = [];
 let spellBattlefieldArr = [];
 let attackedArray = [];
+let attackedArrayBot = [];
 let oppGold = 300;
 
 const FunctionsComponent = () => {
@@ -53,7 +55,7 @@ const FunctionsComponent = () => {
   const [defendingCard, setDefendingCard] = useState([]);
   const [attacked, setAttacked] = useState([]);
 
-  const [gold, setGold] = useState(150);
+  const [gold, setGold] = useState(1000);
   const [enoughgold, setEnoughGold] = useState(false);
 
   const [hp, setHp] = useState(10000);
@@ -68,6 +70,8 @@ const FunctionsComponent = () => {
 
   const [harmonicaPlayer, setHarmonicaPlayer] = useState(false);
   const [harmonicaBot, setHarmonicaBot] = useState(false);
+
+  const [round, setRound] = useState(0)
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -116,7 +120,6 @@ const FunctionsComponent = () => {
       return;
     }
 
-    console.log(opponentCardsinhand);
     attackedArray = [];
     setAttacked(attackedArray);
 
@@ -130,7 +133,6 @@ const FunctionsComponent = () => {
 
     setSilenceBot(false);
     botDrawCard();
-    // oppTurn();
 
     playCard();
 
@@ -141,6 +143,7 @@ const FunctionsComponent = () => {
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn("Your Turn!");
+      
       startPlayerTurn();
     }, 10000);
   };
@@ -161,10 +164,13 @@ const FunctionsComponent = () => {
   //On start of player turn
   const startPlayerTurn = () => {
     setGold(gold + 150);
+    setRound(round + 1)
+    console.log(round)
 
     let newOppGold = oppGold + 150;
     oppGold = newOppGold;
     setSilencePlayer(false);
+    attackedArrayBot = [];
 
     if (cardsinhand.length > 4) {
       deck.splice(0, 1);
@@ -331,6 +337,13 @@ const FunctionsComponent = () => {
 
           break;
 
+        case "Quire 2.0":
+          DrawThreeCards(deck, cardsinhand)
+
+          deleteSpellFromArr(spellBattlefieldArr);
+
+          break;
+
         default:
           break;
       }
@@ -364,7 +377,7 @@ const FunctionsComponent = () => {
           break;
 
         case "Jesper":
-          jesperOnPlay(battlefield, selectedCard[0])
+          jesperOnPlay(battlefield, selectedCard[0]);
 
           break;
 
@@ -377,7 +390,7 @@ const FunctionsComponent = () => {
   const onCardClick = (e) => {
     let clicked = e.target.closest("div");
     let card = cardsinhand.filter((x) => x.id === clicked.id);
-    
+
     if (yourturn == false || card[0] === undefined) {
       return;
     }
@@ -402,20 +415,16 @@ const FunctionsComponent = () => {
         card.typeTwo === "character" &&
         opponentBattleField.length < 4
       ) {
-
-        checkBotChar(i)
+        checkBotChar(i);
 
         let newOppGold = oppGold - card.cost;
-        oppGold = newOppGold
+        oppGold = newOppGold;
 
         opponentBattleField.push(card);
         setOppoentBattleField(opponentBattleField);
 
         opponentCardsinhand.splice(i, 1);
-      } else if (
-        card.cost < oppGold &&
-        card.type === "self-spell"
-      ) {
+      } else if (card.cost < oppGold && card.type === "self-spell") {
         let newOppGold = oppGold - card.cost;
         oppGold = newOppGold;
         checkBotSpell(i);
@@ -430,7 +439,7 @@ const FunctionsComponent = () => {
         card.type === "synergi-spell"
       ) {
         let newOppGold = oppGold - card.cost;
-        oppGold = newOppGold
+        oppGold = newOppGold;
         checkBotSpell(i);
         spellBattlefieldArr.push(card);
         setSpellBattlefield(spellBattlefieldArr);
@@ -442,7 +451,7 @@ const FunctionsComponent = () => {
         card.type === "damage-spell"
       ) {
         let newOppGold = oppGold - card.cost;
-        oppGold = newOppGold
+        oppGold = newOppGold;
         checkBotSpell(i);
 
         spellBattlefieldArr.push(card);
@@ -485,11 +494,11 @@ const FunctionsComponent = () => {
         }
 
       case "Jesper":
-        jesperOnPlay(opponentBattleField, opponentCardsinhand[i])
+        jesperOnPlay(opponentBattleField, opponentCardsinhand[i]);
 
-      break;
+        break;
     }
-  }
+  };
 
   const checkBotSpell = (index) => {
     switch (opponentCardsinhand[index].name) {
@@ -589,6 +598,13 @@ const FunctionsComponent = () => {
 
         break;
 
+      case "Quire 2.0":
+          DrawThreeCards(opponentDeck, opponentCardsinhand)
+
+          deleteSpellFromArr(spellBattlefieldArr);
+
+          break;
+
       default:
         break;
     }
@@ -606,78 +622,94 @@ const FunctionsComponent = () => {
       for (let i = 0; i < opponentBattleField.length; i++) {
         playerDmg += opponentBattleField[i].atk;
       }
+
       setHp(hp - playerDmg);
       return;
     }
 
     // This section of code will only execute if both sides have cards in batttle array and if the bot isn't silenced
-    let cardToAttackWithNumber = Math.floor(
-      Math.random() * Math.floor(opponentBattleField.length)
-    );
-    let cardToAttackWith = opponentBattleField[cardToAttackWithNumber];
-    let cardToAttackNumber;
-    let cardToAttack;
+    for (let i = 0; i < opponentBattleField.length; i++) {
+      if(battlefield.length === 0){
+        return;
+      }
 
-    for (let i = 0; i < battlefield.length; i++) {
-      if (cardToAttackWith.atk > battlefield[i].def + battlefield[i].hp) {
-        cardToAttack = battlefield[i];
-      } else if (cardToAttackWith.atk > battlefield[i].def) {
-        cardToAttack = battlefield[i];
-      } else {
-        cardToAttackNumber = Math.floor(
-          Math.random() * Math.floor(battlefield.length)
+      let cardToAttackWithNumber = Math.floor(
+        Math.random() * Math.floor(opponentBattleField.length)
+      );
+
+      let cardToAttackWith = opponentBattleField[cardToAttackWithNumber];
+      let cardToAttackNumber;
+      let cardToAttack;
+
+      if(attackedArrayBot.includes(cardToAttackWith)){
+        cardToAttackWithNumber = Math.floor(
+          Math.random() * Math.floor(opponentBattleField.length)
         );
-        cardToAttack = battlefield[cardToAttackNumber];
-      }
-    }
-
-    let attack = cardToAttackWith.atk;
-    let totalHp = cardToAttack.def + cardToAttack.hp;
-
-    if (attack > totalHp) {
-      //If attacked cards attack is less than cardToAttackWith def, reduce def
-      if (cardToAttack.atk < cardToAttackWith.def) {
-        reduceDefCard(cardToAttack, cardToAttackWith);
-        //If attacked cards atk is more than cardToAttackWith def, reduce hp
-      } else if (cardToAttack.atk > cardToAttackWith.def) {
-        reduceHpCard(cardToAttack, cardToAttackWith);
       }
 
-      //If card gets destroyed
-      if (cardToAttackWith.hp <= 0) {
-        let cardAttackedAtk = cardToAttack.atk;
-        let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
-        let damage = cardAttackedAtk - totalOppCardHp;
-        setOpponentHp(opponentHp - damage);
-        opponentBattleField.splice(cardToAttackWithNumber, 1);
-      }
+      attackedArrayBot.push(cardToAttackWith)
 
-      //Splice/delete our card
-      let index = battlefield.findIndex((x) => x.id === cardToAttack.id);
-      battlefield.splice(index, 1);
-      let damage = attack - totalHp;
-      setHp(hp - damage);
-    } else if (attack < totalHp) {
-      if (attack < cardToAttack.def) {
-        let newCardDef = cardToAttack.def - attack;
-        cardToAttack.def = newCardDef;
-        if (cardToAttackWith.def > cardToAttack.atk) {
-          let newCardToAtkWithDef = cardToAttackWith.def - cardToAttack.atk;
-          cardToAttackWith.def = newCardToAtkWithDef;
-        } else if (cardToAttackWith.def < cardToAttack.atk) {
-          let remainingAtk = cardToAttack.atk - cardToAttackWith.def;
-          let newCardToAtkWithHp = cardToAttackWith.hp - remainingAtk;
-          cardToAttackWith.hp = newCardToAtkWithHp;
-          cardToAttackWith.def = 0;
+      for (let i = 0; i < battlefield.length; i++) {
+        if (cardToAttackWith.atk > battlefield[i].def + battlefield[i].hp) {
+          cardToAttack = battlefield[i];
+        } else if (cardToAttackWith.atk > battlefield[i].def) {
+          cardToAttack = battlefield[i];
+        } else {
+          cardToAttackNumber = Math.floor(
+            Math.random() * Math.floor(battlefield.length)
+          );
+          cardToAttack = battlefield[cardToAttackNumber];
         }
       }
 
-      if (cardToAttackWith.hp <= 0) {
-        let cardAttackedAtk = cardToAttack.atk;
-        let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
-        let damage = cardAttackedAtk - totalOppCardHp;
-        setOpponentHp(opponentHp - damage);
-        opponentBattleField.splice(cardToAttackWithNumber, 1);
+      let attack = cardToAttackWith.atk;
+      let totalHp = cardToAttack.def + cardToAttack.hp;
+
+      if (attack > totalHp) {
+        //If attacked cards attack is less than cardToAttackWith def, reduce def
+        if (cardToAttack.atk < cardToAttackWith.def) {
+          reduceDefCard(cardToAttack, cardToAttackWith);
+          //If attacked cards atk is more than cardToAttackWith def, reduce hp
+        } else if (cardToAttack.atk > cardToAttackWith.def) {
+          reduceHpCard(cardToAttack, cardToAttackWith);
+        }
+
+        //If card gets destroyed
+        if (cardToAttackWith.hp <= 0) {
+          let cardAttackedAtk = cardToAttack.atk;
+          let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
+          let damage = cardAttackedAtk - totalOppCardHp;
+          setOpponentHp(opponentHp - damage);
+          opponentBattleField.splice(cardToAttackWithNumber, 1);
+        }
+
+        //Splice/delete our card
+        let index = battlefield.findIndex((x) => x.id === cardToAttack.id);
+        battlefield.splice(index, 1);
+        let damage = attack - totalHp;
+        setHp(hp - damage);
+      } else if (attack < totalHp) {
+        if (attack < cardToAttack.def) {
+          let newCardDef = cardToAttack.def - attack;
+          cardToAttack.def = newCardDef;
+          if (cardToAttackWith.def > cardToAttack.atk) {
+            let newCardToAtkWithDef = cardToAttackWith.def - cardToAttack.atk;
+            cardToAttackWith.def = newCardToAtkWithDef;
+          } else if (cardToAttackWith.def < cardToAttack.atk) {
+            let remainingAtk = cardToAttack.atk - cardToAttackWith.def;
+            let newCardToAtkWithHp = cardToAttackWith.hp - remainingAtk;
+            cardToAttackWith.hp = newCardToAtkWithHp;
+            cardToAttackWith.def = 0;
+          }
+        }
+
+        if (cardToAttackWith.hp <= 0) {
+          let cardAttackedAtk = cardToAttack.atk;
+          let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
+          let damage = cardAttackedAtk - totalOppCardHp;
+          setOpponentHp(opponentHp - damage);
+          opponentBattleField.splice(cardToAttackWithNumber, 1);
+        }
       }
     }
   };
@@ -692,6 +724,7 @@ const FunctionsComponent = () => {
     setopponentCardsinhand(opponentArr);
     setButtonShow(false);
     setStartGameActive(true);
+    setRound(round + 1)
   };
 
   useEffect(() => {
@@ -741,6 +774,7 @@ const FunctionsComponent = () => {
         selCardHand={selCardHand}
         setDefendingCard={setDefendingCard}
         defendingCard={defendingCard}
+        round={round}
       />
     </>
   );

@@ -7,6 +7,7 @@ import {
   Type,
   CostWrapper,
   Cost,
+  StyledCoin
 } from "./SpellCardElements";
 
 const SpellCard = ({ name, img, type, descText, cost, value, id, active, onClick }) => {
@@ -24,7 +25,7 @@ const SpellCard = ({ name, img, type, descText, cost, value, id, active, onClick
         <Type>[{type}]</Type>
         <DescriptionText>{descText}</DescriptionText>
         <CostWrapper>
-          <Cost>Cost: {cost}</Cost>
+        <StyledCoin /><Cost> {cost}</Cost>
         </CostWrapper>
       </CardWrapper>
     </>

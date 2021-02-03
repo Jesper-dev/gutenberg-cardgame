@@ -28,6 +28,8 @@ export const PlayerCardsContainer = styled.div`
 `;
 
 export const GoldStatus = styled.h2`
+ font-family: 'Old Standard TT', serif;
+  font-weight: 700;
   color: gold;
   font-size: 2.5rem;
 `;

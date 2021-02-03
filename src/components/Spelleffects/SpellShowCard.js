@@ -31,9 +31,9 @@ const SpellShowCard = ({ name, img, type, descText, cost, value, id }) => {
         <CardImg src={img} draggable={false} />
         <Type>[{type}]</Type>
         <DescriptionText>{descText}</DescriptionText>
-        <CostWrapper>
+      {/*   <CostWrapper>
           <Cost>Cost: {cost}</Cost>
-        </CostWrapper>
+        </CostWrapper> */}
       </CardWrapper>
     </>
   );

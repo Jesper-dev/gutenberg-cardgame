@@ -15,10 +15,10 @@ import {
   StyledShield,
   StyledSword,
   StyledHearth,
-  DefWrapper,
-  AtkWrapper
+  StyledCoin,
+  RightWrapper,
+  LeftWrapper,
 } from "./CharacterCardElements";
-
 
 const CharacterCard = ({
   name,
@@ -33,9 +33,8 @@ const CharacterCard = ({
   cost,
   cardsinhand,
   onClick,
-  active
+  active,
 }) => {
-
   return (
     <>
       <CardWrapper
@@ -49,19 +48,26 @@ const CharacterCard = ({
         <CardImg src={img} draggable={false} />
         <Type>[{type}]</Type>
         <AtkDefWrapper>
-          <AtkWrapper>
-          <StyledSword />
-          <Atk>{atk}</Atk>
-          </AtkWrapper>
-          <DefWrapper>
-          <StyledShield />
-          <Def>{def}</Def>
-          </DefWrapper>
+          <LeftWrapper>
+            <StyledSword />
+            <Atk>{atk}</Atk>
+          </LeftWrapper>
+          <RightWrapper>
+            <StyledShield />
+            <Def>{def}</Def>
+          </RightWrapper>
         </AtkDefWrapper>
         <DescriptionText>{descText}</DescriptionText>
         <CostHpWrapper>
-          <Cost>Cost: {cost}</Cost>
-          <HP>HP: {hp}</HP>
+          <LeftWrapper>
+          <StyledCoin />
+          <Cost>{cost}</Cost>
+          </LeftWrapper>
+
+          <RightWrapper>
+          <StyledHearth />
+          <HP>{hp}</HP>
+          </RightWrapper>
         </CostHpWrapper>
       </CardWrapper>
     </>

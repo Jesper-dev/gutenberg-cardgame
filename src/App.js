@@ -8,8 +8,6 @@ const App = () => {
     <>
       <GlobalStyle />
       <FunctionsComponent />
-
-      {/* <Canvas array={CardsArray} /> */}
     </>
   );
 };

@@ -1,13 +1,30 @@
 import OpponentCardsHand from "../cardsHand/OpponentCardsHand";
 
 export const DrawOneCard = (arr, cardsInHand) => {
-  if (cardsInHand > 3) {
+  if (cardsInHand > 4) {
     arr.splice(0, 1);
     return;
   } else {
     let card = arr[0];
     arr.splice(0, 1);
     cardsInHand.push(card);
+  }
+};
+
+export const DrawThreeCards = (arr, cardsInHand) => {
+  if (cardsInHand > 4) {
+    arr.splice(0, 3);
+    return;
+  } else {
+    for(let i = 0; i < 3; i++){
+      if(cardsInHand.length > 5){
+        return;
+      } else {
+        let card = arr[0]
+        cardsInHand.push(card);
+        arr.splice(0, 1)
+      }
+    }
   }
 };
 

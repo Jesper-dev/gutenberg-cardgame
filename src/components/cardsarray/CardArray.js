@@ -103,42 +103,6 @@ export const CardsArray = [
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
   },
   {
-    name: "Jon",
-    img: jon,
-    type: "Programmer",
-    cost: 50,
-    atk: 200,
-    def: 1000,
-    hp: 100,
-    id: "jon-five",
-    descText:
-      "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
-  },
-  {
-    name: "Jon",
-    img: jon,
-    type: "Programmer",
-    cost: 50,
-    atk: 200,
-    def: 1000,
-    hp: 100,
-    id: "jon-six",
-    descText:
-      "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
-  },
-  {
-    name: "Jon",
-    img: jon,
-    type: "Programmer",
-    cost: 50,
-    atk: 200,
-    def: 1000,
-    hp: 100,
-    id: "jon-seven",
-    descText:
-      "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
-  },
-  {
     name: "Mysterious Sexy Man",
     img: karlSexyman,
     type: "Seducer",
@@ -379,7 +343,22 @@ export const CardsArray = [
     id: "quire-two",
     descText: "Draw one card",
   },
-
+  {
+    name: "Quire 2.0",
+    img: quire,
+    type: "spell",
+    cost: 100,
+    id: "quire2-one",
+    descText: "Draw three cards",
+  },
+  {
+    name: "Quire 2.0",
+    img: quire,
+    type: "spell",
+    cost: 100,
+    id: "quire2-two",
+    descText: "Draw three cards",
+  },
   {
     name: "Money Making Idea",
     img: gold,
