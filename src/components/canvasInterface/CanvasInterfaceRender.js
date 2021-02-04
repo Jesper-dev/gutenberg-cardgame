@@ -70,7 +70,6 @@ const CanvasInterfaceRender = ({
           } else {
             return (
               <BattleMoveText key={i}>
-                
                 {item.type === "spell" || item.typeTwo === "spell"
                   ? `${item.whoPlayed} casted ${item.name}`
                   : `${item.attacker} attacked ${item.deffender}`}
