@@ -30,7 +30,8 @@ export const OpponentCardArray = [
     hp: 100,
     id: "wizard-one",
     value: 0,
-    descText: "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
+    descText:
+      "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
   },
   {
     name: "Wizard",
@@ -42,7 +43,8 @@ export const OpponentCardArray = [
     def: 500,
     hp: 100,
     id: "wizard-two",
-    descText: "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
+    descText:
+      "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
   },
   {
     name: "Wizard",
@@ -54,7 +56,8 @@ export const OpponentCardArray = [
     def: 500,
     hp: 100,
     id: "wizard-three",
-    descText: "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
+    descText:
+      "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
   },
   {
     name: "Jon",
@@ -216,6 +219,7 @@ export const OpponentCardArray = [
     name: "Harmonica",
     img: FancyHarmonica,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 250,
     id: "harmonica-one",
     descText:
@@ -225,6 +229,7 @@ export const OpponentCardArray = [
     name: "Harmonica",
     img: FancyHarmonica,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 250,
     id: "harmonica-two",
     descText:
@@ -234,6 +239,7 @@ export const OpponentCardArray = [
     name: "Harmonica",
     img: FancyHarmonica,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 250,
     id: "harmonica-three",
     descText:
@@ -295,6 +301,7 @@ export const OpponentCardArray = [
     name: "TinyMCE",
     img: tinymce,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 70,
     id: "tiny-one",
     descText:
@@ -304,6 +311,7 @@ export const OpponentCardArray = [
     name: "TinyMCE",
     img: tinymce,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 70,
     id: "tiny-two",
     descText:
@@ -313,6 +321,7 @@ export const OpponentCardArray = [
     name: "TP1",
     img: tp1crown,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 50,
     id: "tp1-one",
     descText:
@@ -322,6 +331,7 @@ export const OpponentCardArray = [
     name: "TP1",
     img: tp1crown,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 50,
     id: "tp1-two",
     descText:
@@ -331,6 +341,7 @@ export const OpponentCardArray = [
     name: "TP1",
     img: tp1crown,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 50,
     id: "tp1-three",
     descText:
@@ -340,6 +351,7 @@ export const OpponentCardArray = [
     name: "Quire",
     img: quire,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 25,
     id: "quire-one",
     descText: "Draw one card",
@@ -348,6 +360,7 @@ export const OpponentCardArray = [
     name: "Quire",
     img: quire,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 25,
     id: "quire-two",
     descText: "Draw one card",
@@ -357,14 +370,16 @@ export const OpponentCardArray = [
     name: "Money Making Idea",
     img: gold,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 0,
     id: "money-one",
-    descText: "Get 100 gold"
+    descText: "Get 100 gold",
   },
   {
     name: "Money Making Idea",
     img: gold,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 0,
     id: "money-two",
     descText: "Get 100 gold",
@@ -373,6 +388,7 @@ export const OpponentCardArray = [
     name: "Tiny MC Daddy",
     img: tinymcecool,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 100,
     id: "tiny-mc-one",
     descText: "Dissables all enemy cards on the board for the next round",
@@ -381,6 +397,7 @@ export const OpponentCardArray = [
     name: "Tiny MC Daddy",
     img: tinymcecool,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 100,
     id: "tiny-mc-two",
     descText: "Dissables all enemy cards on the board for the next round",
@@ -415,6 +432,7 @@ export const OpponentCardArray = [
     name: "Espresso House",
     img: espressoHouse,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 150,
     id: "house-one",
     descText: "Change the environment to “Espresso House”",
@@ -423,6 +441,7 @@ export const OpponentCardArray = [
     name: "Jon Level Two",
     img: jonPlus,
     type: "synergi-spell",
+    typeTwo: "spell",
     id: "jonUpgrade-one",
     descText:
       "Give every Jon on the battlefield, in your hand and deck, +500 atk and +300 def.",
@@ -431,6 +450,7 @@ export const OpponentCardArray = [
     name: "Malware",
     img: malware,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 200,
     id: "malware-one",
     descText:
@@ -440,6 +460,7 @@ export const OpponentCardArray = [
     name: "Malware",
     img: malware,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 200,
     id: "malware-two",
     descText:
@@ -449,6 +470,7 @@ export const OpponentCardArray = [
     name: "Malware",
     img: malware,
     type: "self-spell",
+    typeTwo: "spell",
     cost: 200,
     id: "malware-three",
     descText:
@@ -458,6 +480,7 @@ export const OpponentCardArray = [
     name: "Coffee",
     img: coffee,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 100,
     id: "coffee-one",
     descText:
@@ -467,6 +490,7 @@ export const OpponentCardArray = [
     name: "Coffee",
     img: coffee,
     type: "synergi-spell",
+    typeTwo: "spell",
     cost: 100,
     id: "coffee-two",
     descText:
@@ -502,6 +526,7 @@ export const OpponentCardArray = [
     name: "Error",
     img: error,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 300,
     id: "error-one",
     descText:
@@ -511,6 +536,7 @@ export const OpponentCardArray = [
     name: "Error",
     img: error,
     type: "damage-spell",
+    typeTwo: "spell",
     cost: 300,
     id: "error-two",
     descText:

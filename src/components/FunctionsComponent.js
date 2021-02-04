@@ -28,6 +28,7 @@ let battlefieldArr = [];
 let spellBattlefieldArr = [];
 let attackedArray = [];
 let attackedArrayBot = [];
+let battlelog = [];
 let oppGold = 300;
 
 const FunctionsComponent = () => {
@@ -45,6 +46,7 @@ const FunctionsComponent = () => {
   const [opponentCardsinhand, setopponentCardsinhand] = useState([]);
 
   const [whichTurn, setWhichTurn] = useState("Your Turn!");
+  const [battleMove, setBattleMove] = useState({});
 
   const [battlefield, setBattlefield] = useState([]);
   const [opponentBattleField, setOppoentBattleField] = useState([]);
@@ -55,7 +57,7 @@ const FunctionsComponent = () => {
   const [defendingCard, setDefendingCard] = useState([]);
   const [attacked, setAttacked] = useState([]);
 
-  const [gold, setGold] = useState(1000);
+  const [gold, setGold] = useState(150);
   const [enoughgold, setEnoughGold] = useState(false);
 
   const [hp, setHp] = useState(10000);
@@ -71,7 +73,7 @@ const FunctionsComponent = () => {
   const [harmonicaPlayer, setHarmonicaPlayer] = useState(false);
   const [harmonicaBot, setHarmonicaBot] = useState(false);
 
-  const [round, setRound] = useState(0)
+  const [round, setRound] = useState(0);
 
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -143,7 +145,7 @@ const FunctionsComponent = () => {
     setTimeout(() => {
       setYourTurn(true);
       setWhichTurn("Your Turn!");
-      
+
       startPlayerTurn();
     }, 10000);
   };
@@ -164,8 +166,8 @@ const FunctionsComponent = () => {
   //On start of player turn
   const startPlayerTurn = () => {
     setGold(gold + 150);
-    setRound(round + 1)
-    console.log(round)
+    setRound(round + 1);
+    console.log(round);
 
     let newOppGold = oppGold + 150;
     oppGold = newOppGold;
@@ -192,6 +194,7 @@ const FunctionsComponent = () => {
     if (arr.length === 4) {
       return;
     } else {
+      battlelog.unshift({ ...selectedCard[0], whoPlayed: "You" });
       arr.push(card);
       setGold(gold - card.cost);
       setBattlefield(arr);
@@ -219,6 +222,7 @@ const FunctionsComponent = () => {
         setSpellBattlefield(spellBattlefieldArr);
         let index = cardsinhand.findIndex((x) => x.id === selectedCard[0].id);
         cardsinhand.splice(index, 1);
+        battlelog.unshift({ ...selectedCard[0], whoPlayed: "You" });
       } else {
         checkBattlefieldLength(battlefieldArr, selectedCard[0]);
       }
@@ -338,7 +342,7 @@ const FunctionsComponent = () => {
           break;
 
         case "Quire 2.0":
-          DrawThreeCards(deck, cardsinhand)
+          DrawThreeCards(deck, cardsinhand);
 
           deleteSpellFromArr(spellBattlefieldArr);
 
@@ -420,6 +424,8 @@ const FunctionsComponent = () => {
         let newOppGold = oppGold - card.cost;
         oppGold = newOppGold;
 
+        battlelog.unshift({ ...card, whoPlayed: "Mr Eyepatch Dude" });
+
         opponentBattleField.push(card);
         setOppoentBattleField(opponentBattleField);
 
@@ -431,6 +437,8 @@ const FunctionsComponent = () => {
 
         spellBattlefieldArr.push(card);
         setSpellBattlefield(spellBattlefieldArr);
+
+        battlelog.unshift({ ...card, whoPlayed: "Mr Eyepatch Dude" });
 
         opponentCardsinhand.splice(i, 1);
       } else if (
@@ -444,6 +452,8 @@ const FunctionsComponent = () => {
         spellBattlefieldArr.push(card);
         setSpellBattlefield(spellBattlefieldArr);
 
+        battlelog.unshift({ ...card, whoPlayed: "Mr Eyepatch Dude" });
+
         opponentCardsinhand.splice(i, 1);
       } else if (
         card.cost < oppGold &&
@@ -453,8 +463,10 @@ const FunctionsComponent = () => {
         let newOppGold = oppGold - card.cost;
         oppGold = newOppGold;
         checkBotSpell(i);
+        battlelog.unshift(card);
 
-        spellBattlefieldArr.push(card);
+        spellBattlefieldArr.push({ ...card, whoPlayed: "Mr Eyepatch Dude" });
+
         setSpellBattlefield(spellBattlefieldArr);
 
         opponentCardsinhand.splice(i, 1);
@@ -599,11 +611,11 @@ const FunctionsComponent = () => {
         break;
 
       case "Quire 2.0":
-          DrawThreeCards(opponentDeck, opponentCardsinhand)
+        DrawThreeCards(opponentDeck, opponentCardsinhand);
 
-          deleteSpellFromArr(spellBattlefieldArr);
+        deleteSpellFromArr(spellBattlefieldArr);
 
-          break;
+        break;
 
       default:
         break;
@@ -623,13 +635,20 @@ const FunctionsComponent = () => {
         playerDmg += opponentBattleField[i].atk;
       }
 
+      let BattleMove = {
+        attacker: "Mr Eyepatch dude",
+        deffender: "Your face",
+      };
+
+      battlelog.unshift(BattleMove);
+
       setHp(hp - playerDmg);
       return;
     }
 
     // This section of code will only execute if both sides have cards in batttle array and if the bot isn't silenced
     for (let i = 0; i < opponentBattleField.length; i++) {
-      if(battlefield.length === 0){
+      if (battlefield.length === 0) {
         return;
       }
 
@@ -641,13 +660,13 @@ const FunctionsComponent = () => {
       let cardToAttackNumber;
       let cardToAttack;
 
-      if(attackedArrayBot.includes(cardToAttackWith)){
+      if (attackedArrayBot.includes(cardToAttackWith)) {
         cardToAttackWithNumber = Math.floor(
           Math.random() * Math.floor(opponentBattleField.length)
         );
       }
 
-      attackedArrayBot.push(cardToAttackWith)
+      attackedArrayBot.push(cardToAttackWith);
 
       for (let i = 0; i < battlefield.length; i++) {
         if (cardToAttackWith.atk > battlefield[i].def + battlefield[i].hp) {
@@ -711,6 +730,18 @@ const FunctionsComponent = () => {
           opponentBattleField.splice(cardToAttackWithNumber, 1);
         }
       }
+
+      /* setBattleMove({
+        attacker: cardToAttackWith.name,
+        deffender: cardToAttack.name,
+      }); */
+
+      let BattleMove = {
+        attacker: cardToAttackWith.name,
+        deffender: cardToAttack.name,
+      };
+
+      battlelog.unshift(BattleMove);
     }
   };
 
@@ -724,7 +755,7 @@ const FunctionsComponent = () => {
     setopponentCardsinhand(opponentArr);
     setButtonShow(false);
     setStartGameActive(true);
-    setRound(round + 1)
+    setRound(round + 1);
   };
 
   useEffect(() => {
@@ -775,6 +806,9 @@ const FunctionsComponent = () => {
         setDefendingCard={setDefendingCard}
         defendingCard={defendingCard}
         round={round}
+        battleMove={battleMove}
+        setBattleMove={setBattleMove}
+        battlelog={battlelog}
       />
     </>
   );

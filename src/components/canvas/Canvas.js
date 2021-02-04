@@ -27,6 +27,7 @@ import {
 import { BattlefieldContainer } from "../battlefield/BattleFieldElements";
 import useSound from "use-sound";
 import backMusic from "../../music/background-music.mp3";
+import { BattleMove } from "../canvasInterface/CanvasInterfaceElements";
 
 let newCardHp = 0;
 let newCardDef = 0;
@@ -71,7 +72,9 @@ const Canvas = ({
   setSelCardHand,
   defendingCard,
   setDefendingCard,
-  round
+  round,
+  battleMove,
+  battlelog,
 }) => {
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
@@ -85,10 +88,11 @@ const Canvas = ({
   const [play] = useSound(backMusic, { volume: 0.18 });
 
   const toggleEnemyTarget = () => {
-    if(!yourturn || opponentBattleField.length > 0 || !battlefield.length > 0) return
-  
+    if (!yourturn || opponentBattleField.length > 0 || !battlefield.length > 0)
+      return;
+
     setEnemeyTarget(!enemyTargeted);
-  }
+  };
   const CheckType = (item) => {
     if (item.type === "spell") {
       return false;
@@ -103,7 +107,6 @@ const Canvas = ({
       return;
     }
     if (enemyTargeted === true && opponentBattleField.length === 0) {
-      
       if (attacked.includes(attackingCard[0])) {
         setThiscardhasatked(true);
         setTimeout(() => {
@@ -115,11 +118,18 @@ const Canvas = ({
           return;
         }
 
+        let BattleMove = {
+          attacker: attackingCard[0].name,
+          deffender: "Mr Eyepatch dude",
+        };
+
+        battlelog.unshift(BattleMove);
+
         let newOppHp = opponentHp - attackingCard[0].atk;
         newOpponentHp(newOppHp);
 
-        toggleEnemyTarget()
-        setChosenAtk()
+        toggleEnemyTarget();
+        setChosenAtk();
         setAttackingCard([]);
       }
     }
@@ -132,15 +142,21 @@ const Canvas = ({
       }, 2500);
       return;
     } else {
-      
+      let BattleMove = {
+        attacker: attackingCard[0].name,
+        deffender: defendingCard[0].name,
+      };
+
+      battlelog.unshift(BattleMove);
+
       setAlreadyAtkedCards();
       DefreduceDefAndHp();
       AtkReduceDefAndHp();
       setAttackingCard([]);
       setDefendingCard([]);
-      setChosenAtk()
-      setChosenDefHigh()
-    /*   if(enemyTargeted){
+      setChosenAtk();
+      setChosenDefHigh();
+      /*   if(enemyTargeted){
         toggleEnemyTarget()
       } */
     }
@@ -170,10 +186,9 @@ const Canvas = ({
       if (newCardHp <= 0) {
         reduceOppHp();
         destroyCard(opponentBattleField, defendingCard);
-        if(attackingCard[0].name === 'Wizard'){
-          
-          if(cardsinhand.length < 4){
-            DrawOneCard(deck, cardsinhand)
+        if (attackingCard[0].name === "Wizard") {
+          if (cardsinhand.length < 4) {
+            DrawOneCard(deck, cardsinhand);
           }
         }
       } else {
@@ -202,7 +217,6 @@ const Canvas = ({
   };
 
   const destroyCard = (arr, card) => {
-    
     let index = arr.findIndex((x) => x.id === card[0].id);
     arr.splice(index, 1);
   };
@@ -287,6 +301,9 @@ const Canvas = ({
           toggleEnemyTarget={toggleEnemyTarget}
           enemyTargeted={enemyTargeted}
           round={round}
+          battleMove={battleMove}
+          battlelog={battlelog}
+          yourturn={yourturn}
         />
       ) : (
         <></>

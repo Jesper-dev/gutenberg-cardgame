@@ -25,7 +25,10 @@ import {
   StyledSwords,
   AttackText,
   EnemyAvatar,
-  StyledGold
+  StyledGold,
+  BattleMove,
+  BattleMoveText,
+  StyledScroll,
 } from "./CanvasInterfaceElements";
 
 const CanvasInterfaceRender = ({
@@ -43,14 +46,40 @@ const CanvasInterfaceRender = ({
   opponentHp,
   toggleEnemyTarget,
   enemyTargeted,
-  round
+  round,
+  battleMove,
+  battlelog,
+  yourturn,
 }) => {
   const [swordSound] = useSound(swordSfx, { volume: 0.18 });
 
   const [enemySound] = useSound(enemySfx, { volume: 0.18 });
 
+  console.log(battleMove);
+  console.log(battlelog);
   return (
     <>
+      <BattleMove>
+        {battlelog.map((item, i) => {
+          if (item.typeTwo === "character") {
+            return (
+              <BattleMoveText key={i}>
+                {item.whoPlayed} played {item.name}
+              </BattleMoveText>
+            );
+          } else {
+            return (
+              <BattleMoveText key={i}>
+                
+                {item.type === "spell" || item.typeTwo === "spell"
+                  ? `${item.whoPlayed} casted ${item.name}`
+                  : `${item.attacker} attacked ${item.deffender}`}
+              </BattleMoveText>
+            );
+          }
+        })}
+      </BattleMove>
+
       <OpponentDeckWrapper>
         <VisualDeck>
           <OpponentCardsLeft>{oppDeck.length}</OpponentCardsLeft>
@@ -63,13 +92,11 @@ const CanvasInterfaceRender = ({
       </PlayerDeckWrapper>
 
       <LeftToolBarContainer>
-        
         <GoldStatus>
-          {gold}{" "}
-          <StyledGold />
+          {gold} <StyledGold />
         </GoldStatus>
       </LeftToolBarContainer>
-      
+
       <EndTurnButton onClick={endTurnFunc}>End Turn</EndTurnButton>
 
       <NotEnoughError
@@ -96,8 +123,12 @@ const CanvasInterfaceRender = ({
         <Hpcontainer>{hp}</Hpcontainer>
       </RightToolBarContainer>
 
-      <TurnInicator font="1.7rem" left="30px" top="45px">{whichTurn}</TurnInicator>
-      <TurnInicator font="3rem" left="30px" top="-35px" >Round  {round}</TurnInicator>
+      <TurnInicator font="1.7rem" left="30px" top="45px">
+        {whichTurn}
+      </TurnInicator>
+      <TurnInicator font="3rem" left="30px" top="-35px">
+        Round {round}
+      </TurnInicator>
     </>
   );
 };
