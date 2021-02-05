@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import {
   NotEnoughError,
   EndTurnButton,
@@ -10,9 +11,6 @@ import {
   GoldStatus,
   LeftToolBarContainer,
 } from "../player/PlayerElements";
-import useSound from "use-sound";
-import swordSfx from "../../music/sword.mp3";
-import enemySfx from "../../music/arr.wav";
 /* import { PlayCardButton, GoldStatus, LeftToolBarContainer } from "./Player/PlayerElements"; */
 import {
   OpponentDeckWrapper,
@@ -30,6 +28,11 @@ import {
   BattleMoveText,
   StyledScroll,
 } from "./CanvasInterfaceElements";
+import Settings from "../settings/Settings";
+import useSound from "use-sound";
+import swordSfx from "../../music/sword.mp3";
+import enemySfx from "../../music/arr.wav";
+import backMusic from "../../music/background-music.mp3";
 
 const CanvasInterfaceRender = ({
   endTurnFunc,
@@ -51,14 +54,66 @@ const CanvasInterfaceRender = ({
   battlelog,
   yourturn,
 }) => {
-  const [swordSound] = useSound(swordSfx, { volume: 0.18 });
+  const [volume, setVolume] = useState(0.2);
+  const [sfxVolume, setSfxVolume] = useState(0.2);
 
-  const [enemySound] = useSound(enemySfx, { volume: 0.18 });
+  const adjustVolume = (e) => {
+    
 
-  console.log(battleMove);
-  console.log(battlelog);
+    if (e.target.id == "sfx-minus") {
+      if (sfxVolume < 0.1) return
+    
+      setSfxVolume(sfxVolume - 0.1);
+      
+    } else if (e.target.id == "sfx-plus") {
+
+      if (sfxVolume > 0.9) return
+      setSfxVolume(sfxVolume + 0.1);
+      
+    } else if (e.target.id == "volume-plus") {
+      
+      if (volume > 0.9) return;
+      setVolume(volume + 0.1);
+
+    } else if (e.target.id == "volume-minus") {
+
+      if (volume < 0.1) return;
+      setVolume(volume - 0.1);
+      
+    }
+  };
+
+  const [swordTimeOut, setSwordTimeOut] = useState(true)
+  const [enemyTimeOut, setEnemyTimeOut] = useState(true)
+
+  const SwordHover = () => {
+    if (swordTimeOut) {
+      swordSound()
+      setSwordTimeOut(false)
+      setTimeout(() => {
+        setSwordTimeOut(true)
+      }, 5000)
+    }
+  }
+  const EnemyHover = () => {
+    if (enemyTimeOut) {
+      enemySound()
+      setEnemyTimeOut(false)
+      setTimeout(() => {
+        setEnemyTimeOut(true)
+      }, 8000)
+    }
+  }
+
+  const [swordSound] = useSound(swordSfx, { volume: sfxVolume });
+  const [enemySound] = useSound(enemySfx, { volume: sfxVolume });
+
+  
+  const [play, { stop, isPlaying }] = useSound(backMusic, { volume: volume });
+
   return (
     <>
+      <Settings active={isPlaying} play={play} stop={stop} volume={volume} sfxVolume={sfxVolume} adjustVolume={adjustVolume} />
       <BattleMove>
         {battlelog.map((item, i) => {
           if (item.typeTwo === "character") {
@@ -105,7 +160,7 @@ const CanvasInterfaceRender = ({
       </NotEnoughError>
 
       <EnemyAvatar
-        onMouseEnter={enemySound}
+        onMouseEnter={() => EnemyHover()}
         style={
           !enemyTargeted
             ? { filter: "brightness(75%) contrast(150%)" }
@@ -116,7 +171,7 @@ const CanvasInterfaceRender = ({
       <OpponentHpcontainer>{opponentHp}</OpponentHpcontainer>
 
       <AttackText>Attack!</AttackText>
-      <StyledSwords onMouseEnter={swordSound} onClick={attackingFunc} />
+      <StyledSwords onMouseEnter={() => SwordHover()} onClick={attackingFunc} />
 
       <RightToolBarContainer>
         <Hpcontainer>{hp}</Hpcontainer>

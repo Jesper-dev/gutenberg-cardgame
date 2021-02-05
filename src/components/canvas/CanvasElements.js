@@ -12,7 +12,6 @@ export const CanvasWrapper = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
- 
 `;
 export const StartGameButton = styled.button`
   position: absolute;
@@ -68,7 +67,7 @@ export const EndTurnButton = styled.button`
   :focus {
     outline: none;
   }
-/* 
+  /* 
   :hover {
     transition: 0.3s ease-in-out;
     padding: 12px 32px;
@@ -94,27 +93,26 @@ export const AlreadyAtked = styled.h2`
   font-size: 2.4rem;
   top: 68%;
   left: 35%;
-/*   transform: translate(-100%, 100%); */
+  /*   transform: translate(-100%, 100%); */
   color: #ff0f0f;
   -webkit-text-stroke: 1px black;
 `;
 
-export const TurnInicator = styled.h2.attrs(props => ({
+export const TurnInicator = styled.h2.attrs((props) => ({
   top: props.top,
   left: props.left,
-  font: props.font
+  font: props.font,
 }))`
   position: absolute;
-  top: ${props => props.top};
-  left: ${props => props.left};
-  font-size: ${props => props.font};
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  font-size: ${(props) => props.font};
   font-family: "Lobster", cursive;
   font-weight: lighter;
   color: goldenrod;
   text-shadow: 5px 5px 5px #000;
   -webkit-text-stroke: 1px black;
-  
-`
+`;
 
 export const WonGamePage = styled.div`
   position: absolute;
@@ -132,8 +130,7 @@ export const WonGamePage = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: 99999;
-
-`
+`;
 
 export const WonGamePageButton = styled.button`
   position: absolute;
@@ -166,7 +163,7 @@ export const WonGamePageButton = styled.button`
     height: 10vh;
     font-size: 2.4rem;
   }
-`
+`;
 export const WonGamePageHeader = styled.h1`
   position: absolute;
   z-index: 999999;
@@ -177,13 +174,4 @@ export const WonGamePageHeader = styled.h1`
   font-weight: normal;
   font-family: "Lobster", cursive;
   font-size: 2.3rem;
-
-`
-
-export const PlayButton = styled.button`
-position: absolute;
-right: 5%;
-top: 3%;
-width: 60px;
-height: 30px;
-`
+`;

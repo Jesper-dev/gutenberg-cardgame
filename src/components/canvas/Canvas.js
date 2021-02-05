@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import {
   CanvasWrapper,
   StartGameButton,
@@ -6,7 +7,6 @@ import {
   WonGamePage,
   WonGamePageButton,
   WonGamePageHeader,
-  PlayButton,
   MuteButton,
 } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
@@ -25,8 +25,6 @@ import {
   PlayCardButton,
 } from "../player/PlayerElements";
 import { BattlefieldContainer } from "../battlefield/BattleFieldElements";
-import useSound from "use-sound";
-import backMusic from "../../music/background-music.mp3";
 import { BattleMove } from "../canvasInterface/CanvasInterfaceElements";
 
 let newCardHp = 0;
@@ -82,10 +80,6 @@ const Canvas = ({
 
   const [lostgame, setLostGame] = useState(false);
   const [wongame, setWonGame] = useState(false);
-
-  /*   const soundUrl = '../../music/background-music.mp3' */
-
-  const [play] = useSound(backMusic, { volume: 0.18 });
 
   const toggleEnemyTarget = () => {
     if (!yourturn || opponentBattleField.length > 0 || !battlefield.length > 0)
@@ -255,7 +249,6 @@ const Canvas = ({
   return (
     <CanvasWrapper>
       <OpponentTurn />
-      <PlayButton onClick={play}>Music</PlayButton>
 
       <StartGameButton
         style={buttonShow ? { display: "flex" } : { display: "none" }}
@@ -281,6 +274,11 @@ const Canvas = ({
 
       {thiscardhasatked ? (
         <AlreadyAtked>This Card Has Already Attacked!</AlreadyAtked>
+      ) : (
+        ""
+      )}
+      {silenceBot ? (
+        <AlreadyAtked>You're silenced!</AlreadyAtked>
       ) : (
         ""
       )}

@@ -102,13 +102,11 @@ export const StyledSwords = styled(Swords)`
 `;
 export const EnemyAvatar = styled(Enemy)`
   position: absolute;
-  /*  z-index: 9999; */
   top: 2%;
   left: 23%;
   width: 7%;
   height: 150px;
   cursor: pointer;
-  /*   border: 1px solid black; */
 `;
 
 export const StyledGold = styled(Gold)`
