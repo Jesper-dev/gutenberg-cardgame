@@ -175,3 +175,10 @@ export const WonGamePageHeader = styled.h1`
   font-family: "Lobster", cursive;
   font-size: 2.3rem;
 `;
+
+export const AlphaTag = styled.p`
+  position: absolute;
+  font-size: 1.1rem;
+  font-weight: bold;
+  right: 2%;
+`

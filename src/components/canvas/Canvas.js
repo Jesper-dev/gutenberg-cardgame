@@ -8,6 +8,7 @@ import {
   WonGamePageButton,
   WonGamePageHeader,
   MuteButton,
+  AlphaTag
 } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
 import { OpponentTurn } from "../opponent/OpponentTurn";
@@ -248,6 +249,7 @@ const Canvas = ({
 
   return (
     <CanvasWrapper>
+      <AlphaTag>Alpha V 0.1</AlphaTag>
       <OpponentTurn />
 
       <StartGameButton
