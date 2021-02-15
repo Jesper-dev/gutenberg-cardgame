@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import {
   CanvasWrapper,
@@ -8,7 +9,7 @@ import {
   WonGamePageButton,
   WonGamePageHeader,
   MuteButton,
-  AlphaTag
+  AlphaTag,
 } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
 import { OpponentTurn } from "../opponent/OpponentTurn";
@@ -259,6 +260,10 @@ const Canvas = ({
         START GAME
       </StartGameButton>
 
+      <button>
+        <Link to="/interface">Deck Builder</Link>
+      </button>
+
       {wongame ? (
         <WonGamePage>
           <WonGamePageHeader>
@@ -279,11 +284,7 @@ const Canvas = ({
       ) : (
         ""
       )}
-      {silenceBot ? (
-        <AlreadyAtked>You're silenced!</AlreadyAtked>
-      ) : (
-        ""
-      )}
+      {silenceBot ? <AlreadyAtked>You're silenced!</AlreadyAtked> : ""}
       {startGameActive ? (
         <CanvasInterfaceRender
           enoughgold={enoughgold}

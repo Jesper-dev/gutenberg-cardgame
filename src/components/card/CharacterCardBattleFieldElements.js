@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CardBackground from "../../Img/card-background-two.jpg";
 import GoldTexture from "../../Img/gold-texture.jpg";
 import DescBack from "../../Img/desc-back.jpg";
+import { ReactComponent as Hearth } from "../../Img/health.svg";
 
 export const CardWrapper = styled.div`
   height: 260px;
@@ -39,7 +40,6 @@ export const CardName = styled.h3`
   overflow: hidden; */
   color: #000;
   font-family: "Lobster", cursive;
-  
 `;
 
 export const CardImg = styled.img`
@@ -79,26 +79,27 @@ export const Def = styled.p`
 `;
 
 export const DescriptionText = styled.p`
-  margin-top: 3%;
-  margin-bottom: 0%;
-  width: 140px;
-  max-height: 65px;
-  padding: 5px;
+  font-family: "EB Garamond", serif;
+  font-weight: 700;
+
+  margin-top: 2%;
+  width: 135px;
+  max-height: 70px;
   overflow: hidden;
-  font-size: 0.7rem;
+  padding: 5px;
+  margin-bottom: 0;
   border: 1px solid black;
   border-radius: 4px;
   background: #fff;
   background-image: url(${DescBack});
   background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
-  
+  font-size: 0.7rem;
 `;
 
 export const HPWrapper = styled.span`
-  margin-top: 0%;
-  width: 170px;
+  margin-top: 8%;
+  width: 100%;
   height: 20px;
 
   display: flex;
@@ -108,9 +109,15 @@ export const HPWrapper = styled.span`
 `;
 
 export const HP = styled.p`
-  width: 55px;
+  font-family: "Old Standard TT", serif;
+  font-weight: 700;
   height: 20px;
-  color: red;
-  margin-right: 5px;
-  font-size: 0.8rem;
+  margin-right: 15px;
+  text-shadow: 1.5px 1.5px 1.5px #000;
+  color: #e81717;
+`;
+
+export const StyledHearth = styled(Hearth)`
+  width: 21%;
+  height: 100%;
 `;

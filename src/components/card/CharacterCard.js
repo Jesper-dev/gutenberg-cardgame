@@ -37,13 +37,7 @@ const CharacterCard = ({
 }) => {
   return (
     <>
-      <CardWrapper
-        value={value}
-        /*  style={active ? { border: "5px solid blue" } : { border: "" }} */
-        active={active}
-        id={id}
-        onClick={onClick}
-      >
+      <CardWrapper value={value} active={active} id={id} onClick={onClick}>
         <CardName>{name}</CardName>
         <CardImg src={img} draggable={false} />
         <Type>[{type}]</Type>
@@ -60,13 +54,13 @@ const CharacterCard = ({
         <DescriptionText>{descText}</DescriptionText>
         <CostHpWrapper>
           <LeftWrapper>
-          <StyledCoin />
-          <Cost>{cost}</Cost>
+            <StyledCoin />
+            <Cost>{cost}</Cost>
           </LeftWrapper>
 
           <RightWrapper>
-          <StyledHearth />
-          <HP>{hp}</HP>
+            <StyledHearth />
+            <HP>{hp}</HP>
           </RightWrapper>
         </CostHpWrapper>
       </CardWrapper>

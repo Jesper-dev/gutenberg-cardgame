@@ -288,6 +288,7 @@ const FunctionsComponent = () => {
           setHarmonicaPlayer(true);
 
           deleteSpellFromArr(spellBattlefieldArr);
+          UpdateBattleField(opponentBattleField);
 
           break;
 
@@ -332,6 +333,8 @@ const FunctionsComponent = () => {
 
           deleteSpellFromArr(spellBattlefieldArr);
 
+          UpdateBattleField(opponentBattleField);
+
           break;
 
         case "Golden Instrument":
@@ -367,7 +370,7 @@ const FunctionsComponent = () => {
 
         case "Gutenberg Mariachi":
           mariachiOnPlay(opponentBattleField);
-
+          UpdateBattleField(opponentBattleField);
           break;
 
         case "Anton":
@@ -463,15 +466,51 @@ const FunctionsComponent = () => {
         let newOppGold = oppGold - card.cost;
         oppGold = newOppGold;
         checkBotSpell(i);
-        battlelog.unshift(card);
+        battlelog.unshift({ ...card, whoPlayed: "Mr Eyepatch Dude" });
 
-        spellBattlefieldArr.push({ ...card, whoPlayed: "Mr Eyepatch Dude" });
-
+        spellBattlefieldArr.push(card);
         setSpellBattlefield(spellBattlefieldArr);
 
         opponentCardsinhand.splice(i, 1);
       } else {
-        console.log("I cant do anything");
+        let checkIfPlayed = false;
+        if (!checkIfPlayed) {
+          for (let i = 0; i < opponentCardsinhand.length; i++) {
+            if (card.cost < oppGold) {
+              if (card.typeTwo === "spell") {
+                console.log("I Playes this cuz al moves are trash!");
+                let newOppGold = oppGold - card.cost;
+                oppGold = newOppGold;
+                checkBotSpell(i);
+                battlelog.unshift({ ...card, whoPlayed: "Mr Eyepatch Dude" });
+
+                spellBattlefieldArr.push(card);
+                setSpellBattlefield(spellBattlefieldArr);
+
+                opponentCardsinhand.splice(i, 1);
+                checkIfPlayed = true;
+              } else {
+                console.log("I Playes this cuz al moves are trash!");
+                checkBotChar(i);
+                let newOppGold = oppGold - card.cost;
+                oppGold = newOppGold;
+
+                battlelog.unshift({ ...card, whoPlayed: "Mr Eyepatch Dude" });
+
+                opponentBattleField.push(card);
+                setOppoentBattleField(opponentBattleField);
+
+                opponentCardsinhand.splice(i, 1);
+
+                checkIfPlayed = true;
+              }
+            } else {
+              console.log("I cant play that card lol");
+            }
+          }
+        } else {
+          return;
+        }
       }
     }
   };
@@ -494,6 +533,7 @@ const FunctionsComponent = () => {
 
       case "Gutenberg Mariachi":
         mariachiOnPlay(battlefield);
+        UpdateBattleField(battlefield);
 
         break;
 
@@ -558,6 +598,8 @@ const FunctionsComponent = () => {
 
         deleteSpellFromArr(spellBattlefieldArr);
 
+        UpdateBattleField(battlefield);
+
         break;
 
       case "Tiny MC Daddy":
@@ -600,6 +642,8 @@ const FunctionsComponent = () => {
         error(battlefield);
 
         deleteSpellFromArr(spellBattlefieldArr);
+
+        UpdateBattleField(battlefield);
 
         break;
 
@@ -652,19 +696,19 @@ const FunctionsComponent = () => {
         return;
       }
 
-      let cardToAttackWithNumber = Math.floor(
-        Math.random() * Math.floor(opponentBattleField.length)
-      );
+      // let cardToAttackWithNumber = Math.floor(
+      //   Math.random() * Math.floor(opponentBattleField.length)
+      // );
 
-      let cardToAttackWith = opponentBattleField[cardToAttackWithNumber];
+      let cardToAttackWith = opponentBattleField[i];
       let cardToAttackNumber;
       let cardToAttack;
 
-      if (attackedArrayBot.includes(cardToAttackWith)) {
-        cardToAttackWithNumber = Math.floor(
-          Math.random() * Math.floor(opponentBattleField.length)
-        );
-      }
+      // if (attackedArrayBot.includes(cardToAttackWith)) {
+      //   cardToAttackWithNumber = Math.floor(
+      //     Math.random() * Math.floor(opponentBattleField.length)
+      //   );
+      // }
 
       attackedArrayBot.push(cardToAttackWith);
 
@@ -699,7 +743,7 @@ const FunctionsComponent = () => {
           let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
           let damage = cardAttackedAtk - totalOppCardHp;
           setOpponentHp(opponentHp - damage);
-          opponentBattleField.splice(cardToAttackWithNumber, 1);
+          opponentBattleField.splice(i, 1);
         }
 
         //Splice/delete our card
@@ -727,14 +771,9 @@ const FunctionsComponent = () => {
           let totalOppCardHp = cardToAttackWith.def + cardToAttackWith.hp;
           let damage = cardAttackedAtk - totalOppCardHp;
           setOpponentHp(opponentHp - damage);
-          opponentBattleField.splice(cardToAttackWithNumber, 1);
+          opponentBattleField.splice(i, 1);
         }
       }
-
-      /* setBattleMove({
-        attacker: cardToAttackWith.name,
-        deffender: cardToAttack.name,
-      }); */
 
       let BattleMove = {
         attacker: cardToAttackWith.name,
@@ -742,6 +781,14 @@ const FunctionsComponent = () => {
       };
 
       battlelog.unshift(BattleMove);
+    }
+  };
+
+  const UpdateBattleField = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].hp <= 0) {
+        arr.splice(i, 1);
+      }
     }
   };
 

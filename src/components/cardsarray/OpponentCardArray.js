@@ -253,7 +253,7 @@ export const OpponentCardArray = [
     atk: 200,
     def: 3500,
     hp: 100,
-    cost: 350,
+    cost: 250,
     id: "mariachi-one",
     descText:
       "This card summuons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
@@ -266,7 +266,7 @@ export const OpponentCardArray = [
     atk: 200,
     def: 3500,
     hp: 100,
-    cost: 350,
+    cost: 250,
     id: "mariachi-two",
     descText:
       "This card summons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
@@ -279,7 +279,7 @@ export const OpponentCardArray = [
     atk: 200,
     def: 3500,
     hp: 100,
-    cost: 350,
+    cost: 250,
     id: "mariachi-three",
     descText:
       "This card summons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",
@@ -292,7 +292,7 @@ export const OpponentCardArray = [
     atk: 200,
     def: 3500,
     hp: 100,
-    cost: 350,
+    cost: 250,
     id: "mariachi-four",
     descText:
       "This card summons the almighty Mariachi Group that decends from the Gutenberg era. Wait no more becuse now stuff is truly about to go down. This band deals 150 dmg to all opponents with its mighty music",

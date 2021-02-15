@@ -25,13 +25,13 @@ export const CardWrapper = styled.div`
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   margin-top: 100px;
-
 `;
 
 export const CardName = styled.h3`
+  font-family: "Lobster", cursive;
   margin-top: 2%;
   margin-bottom: 1%;
-  color: grey;
+  color: #000;
 `;
 
 export const CardImg = styled.img`
@@ -49,17 +49,21 @@ export const Type = styled.p`
 `;
 
 export const DescriptionText = styled.p`
-  margin-top: 5%;
-  width: 150px;
-  height: 80px;
-  padding: 2px 2px;
+  font-family: "EB Garamond", serif;
+  font-weight: 700;
+
+  margin-top: 2%;
+  width: 135px;
+  min-height: 60px;
+  max-height: 70px;
+  overflow: hidden;
+  padding: 5px;
+  margin-bottom: 0;
   border: 1px solid black;
   border-radius: 4px;
-  overflow: hidden;
   background: #fff;
   background-image: url(${DescBack});
   background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
   font-size: 0.7rem;
 `;

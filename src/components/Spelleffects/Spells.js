@@ -16,13 +16,13 @@ export const DrawThreeCards = (arr, cardsInHand) => {
     arr.splice(0, 3);
     return;
   } else {
-    for(let i = 0; i < 3; i++){
-      if(cardsInHand.length > 5){
+    for (let i = 0; i < 3; i++) {
+      if (cardsInHand.length > 5) {
         return;
       } else {
-        let card = arr[0]
+        let card = arr[0];
         cardsInHand.push(card);
-        arr.splice(0, 1)
+        arr.splice(0, 1);
       }
     }
   }
@@ -71,7 +71,10 @@ export const harmonica = (arr) => {
 export const jonLevelTwo = (battlefield, hand, deck) => {
   //First battlefield
   for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].name === "Jon" || battlefield[i].name === "Jon scrum-master" ) {
+    if (
+      battlefield[i].name === "Jon" ||
+      battlefield[i].name === "Jon scrum-master"
+    ) {
       let newAtk = battlefield[i].atk + 500;
       battlefield[i].atk = newAtk;
 
@@ -153,8 +156,7 @@ export const error = (arr) => {
     let newDef = arr[select].def - 600;
     arr[select].def = newDef;
   } else if ((arr[select].def = 600)) {
-    let newHp = arr[select].hp - 600;
-    arr[select].hp = newHp;
+    arr[select].def = 0;
   } else if (arr[select].def < 600) {
     let remainDmg = 600 - arr[select].def;
     let newCardHp = arr[select].hp - remainDmg;
@@ -164,8 +166,8 @@ export const error = (arr) => {
 };
 
 export const goldenInstrument = (arr) => {
-  for(let i = 0; i < arr.length; i++){
-    if(arr[i].name === "Gutenberg Mariachi"){
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].name === "Gutenberg Mariachi") {
       let newDef = arr[i].def + 650;
       arr[i].def = newDef;
       return;
@@ -179,23 +181,23 @@ export const mariachiOnPlay = (arr) => {
       let newDef = arr[i].def - 150;
       arr[i].def = newDef;
     } else if (arr[i].def <= 150) {
-      let newHp = arr[i].hp - 150;
-      arr[i].hp = newHp;
+      let remainDmg = 150 - arr[i].def;
+      let newCardHp = arr[i].hp - remainDmg;
+      arr[i].hp = newCardHp;
+      arr[i].def = 0;
     }
   }
 };
 
 export const jesperOnPlay = (arr, card) => {
-
   let attack = 0;
-  for (let i = 0; i < arr.length; i++){
-    if(arr[i].type === "Programmer"){
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].type === "Programmer") {
       attack += 100;
     }
   }
-  
+
   let newAtk = attack;
   let newCardAtk = card.atk + newAtk;
-  card.atk = newCardAtk
-
+  card.atk = newCardAtk;
 };

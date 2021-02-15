@@ -5,14 +5,22 @@ import {
   CardName,
   CardImg,
   AtkDefWrapper,
-  Atk,
-  Def,
   DescriptionText,
   Type,
+  StyledHearth,
   HPWrapper,
   HP,
 } from "./CharacterCardBattleFieldElements";
-
+import {
+  CostHpWrapper,
+  Atk,
+  Def,
+  StyledShield,
+  StyledSword,
+  StyledCoin,
+  RightWrapper,
+  LeftWrapper,
+} from "./CharacterCardElements";
 
 const CharacterCardBattleField = ({
   name,
@@ -31,27 +39,38 @@ const CharacterCardBattleField = ({
   item,
   playerClick,
   setChosenAtk,
-  onPlayerClick
+  onPlayerClick,
 }) => {
- 
   return (
     <CardWrapper
       value={value}
       style={active ? { border: "5px solid blue" } : { border: "" }}
       id={id}
-      onClick={(e) => {onClick(); onAttackCardClick(e)} }
+      onClick={(e) => {
+        onClick();
+        onAttackCardClick(e);
+      }}
     >
-
       <CardName>{name}</CardName>
       <CardImg src={img} />
       <Type>[{type}]</Type>
+
       <AtkDefWrapper>
-        <Atk>Atk: {atk}</Atk>
-        <Def>Def: {def}</Def>
+        <LeftWrapper>
+          <StyledSword />
+          <Atk>{atk}</Atk>
+        </LeftWrapper>
+        <RightWrapper>
+          <StyledShield />
+          <Def>{def}</Def>
+        </RightWrapper>
       </AtkDefWrapper>
+
       <DescriptionText>{descText}</DescriptionText>
+
       <HPWrapper>
-        <HP>HP: {hp}</HP>
+        <StyledHearth />
+        <HP>{hp}</HP>
       </HPWrapper>
     </CardWrapper>
   );
