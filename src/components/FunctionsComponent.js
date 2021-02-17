@@ -3,6 +3,7 @@ import BattleField from "./battlefield/BattleField";
 import OpponentBattleField from "./battlefield/OpponentBattleField";
 import Canvas from "./canvas/Canvas";
 import { CardsArray } from "./cardsarray/CardArray";
+import { selfCreatedDeck } from "../Deck/Interface";
 import { OpponentCardArray } from "./cardsarray/OpponentCardArray";
 import {
   DrawOneCard,
@@ -97,8 +98,8 @@ const FunctionsComponent = () => {
   };
 
   useEffect(() => {
-    shuffleArray(CardsArray);
-    setDeck(CardsArray);
+    shuffleArray(selfCreatedDeck);
+    setDeck(selfCreatedDeck);
   }, []);
 
   const onAttackCardClick = (e) => {
@@ -813,7 +814,7 @@ const FunctionsComponent = () => {
     <>
       <Canvas
         buttonShow={buttonShow}
-        array={CardsArray}
+        array={selfCreatedDeck}
         shuffleArray={shuffleArray}
         opponentDeck={opponentDeck}
         endTurnFunc={EndTurn}

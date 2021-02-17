@@ -32,6 +32,8 @@ export const DeckCardsArray = [
     id: "wizard-one",
     descText:
       "Fearsome spellcaster! Known for its strength and cruelsome. If this card kills an enemy, draw one card.",
+    amount: 0,
+    value: 0,
   },
   {
     name: "Jon",
@@ -42,9 +44,11 @@ export const DeckCardsArray = [
     atk: 200,
     def: 1000,
     hp: 100,
-    id: "jon-one",
+    id: "Jon1",
     descText:
       "Fear not, Jon is here! Known for his expertis in taking long walks, he will leave no enemies standing",
+    amount: 0,
+    value: 1,
   },
   {
     name: "Mysterious Sexy Man",
@@ -58,6 +62,8 @@ export const DeckCardsArray = [
     id: "karl-one",
     descText:
       "This is the mysterious Sexy man once found as the winner of 'world sexiest man alive' in forbes, GQ and many other magazines.",
+    amount: 0,
+    value: 2,
   },
 
   {
@@ -72,6 +78,8 @@ export const DeckCardsArray = [
     id: "juice-one",
     descText:
       "The Notorious JuiceGhost. Hide you family, hide your friends. Everythin you know and love can and WILL be gone.",
+    amount: 0,
+    value: 3,
   },
   {
     name: "Jesper",
@@ -85,6 +93,8 @@ export const DeckCardsArray = [
     id: "programmer-one",
     descText:
       "He will use code to defeat his enemies, for every other programmer on board get +100 atk when played",
+    amount: 0,
+    value: 4,
   },
   {
     name: "Harmonica",
@@ -94,6 +104,7 @@ export const DeckCardsArray = [
     id: "harmonica-one",
     descText:
       "It's 8am. Your about to meet with the buyer. All of a sudden Anton plays the harmonica and all enemys are silienced for the next round and damages all enemy card for 200.",
+    amount: 0,
   },
   {
     name: "Gutenberg Mariachi",
@@ -107,6 +118,7 @@ export const DeckCardsArray = [
     id: "mariachi-one",
     descText:
       "This card summuons the almighty Mariachi Group that decends from the Gutenberg era. This group deals 150 dmg to all opponents with its mighty music",
+    amount: 0,
   },
   {
     name: "Golden Instrument",
@@ -115,6 +127,7 @@ export const DeckCardsArray = [
     cost: 250,
     id: "golden-one",
     descText: "Use this on Gutenberg Mariachi and behold...",
+    amount: 0,
   },
   {
     name: "TinyMCE",
@@ -124,6 +137,7 @@ export const DeckCardsArray = [
     id: "tiny-one",
     descText:
       "Heal 50hp to every friendly card on your board and give +100 def.",
+    amount: 0,
   },
   {
     name: "TP1",
@@ -133,6 +147,7 @@ export const DeckCardsArray = [
     id: "tp1-one",
     descText:
       "Give one random card the title “scrum-master” and give it +200atk",
+    amount: 0,
   },
   {
     name: "Quire",
@@ -141,6 +156,7 @@ export const DeckCardsArray = [
     cost: 25,
     id: "quire-one",
     descText: "Draw one card",
+    amount: 0,
   },
   {
     name: "Quire 2.0",
@@ -149,6 +165,7 @@ export const DeckCardsArray = [
     cost: 100,
     id: "quire2-one",
     descText: "Draw three cards",
+    amount: 0,
   },
   {
     name: "Money Making Idea",
@@ -157,6 +174,7 @@ export const DeckCardsArray = [
     cost: 0,
     id: "money-one",
     descText: "Get 100 gold",
+    amount: 0,
   },
   {
     name: "Tiny MC Daddy",
@@ -165,6 +183,7 @@ export const DeckCardsArray = [
     cost: 100,
     id: "tiny-mc-two",
     descText: "Dissables all enemy cards on the board for the next round",
+    amount: 0,
   },
   {
     name: "Onur",
@@ -178,6 +197,7 @@ export const DeckCardsArray = [
     id: "onur-one",
     descText:
       "If the environment is “espresso house” this card gets +500 atk and +500 def",
+    amount: 0,
   },
   {
     name: "Espresso House",
@@ -186,6 +206,7 @@ export const DeckCardsArray = [
     cost: 150,
     id: "house-one",
     descText: "Change the environment to “Espresso House”",
+    amount: 0,
   },
   {
     name: "Jon Level Two",
@@ -195,6 +216,7 @@ export const DeckCardsArray = [
     id: "jonUpgrade-one",
     descText:
       "Give every Jon on the battlefield, in your hand and deck, +500 atk and +300 def.",
+    amount: 0,
   },
   {
     name: "Malware",
@@ -204,6 +226,7 @@ export const DeckCardsArray = [
     id: "malware-one",
     descText:
       "This malware affects your opponent. Deal 100 dmg directly to your opponent.",
+    amount: 0,
   },
   {
     name: "Coffee",
@@ -213,6 +236,7 @@ export const DeckCardsArray = [
     id: "coffee-one",
     descText:
       "Give every character on battlefield and in hand with type programmer +250 atk and +150 def",
+    amount: 0,
   },
   {
     name: "Anton",
@@ -226,6 +250,7 @@ export const DeckCardsArray = [
     id: "anton-one",
     descText:
       "Anton gets empowered by music, if harmonica has been played power up Anton and give this card +450 atk",
+    amount: 0,
   },
   {
     name: "Error",
@@ -235,5 +260,6 @@ export const DeckCardsArray = [
     id: "error-one",
     descText:
       "An error! Throw a error on a random opponent and deal 600 damage",
+    amount: 0,
   },
 ];

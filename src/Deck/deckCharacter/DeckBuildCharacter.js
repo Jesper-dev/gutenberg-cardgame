@@ -41,10 +41,20 @@ const DeckBuildCharacter = ({
   number,
   addCard,
   removeCard,
+  selfCreatedDeck,
+  cardDeck,
+  amount,
+  i,
 }) => {
   return (
     <>
-      <CardDeckWrapper type={type} name={name} id={id}>
+      <CardDeckWrapper
+        className={amount}
+        type={type}
+        name={name}
+        id={id}
+        data={amount}
+      >
         <CardWrapper value={value} active={active} id={id} onClick={onClick}>
           <CardName>{name}</CardName>
           <CardImg src={img} draggable={false} />
@@ -74,7 +84,7 @@ const DeckBuildCharacter = ({
         </CardWrapper>
         <CardsLeftBtnWrap>
           <AddRemCard onClick={removeCard}>-</AddRemCard>
-          <CardsLeftShow>{number}/2</CardsLeftShow>
+          <CardsLeftShow>{amount}/2</CardsLeftShow>
           <AddRemCard onClick={addCard}>+</AddRemCard>
         </CardsLeftBtnWrap>
       </CardDeckWrapper>

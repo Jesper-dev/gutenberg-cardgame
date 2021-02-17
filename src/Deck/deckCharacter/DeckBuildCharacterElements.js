@@ -37,6 +37,8 @@ export const AddRemCard = styled.button`
   font-family: "Lobster", cursive;
   color: goldenrod;
   cursor: pointer;
+
+  outline: none;
 `;
 
 export const CardWrapper = styled.div`
@@ -64,11 +66,6 @@ export const CardWrapper = styled.div`
   position: relative;
 
   cursor: pointer;
-  transition: 1s ease;
-  :hover {
-    height: 290px;
-    width: 190px;
-  }
 `;
 
 export const CardName = styled.h3`
