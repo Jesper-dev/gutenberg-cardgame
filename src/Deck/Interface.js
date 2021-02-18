@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 import {
   Wrapper,
   InnerWrapper,
@@ -7,7 +8,9 @@ import {
   DeckBuildHeader,
   DeckBuildWrapper,
   DeckBuildText,
-} from "./InterfaceElements";
+  DeckLength,
+  StyledLinked
+} from "./InterfaceElements"
 import { DeckCardsArray } from "./DeckBuildArray";
 import DeckBuildCharacter from "./deckCharacter/DeckBuildCharacter";
 import DeckBuildSpell from "./deckCharacter/DeckBuildSpell";
@@ -23,6 +26,11 @@ let i = 0;
 
 export const Interface = () => {
   const [cardDeck, setCardDeck] = useState(DeckCardsArray);
+  const [deckLength, setDeckLength] = useState(0);
+
+  useEffect(() => {
+    setDeckLength(selfCreatedDeck.length)
+  }, [])
 
   const CheckType = (item) => {
     if (item.type === "spell") {
@@ -33,6 +41,9 @@ export const Interface = () => {
   };
 
   const addCard = (e) => {
+    if (deckLength === 30) {
+      return;
+    }
     i += 1;
 
     let card = e.target.closest("div");
@@ -62,8 +73,22 @@ export const Interface = () => {
       value: cardToAdd.value,
     };
 
+    if (textToLog.length === 0) {
+      textToLog.unshift({ name: cardToAdd.name, id: cardToAdd.id, amount: 1 });
+    } else {
+      if (textToLog[0].name == cardToAdd.name) {
+        textToLog[0].amount += 1;
+      } else {
+        textToLog.unshift({
+          name: cardToAdd.name,
+          id: cardToAdd.id,
+          amount: 1,
+        });
+      }
+    }
+
+    setDeckLength(deckLength + 1);
     selfCreatedDeck.unshift(cardObjc);
-    textToLog.push({ name: cardToAdd.name, id: cardToAdd.id });
   };
 
   const removeCard = (e) => {
@@ -72,8 +97,23 @@ export const Interface = () => {
     let index = selfCreatedDeck.findIndex((x) => x.id === card.id);
     let indexTwo = DeckCardsArray.findIndex((x) => x.id === card.id);
 
+    let cardIndex = cardDeck.findIndex((x) => x.id === card.id);
+    let clickedCard = cardDeck[cardIndex];
+
+    let indexThree = textToLog.findIndex((x) => x.id === card.id);
+    let textToLogCard = textToLog[indexThree];
+
     //Kolla om selfCreatedDeck innehåller tryckt kort
-    if (selfCreatedDeck.length === 0) {
+    if (selfCreatedDeck.length === 0 || clickedCard.amount === 0) {
+      return;
+    }
+
+    if (textToLogCard.amount == 2) {
+      textToLogCard.amount = 1;
+      DeckCardsArray[indexTwo].amount -= 1;
+      setCardDeck([...DeckCardsArray]);
+      selfCreatedDeck.splice(index, 1);
+      setDeckLength(deckLength - 1);
       return;
     }
 
@@ -82,13 +122,14 @@ export const Interface = () => {
 
     selfCreatedDeck.splice(index, 1);
 
-    let indexThree = textToLog.findIndex((x) => x.id === card.id);
+    setDeckLength(deckLength - 1);
     textToLog.splice(indexThree, 1);
   };
 
   return (
     <>
       <Wrapper>
+      
         <InnerWrapper>
           {cardDeck.map((item, i) => {
             return CheckType(item) ? (
@@ -139,11 +180,14 @@ export const Interface = () => {
         <DeckShowWrapper>
           <DeckBuildWrapper>
             <DeckBuildHeader>Deck Builder</DeckBuildHeader>
+            <StyledLinked exact to="/">Start Game!</StyledLinked>
+            <DeckLength>Deck length: {deckLength}/30</DeckLength>
             <DeckBuildText>
               {textToLog.map((item) => {
-                return <p>{item.name}</p>;
+                return <p>{item.name + " " + item.amount}</p>;
               })}
             </DeckBuildText>
+
           </DeckBuildWrapper>
         </DeckShowWrapper>
       </Wrapper>

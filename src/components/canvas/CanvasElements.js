@@ -13,14 +13,15 @@ export const CanvasWrapper = styled.div`
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
 `;
-export const StartGameButton = styled.button`
+export const GameButton = styled.button`
   position: absolute;
   font-weight: bold;
   font-family: "Lobster", cursive;
   font-size: 1.8rem;
-  top: 50%;
-  left: 50%;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
   transform: translate(-50%, -50%);
+  z-index: 10000;
 
   padding: 40px 40px;
   border-radius: 8px;
@@ -33,6 +34,7 @@ export const StartGameButton = styled.button`
   background-size: cover;
 
   transition: 0.8s ease-in-out;
+  cursor: pointer;
 
   :hover {
     transition: 0.8s ease-in-out;
@@ -181,4 +183,16 @@ export const AlphaTag = styled.p`
   font-size: 1.1rem;
   font-weight: bold;
   right: 2%;
+`;
+
+export const InfoPanel = styled.p`
+  position: absolute;
+  font-family: "Lobster", cursive;
+  font-size: 1.5rem;
+  z-index: 10000;
+  top: 30%;
+  left: 38%;
+  color: black;
 `
+  
+

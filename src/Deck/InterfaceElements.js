@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Background from "../Img/wood-board.jpg";
 import GoldTexture from "../Img/gold-texture.jpg";
+import { Link as LinkS} from 'react-router-dom'
 
 export const Wrapper = styled.div`
   height: 100vh;
@@ -16,6 +17,7 @@ export const Wrapper = styled.div`
 `;
 
 export const InnerWrapper = styled.div`
+  margin-top: 80px;
   height: 100%;
   width: 100%;
   display: flex;
@@ -55,21 +57,64 @@ export const DeckBuildWrapper = styled.div`
   position: sticky;
   display: flex;
   flex-direction: column;
-  background-color: lightgreen;
+  align-items: center;
+ /*  justify-content: center; */
+/*   background-color: lightgreen; */
   /*   justify-content: center; */
-
   right: 2%;
   top: 10%;
   width: 90%;
   height: 80vh;
-  /*   overflow: hidden; */
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    width: 0;
+    background-color: transparent;
+  }
+  ::-webkit-scrollbar-corner {
+    color: transparent;
+  }
   border: 5px solid transparent;
   border-image: url(${GoldTexture}) 1;
 `;
 
 export const DeckBuildText = styled.h3`
+  text-align: center;
   font-family: "Lobster", cursive;
   font-weight: lighter;
-  font-size: 1.1rem;
-  color: #000;
+  font-size: 1.7rem;
+  color: goldenrod;
+  text-shadow: 3px 3px 3px #000;
+  -webkit-text-stroke: 1px black;
 `;
+
+export const DeckLength = styled.p`
+  text-align: center;
+  font-family: "Lobster", cursive;
+  font-weight: lighter;
+  font-size: 1.5rem;
+  color: goldenrod;
+  text-shadow: 3px 3px 3px #000;
+  -webkit-text-stroke: 1px black;
+`;
+
+
+export const StyledLinked = styled(LinkS)`
+  position: sticky;
+  top: 10%;
+  right: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lobster", cursive;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #000;
+  text-decoration: none;
+  background: url(${GoldTexture});
+  background-position: center; /* Center the image */
+  background-repeat: repeat; /* Do not repeat the image */
+  background-size: cover;
+  border-radius: 5px;
+  width: 50%;
+  height: 50px;
+`

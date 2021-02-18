@@ -4,6 +4,7 @@ import FunctionsComponent from "./components/FunctionsComponent";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Settings from "./components/settings/Settings";
 import { Interface } from "./Deck/Interface";
+import GoldTexture from "./Img/gold-texture.jpg";
 
 const App = () => {
   return (

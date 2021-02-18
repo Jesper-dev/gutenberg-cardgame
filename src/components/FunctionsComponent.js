@@ -31,8 +31,10 @@ let attackedArray = [];
 let attackedArrayBot = [];
 let battlelog = [];
 let oppGold = 300;
+// let showInfo = false;
 
 const FunctionsComponent = () => {
+  const [showInfo, setShowInfo] = useState(false)
   const [buttonShow, setButtonShow] = useState(true);
 
   const [deck, setDeck] = useState([]);
@@ -93,7 +95,6 @@ const FunctionsComponent = () => {
   const newOpponentBattleField = (arr) => setOppoentBattleField(arr);
 
   const makeOpponentDeck = (array) => {
-    shuffleArray(array);
     setOpponentDeck(array);
   };
 
@@ -166,14 +167,19 @@ const FunctionsComponent = () => {
 
   //On start of player turn
   const startPlayerTurn = () => {
-    setGold(gold + 150);
+    setGold(gold + 250);
     setRound(round + 1);
-    console.log(round);
+    setAttackingCard([]);
+    setSelectedCard([]);
 
-    let newOppGold = oppGold + 150;
+    let newOppGold = oppGold + 250;
     oppGold = newOppGold;
     setSilencePlayer(false);
     attackedArrayBot = [];
+
+    if (deck.length === 0) {
+      return;
+    }
 
     if (cardsinhand.length > 4) {
       deck.splice(0, 1);
@@ -184,9 +190,6 @@ const FunctionsComponent = () => {
       currentHand.push(card);
       setCardsInHand(currentHand);
     }
-
-    setAttackingCard([]);
-    setSelectedCard([]);
   };
 
   const goldErrorReset = () => setEnoughGold(false);
@@ -563,6 +566,9 @@ const FunctionsComponent = () => {
         break;
 
       case "TinyMCE":
+        if (opponentBattleField.length === 0) {
+          return;
+        }
         HealEveryCard(opponentBattleField);
 
         deleteSpellFromArr(spellBattlefieldArr);
@@ -580,6 +586,9 @@ const FunctionsComponent = () => {
         break;
 
       case "TP1":
+        if (opponentBattleField.length === 0) {
+          return;
+        }
         let select = Math.floor(
           Math.random() * Math.floor(opponentBattleField.length)
         );
@@ -592,6 +601,9 @@ const FunctionsComponent = () => {
         break;
 
       case "Harmonica":
+        if (battlefield.length === 0) {
+          return;
+        }
         harmonica(battlefield);
 
         setSilenceBot(true);
@@ -640,6 +652,9 @@ const FunctionsComponent = () => {
         break;
 
       case "Error":
+        if (battlefield.length === 0) {
+          return;
+        }
         error(battlefield);
 
         deleteSpellFromArr(spellBattlefieldArr);
@@ -795,6 +810,14 @@ const FunctionsComponent = () => {
 
   //När man startar gamet
   const startGame = () => {
+    if(selfCreatedDeck.length < 29){
+      console.log("Create deck you peasant")
+      setShowInfo(true)
+      setTimeout(() => {
+        setShowInfo(false)
+      }, 4000);
+      return;
+    }
     let playerArr = [];
     let opponentArr = [];
     playerArr = deck.splice(0, 5);
@@ -807,6 +830,8 @@ const FunctionsComponent = () => {
   };
 
   useEffect(() => {
+    shuffleArray(OpponentCardArray);
+    OpponentCardArray.splice(0, 7);
     makeOpponentDeck(OpponentCardArray);
   }, []);
 
@@ -857,6 +882,8 @@ const FunctionsComponent = () => {
         battleMove={battleMove}
         setBattleMove={setBattleMove}
         battlelog={battlelog}
+        selfCreatedDeck={selfCreatedDeck}
+        showInfo={showInfo}
       />
     </>
   );

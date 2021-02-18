@@ -2,4 +2,7 @@
 
 ## Rules
 
-The rules are simple, defeat the eyepatch dude before he defeats you.
+The rules are simple
+
+1. Create Your Deck!
+2. Defeat the eyepatch dude before he defeats you.

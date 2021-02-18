@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 
 import {
   CanvasWrapper,
-  StartGameButton,
+  GameButton,
   AlreadyAtked,
   WonGamePage,
   WonGamePageButton,
   WonGamePageHeader,
   MuteButton,
   AlphaTag,
+  InfoPanel,
 } from "./CanvasElements";
 import CanvasInterfaceRender from "../canvasInterface/CanvasInterfaceRender";
 import { OpponentTurn } from "../opponent/OpponentTurn";
@@ -75,6 +76,8 @@ const Canvas = ({
   round,
   battleMove,
   battlelog,
+  selfCreatedDeck,
+  showInfo
 }) => {
   const [chosenDef, setChosenDef] = useState();
   const [thiscardhasatked, setThiscardhasatked] = useState(false);
@@ -250,19 +253,25 @@ const Canvas = ({
 
   return (
     <CanvasWrapper>
-      <AlphaTag>Alpha V 0.1</AlphaTag>
+      <AlphaTag>Alpha V 0.5</AlphaTag>
       <OpponentTurn />
 
-      <StartGameButton
+      <GameButton
+        left="50%"
+        top="50%"
         style={buttonShow ? { display: "flex" } : { display: "none" }}
         onClick={startGame}
       >
         START GAME
-      </StartGameButton>
-
-      <button>
-        <Link to="/interface">Deck Builder</Link>
-      </button>
+      </GameButton>
+      <InfoPanel style={showInfo ? {display: "flex"} : {display: "none"}}>You need to first create a deck of 30 cards to start a game</InfoPanel>
+      <GameButton
+        left="50%"
+        top="80%"
+        style={buttonShow ? { display: "flex" } : { display: "none" }}
+      >
+        <Link style={{ textDecoration: 'none', color: "black"}} to="/interface">Deck Builder</Link>
+      </GameButton>
 
       {wongame ? (
         <WonGamePage>
